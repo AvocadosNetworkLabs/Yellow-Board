@@ -1,0 +1,33 @@
+{
+  "name": "yellowboard",
+  "version": "0.0.1",
+  "description": "YellowBoard a elementary school app",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "author": "AvocadosNetwork",
+  "license": "ISC",
+  "dependencies": {
+    "mysql": "^2.18.1",
+    "next": "^11.1.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-responsive": "^9.0.0-beta.4",
+    "serverless-mysql": "^1.5.4"
+  },
+  "devDependencies": {
+    "axios": "^0.22.0",
+    "bootstrap": "^5.1.2",
+    "md5": "^2.3.0",
+    "next-redux-wrapper": "^7.0.5",
+    "react-bootstrap": "^1.6.4",
+    "react-redux": "^7.2.5",
+    "redux": "^4.1.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.3.0",
+    "sass": "^1.42.1"
+  }
+}

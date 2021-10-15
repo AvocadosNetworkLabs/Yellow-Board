@@ -1,0 +1,26 @@
+.menu{
+    background-color: #333333;
+    max-width: 29.4rem;
+    height: 91vh;
+}
+.menu a{
+    font-size: 2rem;
+    color: white;
+    margin: 0 auto;
+    text-align:end;
+    display: block;
+    padding: 1rem;
+}
+.menu a:hover{
+    background-color: white;
+    color: #333333;
+    margin-left: 1rem;
+    border-radius: 3rem 0 0 3rem;
+}
+.menu a:active{
+    background-color: white;
+    color: #333333;
+    margin-left: 1rem;
+    border-radius: 3rem 0 0 3rem;
+}
+
