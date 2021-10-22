@@ -1,0 +1,33 @@
+.activityCard{
+    background-color: #E3E1E1;
+    padding: 40px;
+    border-radius: 50px;
+    margin: 20px;
+    height: 100%;
+}
+.activityEncabezado{
+    display: flex;
+    justify-content: space-evenly;
+}
+.activityCard span{
+    font-size: 1.4rem;
+}
+.activityCard h3{
+    text-align: center;
+}
+.showfile{
+    font-size: 2rem;
+    color: #1788FF;
+}
+.activityCard p{
+    font-size: 1.2rem;
+}
+.header1{
+    display: flex;
+    justify-content: space-between;
+    font-size: 3rem;
+    font-weight: bold;
+}
+.metadata{
+    text-align: end;
+}
