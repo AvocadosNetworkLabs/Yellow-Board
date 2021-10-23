@@ -59,27 +59,12 @@
     color:#000;
 }
 .alert{
+    position: absolute;
+    right: 2rem;
+    top: 2rem;
+    z-index: 10;
     margin-top: 1rem;
-    background-color: rgba(189, 113, 113, 0.8);
-    color: rgb(255, 255, 255);
-    padding: 1rem;
+    font-size: 2.5rem;
+    padding: 2rem;
     border-radius: 1rem;
-    border: 1px solid rgb(255, 255, 255);
-    font-size: 1.5rem;
-    font-weight: 1000;
-    text-align: center;
-    letter-spacing: 0.3rem;
-    
-    &Green{
-        margin-top: 1rem;
-        background-color: rgba(114, 255, 166, 0.8);
-        color: rgb(250, 250, 250);
-        padding: 1rem;
-        border-radius: 1rem;
-        border: 1px solid rgb(255, 255, 255);
-        font-size: 1.5rem;
-        font-weight: 1000;
-        text-align: center;
-        letter-spacing: 0.3rem;
-    }
 }

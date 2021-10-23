@@ -1,18 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchposts } from '../../redux/actions/postAction';
 
 
 const MasterPost = ({tipoUsr}) => {
-    // const { query: { id_maestro }, } = useRouter();
-    const dispatch = useDispatch();
-    // const {data} = useSelector(state=> state.postReducer)
-
-    const data = []
-
-    useEffect(() => {   
-        dispatch(fetchposts());
-      }, [])
       
     return (
         <>

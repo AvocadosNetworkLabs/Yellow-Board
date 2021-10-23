@@ -10,10 +10,10 @@ import ButtonNew from './ButtonNew';
 import ActivityCard from './ActivityCard'
 import Cursos from './Cursos'
 
-const Dashboard = ({Mquery}) => {
+const Dashboard = ({Mquery, cookies}) => {
     return (
         <>
-            <Navbar Mquery={Mquery}/>
+            <Navbar Mquery={Mquery} cookies={cookies}/>
             <div className={mainStyles.globalCont}>
                 {/* componente menu */}
                 <Menu/>
@@ -29,7 +29,6 @@ const Dashboard = ({Mquery}) => {
         </>  
     )
 }
-
 
 
 export default Dashboard
