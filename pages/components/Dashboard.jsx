@@ -14,16 +14,16 @@ const Dashboard = ({Mquery}) => {
     return (
         <>
             <Navbar Mquery={Mquery}/>
-            {/* <div className={mainStyles.globalCont}> */}
-            <div>
-                
-            </div>
+            <div className={mainStyles.globalCont}>
                 {/* componente menu */}
                 <Menu/>
-                <div className={mainStyles.content}>
+                <div>
                     <ButtonNew/>
-                    <ActivityCard/>
-                    {/* <Fileupload/> */}
+                    <div>
+                        <ActivityCard/>
+                    </div>
+                </div>
+                {/* <Fileupload/> */}
                 </div>
             <Footer />
         </>  

@@ -10,9 +10,9 @@ const Menu = () => {
             <aside className={StylesMenu.menu}>
                 {/* {isLogged?true:fasle} */}
                 {TipoUsr == 'a'?<>
-                    <Link href="#">Cursos</Link>
-                    <Link href="#">Usuarios</Link>
-                    <Link href="#">Perfil</Link>
+                    <Link href="http://localhost:3000/cursos">Cursos</Link>
+                    <Link href="http://localhost:3000/dashboard">Usuarios</Link>
+                    <Link href="http://localhost:3000/profile">Perfil</Link>
                     </>:TipoUsr == 'm'?<>
                     <Link href="#">Cursos</Link>
                     <Link href="#">Tareas</Link>
