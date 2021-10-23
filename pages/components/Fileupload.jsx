@@ -1,5 +1,6 @@
 import React,{Component} from 'react'; 
 import axios from 'axios';
+import buttonNew from '../../styles/buttonnew.module.scss';
 
 class Fileupload extends Component { 
 
@@ -63,14 +64,8 @@ class Fileupload extends Component {
     render() { 
       return ( 
         <div> 
-            <h2> 
-              TechDemo de subir archivos
-            </h2> 
             <div> 
                 <input type="file" onChange={this.onFileChange} /> 
-                <button onClick={this.onFileUpload}> 
-                  Subir 
-                </button> 
             </div> 
           {this.fileData()} 
         </div> 

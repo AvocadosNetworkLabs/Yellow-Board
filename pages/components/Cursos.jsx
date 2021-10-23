@@ -5,9 +5,10 @@ const Cursos = () => {
     return (
         <>
             <div className={cursosActivos.mainCard}>
-                <a className={cursosActivos.viewcourses}>Ver cursos</a>
-                <a className={cursosActivos.createExam}>Crear exámen</a>
+                <a href="http://localhost:3000/stadistics" className={cursosActivos.viewcourses}>Ver cursos</a>
+                <a href="#" className={cursosActivos.createExam}>Crear exámen</a>
                 <p className={cursosActivos.team}>Matemáticas</p>
+                
             </div>
         </>
     )
