@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import Dstyles from '../../styles/navbar.module.scss';
 import Router from 'next/router';
 import Cookies from 'js-cookie';
@@ -10,10 +10,13 @@ const Navbar = ({Mquery, cookies}) => {
 
     let data = JSON.parse(cookies.userData);
 
-    if(session === 'false'){
-        console.log('hola soy un 🥜')
-        Router.push('/');
-    }
+    useEffect(() => {
+        
+        if(session === 'false'){
+            console.log('hola soy un 🥜 y se cerro la sesion');
+            Router.push('/');
+        }}, [session]);
+
 
     const logOut = () =>{
         Cookies.set("session", false);
@@ -35,6 +38,6 @@ const Navbar = ({Mquery, cookies}) => {
             </nav>
         </>
     )
-} 
+}
 
-export default Navbar
+export default Navbar;

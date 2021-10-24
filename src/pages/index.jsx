@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useMediaQuery } from 'react-responsive';
 import Test from './test/test';
 import Router from 'next/router'
@@ -6,27 +6,31 @@ import Cookies from 'js-cookie';
 import Main from './components/Main'; 
 
 const index = ({cookies}) => {
-
+    
+    
+    
     const session = Cookies.get('session');
-
-    console.log(session);
-
-    if(session === 'true'){
-      Router.push('/dashboard');
-    }
-
+    
+    useEffect(() => {
+        if(session === 'true'){
+            console.log('hola soy un 🥜 y se cerro la sesion');
+            Router.push('/dashboard');
+        }}, [session]);
+    
     const [test, settest] = useState(false)
-  
+    
     const isDesktopOrLaptop = useMediaQuery({
         query: '(min-width: 1224px)'
     })
     const isTablet = useMediaQuery({ 
         minWidth: 600,
         maxWidth: 1224,
-     })
+    })
     const isMobile = useMediaQuery({ 
         query: '(max-width: 599px)' 
     })
+
+
     
         if(test=== true){
             return <Test />
