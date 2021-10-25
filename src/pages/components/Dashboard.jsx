@@ -12,6 +12,7 @@ import ButtonNew from './ButtonNew';
 import ActivityCard from './ActivityCard'
 import Cursos from './Cursos';
 import {Modal, Button} from 'react-bootstrap';
+import Profile from './Profile'; 
 
 
 const Dashboard = ({Mquery, cookies}) => {
@@ -72,10 +73,15 @@ const Dashboard = ({Mquery, cookies}) => {
                     {data.userType === 'u'? 
                         <div className={mainStyles.globalCont}>
                             <Menu data={data} setView={setView}/>
-                            <div className={mainStyles.postuContainer}>
-                                <ActivityCard/>
-                                <ActivityCard/>
-                                <ActivityCard/>
+                            <div>
+                                <div className={mainStyles.headerM}>
+                                    <p>Actividades</p>
+                                </div>
+                                <div className={mainStyles.postuContainer}>
+                                    <ActivityCard/>
+                                    <ActivityCard/>
+                                    <ActivityCard/>
+                                </div>
                             </div>
                         </div>
                     
@@ -83,7 +89,10 @@ const Dashboard = ({Mquery, cookies}) => {
                     <div className={mainStyles.globalCont}>
                         <Menu data={data} setView={setView}/>
                         <div>
-                            <ButtonNew/>
+                            <div className={mainStyles.headerM}>
+                                <p>Actividades</p>
+                                <ButtonNew/>
+                            </div>
                             <div className={mainStyles.postmContainer}>
                                 <ActivityCard/>
                                 <ActivityCard/>
@@ -113,17 +122,13 @@ const Dashboard = ({Mquery, cookies}) => {
                     {data.userType === 'u'? 
                         <div className={mainStyles.globalCont}>
                             <Menu data={data} setView={setView}/>
-                            perfil
+                            <Profile data={data}/>
                         </div>
                     
                     :data.userType === 'm'?
                         <div className={mainStyles.globalCont}>
                             <Menu data={data} setView={setView}/>
-                            perfil
-                        </div>
-                    : data.userType === 'a'?
-                        <div>
-                            perfil
+                            <Profile data={data}/>
                         </div>
                     :null}
             
@@ -147,10 +152,6 @@ const Dashboard = ({Mquery, cookies}) => {
                     :data.userType === 'm'?
                         <div className={mainStyles.globalCont}>
                             <Menu data={data} setView={setView}/>
-                            Cursos
-                        </div>
-                    : data.userType === 'a'?
-                        <div>
                             Cursos
                         </div>
                     :null}
@@ -181,10 +182,6 @@ const Dashboard = ({Mquery, cookies}) => {
                         <div>
                             Notiene permisos
                         </div>
-                    : data.userType === 'a'?
-                        <div>
-                            Administrar usuarios
-                        </div>
                     :null}
             
                     {/* <Fileupload/> */}
@@ -201,18 +198,27 @@ const Dashboard = ({Mquery, cookies}) => {
                 {data.userType === 'u'? 
                     <div className={mainStyles.globalCont}>
                         <Menu data={data} setView={setView}/>
-                        <div className={mainStyles.postuContainer}>
-                            <ActivityCard/>
-                            <ActivityCard/>
-                            <ActivityCard/>
+                        <div>
+                            <div className={mainStyles.headerM}>
+                                <p>Actividades</p>
+                            </div>
+                            <div className={mainStyles.postuContainer}>
+                                <ActivityCard/>
+                                <ActivityCard/>
+                                <ActivityCard/>
+                            </div>
                         </div>
+
                     </div>
                 
                 :data.userType === 'm'?
                 <div className={mainStyles.globalCont}>
                     <Menu data={data} setView={setView}/>
                     <div>
-                        <ButtonNew/>
+                        <div className={mainStyles.headerM}>
+                            <p>Actividades</p>
+                            <ButtonNew/>
+                        </div>
                         <div className={mainStyles.postmContainer}>
                             <ActivityCard/>
                             <ActivityCard/>

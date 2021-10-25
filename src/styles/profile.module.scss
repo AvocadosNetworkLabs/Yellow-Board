@@ -1,19 +1,21 @@
 .profilePicture{
     border-radius: 50%;
-    height: 300px;
-    width: 300px;
+    height: 30rem;
+    width: 30rem;
     margin-right: 30px;
+    object-fit: cover;
 }
 .cardProfile{
     background-color: #E3E1E1;
     width: 100%;
     border-radius: 45px;
     padding: 5rem;
+    height: 30rem;
 }
 .contenido{
     display: flex;
     height: 100%;
-    margin:8rem;
+    margin:3rem;
     font-size: 2rem;
 }
 .cardProfile span{
@@ -21,6 +23,7 @@
     font-weight: bold;
 }
 .continue{
+    width: 50rem;
     display: flex;
     justify-content: space-between;
 }

@@ -5,19 +5,18 @@ const Menu = ({setView, data}) => {
     return (
         <>
             <aside className={StylesMenu.menu}>
-                {/* {isLogged?true:fasle} */}
                 {data.userType === 'a'?<>
-                    <h1 className={StylesMenu.user}>Bienvenid@ Administrador</h1>
+                    <p className={StylesMenu.user}>Bienvenid@ Administrador</p>
                     <a href="#" onClick={() =>setView('cursos')}>Cursos</a>
                     <a href="#" onClick={() =>setView('usuarios')}>Usuarios</a>
                     <a href="#" onClick={() =>setView('perfil')}>Perfil</a>
                     </>:data.userType === 'm'?<>
-                    <h1>Bienvenid@ profesor {data.name}</h1>
+                    <p className={StylesMenu.user}>Bienvenid@ {data.name}</p>
                     <a href="#" onClick={() =>setView('cursos')}>Cursos</a>
                     <a href="#" onClick={() =>setView('tareas')}>Tareas</a>
                     <a href="#" onClick={() =>setView('perfil')}>Perfil</a>
                     </>:data.userType === 'u'?<>
-                    <h1>Bienvenid@ {data.name}</h1>
+                    <p className={StylesMenu.user}>Bienvenid@ {data.name}</p>
                     <a href="#" onClick={() =>setView('cursos')}>Cursos</a>
                     <a href="#" onClick={() =>setView('tareas')}>Tareas</a>
                     <a href="#" onClick={() =>setView('perfil')}>Perfil</a>
@@ -28,7 +27,7 @@ const Menu = ({setView, data}) => {
                     // <Link href="#">Perfil</Link>  
                     // </>
                     :<>
-                    <h1>Comete este camaron</h1>
+                    <p className={StylesMenu.user}>Comete este camaron</p>
                     <Link href="#">🍤</Link> 
                     </>}
             </aside>

@@ -12,17 +12,36 @@
     text-align:end;
     display: block;
     padding: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.3rem;
 }
 .menu a:hover{
     background-color: rgb(0, 0, 0);
     color: #e4e4e4;
     margin-left: 1rem;
     border-radius: 3rem 0 0 3rem;
+    font-weight: 500;
+
 }
 .menu a:active{
     background-color: rgb(0, 0, 0);
     color: #e4e4e4;
     margin-left: 1rem;
     border-radius: 3rem 0 0 3rem;
+}
+
+.user{
+    padding: 0.5rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    background-color: rgb(197, 148, 0);
+    font-size: 2rem;
+    font-weight: bold;
+    // border: 0.5px solid rgb(255, 255, 255);
+    // background-color: rgb(255, 196, 17);
+    text-shadow: 0rem 0rem 1rem rgb(0, 0, 0,0.8);
+    text-align: center;
+    color: rgb(255, 255, 255);
+    transition: 2s;   
 }
 
