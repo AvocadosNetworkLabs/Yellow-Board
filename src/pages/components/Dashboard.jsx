@@ -10,9 +10,9 @@ import Fileupload from './Fileupload';
 import Footer from './Footer';
 import ButtonNew from './ButtonNew';
 import ActivityCard from './ActivityCard'
-import Cursos from './Cursos';
 import {Modal, Button} from 'react-bootstrap';
 import Profile from './Profile'; 
+import Cursos from './Cursos'; 
 
 
 const Dashboard = ({Mquery, cookies}) => {
@@ -73,7 +73,7 @@ const Dashboard = ({Mquery, cookies}) => {
                     {data.userType === 'u'? 
                         <div className={mainStyles.globalCont}>
                             <Menu data={data} setView={setView}/>
-                            <div>
+                            <div className={mainStyles.taskCont}>
                                 <div className={mainStyles.headerM}>
                                     <p>Actividades</p>
                                 </div>
@@ -88,7 +88,7 @@ const Dashboard = ({Mquery, cookies}) => {
                     :data.userType === 'm'?
                     <div className={mainStyles.globalCont}>
                         <Menu data={data} setView={setView}/>
-                        <div>
+                        <div className={mainStyles.taskCont}>
                             <div className={mainStyles.headerM}>
                                 <p>Actividades</p>
                                 <ButtonNew/>
@@ -99,13 +99,7 @@ const Dashboard = ({Mquery, cookies}) => {
                                 <ActivityCard/>
                             </div>
                         </div>
-                    </div>: data.userType === 'a'?
-                        <div>
-                            <div>
-                                panel de admin
-                            </div>
-                        </div>
-                    :null}
+                    </div>:null}
             
                     {/* <Fileupload/> */}
                     </div>
@@ -146,13 +140,13 @@ const Dashboard = ({Mquery, cookies}) => {
                     {data.userType === 'u'? 
                         <div className={mainStyles.globalCont}>
                             <Menu data={data} setView={setView}/>
-                            Cursos
+                            <Cursos />
                         </div>
                     
                     :data.userType === 'm'?
                         <div className={mainStyles.globalCont}>
                             <Menu data={data} setView={setView}/>
-                            Cursos
+                            <Cursos />
                         </div>
                     :null}
             
@@ -198,7 +192,7 @@ const Dashboard = ({Mquery, cookies}) => {
                 {data.userType === 'u'? 
                     <div className={mainStyles.globalCont}>
                         <Menu data={data} setView={setView}/>
-                        <div>
+                        <div className={mainStyles.taskCont}>
                             <div className={mainStyles.headerM}>
                                 <p>Actividades</p>
                             </div>
@@ -214,7 +208,7 @@ const Dashboard = ({Mquery, cookies}) => {
                 :data.userType === 'm'?
                 <div className={mainStyles.globalCont}>
                     <Menu data={data} setView={setView}/>
-                    <div>
+                    <div className={mainStyles.taskCont}>
                         <div className={mainStyles.headerM}>
                             <p>Actividades</p>
                             <ButtonNew/>

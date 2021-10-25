@@ -7,8 +7,7 @@ const Cursos = () => {
             <div className={cursosActivos.mainCard}>
                 <a href="http://localhost:3000/stadistics" className={cursosActivos.viewcourses}>Ver cursos</a>
                 <a href="#" className={cursosActivos.createExam}>Crear exámen</a>
-                <p className={cursosActivos.team}>Matemáticas</p>
-                
+                <p className={cursosActivos.team}>Matemáticas</p> 
             </div>
         </>
     )

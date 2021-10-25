@@ -3,7 +3,8 @@
     background: linear-gradient(90deg, rgb(255, 201, 41) 0%, rgba(255,216,10,1) 65%, rgb(255, 201, 41) 100%); 
     box-shadow: 1rem 0rem 3rem rgb(0, 0, 0, 0.3);
     max-width: 29.4rem;
-    height: 91vh;
+    height: auto;
+    min-height: 100vh;
 }
 .menu a{
     font-size: 2rem;
