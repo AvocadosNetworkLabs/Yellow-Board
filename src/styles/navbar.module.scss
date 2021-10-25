@@ -1,6 +1,8 @@
 .Logo{
-    background-color: #FFD80A;
-    background: linear-gradient(90deg, rgba(255,242,10,1) 0%, rgba(255,216,10,1) 65%, rgba(255,193,10,1) 100%); 
+    // background-color: #FFD80A;
+    // background: linear-gradient(90deg, rgba(255,242,10,1) 0%, rgba(255,216,10,1) 65%, rgba(255,193,10,1) 100%); 
+    background-color: #333333;
+    // background: linear-gradient(90deg, rgb(68, 68, 68) 0%, rgb(39, 39, 39) 65%, rgb(15, 15, 15) 100%); 
     height: 64px;
     display: flex;
     justify-content: space-between;
@@ -10,13 +12,15 @@
         margin: 2px 0 0 20px;
     }
     &Banner{
-        background-image: url('https://zdblogs.zohocorp.com/creator/decode/sites/creator/decode/files/2020-12/VPL-04%20%281%29.jpg');
+        background-image: url('http://sharyaacademy.com/wp-content/uploads/2019/04/educational-background-images-for-websites-5.jpg');
+        // background-image: url('https://thenewarktimes.com/wp-content/uploads/2019/12/education-background-PQEVWNT-scaled.jpg');
+        // background-image: url('https://zdblogs.zohocorp.com/creator/decode/sites/creator/decode/files/2020-12/VPL-04%20%281%29.jpg');
         background-repeat: no-repeat;
         width: 100%;
         background-size: cover;
         background-position: center;
         height: 60rem;
-        border-bottom: #1788FF 1.5rem solid;
+        border-bottom: #000000a2 1.5rem solid;
         position: relative;
         left: 0px;
         
@@ -51,6 +55,7 @@
 
     &Name{
         padding: 2rem;
+        color: #fff;
         display: flex;
         margin-top: -3.5rem;
         flex-direction: column;
@@ -64,8 +69,39 @@
     &Logout{
        font-weight: bold;
        font-size: 1.5rem;
+       color: #fff;
        width: 5rem;
        height: 2rem;
        cursor: pointer;
     }
+    &Logout:hover{
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: rgb(141, 141, 141);
+        width: 5rem;
+        height: 2rem;
+        cursor: pointer;
+     }
+}
+
+.Modal{
+    position: relative;
+    background-color: rgba(0,0,0,0.5);
+    width: 100%;
+    height: 100vh;
+
+    &Cart{
+        width: 30rem;
+        position: absolute;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+        right: 0;
+        text-align: center;
+
+        p{
+            font-size: 2rem;
+        }
+    }
+
 }

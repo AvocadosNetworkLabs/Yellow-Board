@@ -9,17 +9,23 @@ const Incentivos = () => {
                 <article className={Dstyles.article}>
                     <p className={Dstyles.intro}>Conoce mas sobre el proyecto Avocados</p>
                     <hr />
-                    <img src="https://cdn0.iconfinder.com/data/icons/elementary-school-solid-education-is-growth/512/Glass_flask-256.png" alt="Labs" />
+                    <img src="https://st2.depositphotos.com/1017986/8512/i/950/depositphotos_85126502-stock-photo-group-of-school-kids-writing.jpg" alt="Labs" />
+                    <hr />
+                    <br />
                 </article>
                 <article className={Dstyles.article}>
                     <p className={Dstyles.intro}>Pagina diseñada para combatir el retraso educativo</p>
                     <hr />
-                    <img src="https://cdn0.iconfinder.com/data/icons/elementary-school-solid-education-is-growth/512/Stationery_compass-256.png" alt="Study" />
+                    <img src="https://cdn.wallapop.com/images/10420/6y/ms/__/c10420p420967059/i1272352552.jpg?pictureSize=W640" alt="Study" />
+                    <hr />
+                    <br />
                 </article>
                 <article className={Dstyles.article}>
                     <p className={Dstyles.intro}>Especialistas en niños de 6 a 12 años</p>
                     <hr />
-                    <img src="https://cdn0.iconfinder.com/data/icons/elementary-school-solid-education-is-growth/512/Locker-256.png" alt="Books" />
+                    <img src="https://estaticos.serpadres.es/media/cache/1140x_thumb/uploads/images/article/5fdc905c5cafe8d4f2f7975e/nino-pintando_0.jpg" alt="Books" />
+                    <hr />
+                    <br />
                 </article>
             </section>
         </div>

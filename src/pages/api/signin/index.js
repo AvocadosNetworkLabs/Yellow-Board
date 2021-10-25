@@ -13,14 +13,19 @@ export default async function handler(req, res) {
 
     console.log(req.method, req.url);
 
+
+    if (user === '' || psw === ''){
+      return res.status(200).json({ Success: false, data: null, msg: `algun dato esta vacio 🛑` });
+    }
+
     switch(method){
-      case 'GET':
-      try{
-        const users = await Users.find();
-        return res.status(200).json(users);
-      }catch(err){
-        return res.status(500).json({err: err.message});
-      }
+      // case 'GET':
+      // try{
+      //   const users = await Users.find();
+      //   return res.status(200).json(users);
+      // }catch(err){
+      //   return res.status(500).json({err: err.message});
+      // }
 
       case 'POST':
       try{
@@ -34,8 +39,6 @@ export default async function handler(req, res) {
             ],
             "$project": { "_id": { "$toString": "$_id" } }
         });
-
-        // console.log(savedUser);
         
         if(savedUser.length > 0){
 
@@ -47,27 +50,9 @@ export default async function handler(req, res) {
             sameSite: "strict",
             path: "/"
           }));
-          // res.setHeader("Set-Cookie", cookie.serialize("session", true, {
-          //   httpOnly: true,
-          //   maxAge: 60 * 60,
-          //   sameSite: "strict",
-          //   path: "/"
-          // }))
           return res.status(200).json({ Success: true, data: savedUser[0], msg: `Bienvenido ${savedUser[0].username} 🍪` });
         }else{
-          // res.setHeader("Set-Cookie", cookie.serialize("userData", null, {
-          //   httpOnly: true,
-          //   maxAge: 60 * 60,
-          //   sameSite: "strict",
-          //   path: "/"
-          // }))
-          // res.setHeader("Set-Cookie", cookie.serialize("session", false, {
-          //   httpOnly: true,
-          //   maxAge: 60 * 60,
-          //   sameSite: "strict",
-          //   path: "/"
-          // }))
-          return res.status(200).json({ Success: false, data: null, msg: `You are not in ourdatabase 👿 `  });
+          return res.status(200).json({ Success: false, data: null, msg: `Usuario no registrado o credenciales incorrectas 🤚`  });
         } 
         
         

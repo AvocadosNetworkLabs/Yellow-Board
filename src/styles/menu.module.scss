@@ -1,25 +1,27 @@
 .menu{
-    background-color: #333333;
+    background-color: #ffc400a6;
+    background: linear-gradient(90deg, rgb(255, 201, 41) 0%, rgba(255,216,10,1) 65%, rgb(255, 201, 41) 100%); 
+    box-shadow: 1rem 0rem 3rem rgb(0, 0, 0, 0.3);
     max-width: 29.4rem;
     height: 91vh;
 }
 .menu a{
     font-size: 2rem;
-    color: white;
+    color: rgb(0, 0, 0);
     margin: 0 auto;
     text-align:end;
     display: block;
     padding: 1rem;
 }
 .menu a:hover{
-    background-color: white;
-    color: #333333;
+    background-color: rgb(0, 0, 0);
+    color: #e4e4e4;
     margin-left: 1rem;
     border-radius: 3rem 0 0 3rem;
 }
 .menu a:active{
-    background-color: white;
-    color: #333333;
+    background-color: rgb(0, 0, 0);
+    color: #e4e4e4;
     margin-left: 1rem;
     border-radius: 3rem 0 0 3rem;
 }

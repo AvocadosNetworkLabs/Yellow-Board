@@ -11,13 +11,14 @@ const index = ({cookies}) => {
     
     const session = Cookies.get('session');
     
-    useEffect(() => {
-        if(session === 'true'){
-            console.log('hola soy un 🥜 y se cerro la sesion');
-            Router.push('/dashboard');
-        }}, [session]);
     
-    const [test, settest] = useState(false)
+    // useEffect(() => {
+    //     if(session === 'true'){
+    //         console.log('hola soy un 🥜 y se cerro la sesion');
+    //         Router.push('/dashboard');
+    //     }}, [session]);
+    
+    const [test, settest] = useState(false);
     
     const isDesktopOrLaptop = useMediaQuery({
         query: '(min-width: 1224px)'

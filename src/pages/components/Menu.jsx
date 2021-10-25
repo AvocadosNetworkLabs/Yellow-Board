@@ -1,30 +1,34 @@
 import React, {useState} from 'react'
 import Link from 'next/link'
-import mainStyles from '../../styles/main.module.scss';
 import StylesMenu from '../../styles/menu.module.scss';
-const Menu = () => {
-    const [TipoUsr,setTipoUsr] = useState('a');
-
+const Menu = ({setView, data}) => {
     return (
         <>
             <aside className={StylesMenu.menu}>
                 {/* {isLogged?true:fasle} */}
-                {TipoUsr == 'a'?<>
-                    <Link href="http://localhost:3000/cursos">Cursos</Link>
-                    <Link href="http://localhost:3000/dashboard">Usuarios</Link>
-                    <Link href="http://localhost:3000/profile">Perfil</Link>
-                    </>:TipoUsr == 'm'?<>
-                    <Link href="#">Cursos</Link>
-                    <Link href="#">Tareas</Link>
-                    <Link href="#">Perfil</Link>
-                    </>:TipoUsr == 'u'?<>
-                    <Link href="#">Cursos</Link>
-                    <Link href="#">Tareas</Link>
-                    <Link href="#">Perfil</Link>
-                    </>:TipoUsr == 'p'?<>
-                    <Link href="#">Cursos</Link>
-                    <Link href="#">Perfil</Link>  
-                    </>:<>
+                {data.userType === 'a'?<>
+                    <h1 className={StylesMenu.user}>Bienvenid@ Administrador</h1>
+                    <a href="#" onClick={() =>setView('cursos')}>Cursos</a>
+                    <a href="#" onClick={() =>setView('usuarios')}>Usuarios</a>
+                    <a href="#" onClick={() =>setView('perfil')}>Perfil</a>
+                    </>:data.userType === 'm'?<>
+                    <h1>Bienvenid@ profesor {data.name}</h1>
+                    <a href="#" onClick={() =>setView('cursos')}>Cursos</a>
+                    <a href="#" onClick={() =>setView('tareas')}>Tareas</a>
+                    <a href="#" onClick={() =>setView('perfil')}>Perfil</a>
+                    </>:data.userType === 'u'?<>
+                    <h1>Bienvenid@ {data.name}</h1>
+                    <a href="#" onClick={() =>setView('cursos')}>Cursos</a>
+                    <a href="#" onClick={() =>setView('tareas')}>Tareas</a>
+                    <a href="#" onClick={() =>setView('perfil')}>Perfil</a>
+                    </>
+                    // :data.userType === 'p'?<>
+                    // <p>Bienvenido padre de {data.name}</p>
+                    // <Link href="#">Cursos</Link>
+                    // <Link href="#">Perfil</Link>  
+                    // </>
+                    :<>
+                    <h1>Comete este camaron</h1>
                     <Link href="#">🍤</Link> 
                     </>}
             </aside>

@@ -13,9 +13,9 @@ import {Alert} from 'react-bootstrap';
 export default function Banner({cookies}){
     const session = Cookies.get('session');
 
-    if(session === "true"){
-      Router.push('/dashboard');
-    }
+    // if(session === "true"){
+    //   Router.push('/dashboard');
+    // }
     
     const [cookie, setCookie] = useCookies(["userData"]);
     const [state, setstate] = useState({

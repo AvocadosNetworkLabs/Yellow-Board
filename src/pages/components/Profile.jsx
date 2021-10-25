@@ -5,13 +5,9 @@ import profileStyles from '../../styles/profile.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import Menu from './Menu';
-import Footer from './Footer';
-
-
 const Profile = ({Mquery}) => {
     return (
         <>
-            <Navbar Mquery={Mquery}/>
             <div className={mainStyles.globalCont}>
                 {/* componente menu */}
                 <Menu/>
@@ -28,7 +24,6 @@ const Profile = ({Mquery}) => {
                     </div>
                 </div>
             </div>
-            <Footer />
         </>  
     )
 }

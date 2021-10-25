@@ -3,7 +3,7 @@
     width: 100%;
     height: 100px;
     top: 55rem;
-    background: rgba(25, 100, 179, 0.7);
+    background: rgba(255, 242, 122, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,12 +59,43 @@
     color:#000;
 }
 .alert{
-    position: absolute;
+    position: fixed;
     right: 2rem;
     top: 2rem;
     z-index: 10;
     margin-top: 1rem;
     font-size: 2.5rem;
     padding: 2rem;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
+
+    animation: fadeIn 2s;
+    -webkit-animation: fadeIn 2s;
+    -moz-animation: fadeIn 2s;
+    -o-animation: fadeIn 2s;
+    -ms-animation: fadeIn 2s;
 }
+
+@keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-moz-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-webkit-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-o-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-ms-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
