@@ -14,7 +14,7 @@ const Incentivos = () => {
                     <br />
                 </article>
                 <article className={Dstyles.article}>
-                    <p className={Dstyles.intro}>Pagina diseñada para combatir el retraso educativo</p>
+                    <p className={Dstyles.intro}>Pagina diseñada para combatir el atraso educativo</p>
                     <hr />
                     <img src="https://cdn.wallapop.com/images/10420/6y/ms/__/c10420p420967059/i1272352552.jpg?pictureSize=W640" alt="Study" />
                     <hr />
