@@ -8,7 +8,9 @@ const Navbar = ({Mquery, cookies}) => {
 
     const session = Cookies.get('session');
 
-    let data = JSON.parse(cookies.userData);
+    if(cookies.userData){
+        var data = JSON.parse(cookies.userData);
+    }
 
     useEffect(() => {
         
