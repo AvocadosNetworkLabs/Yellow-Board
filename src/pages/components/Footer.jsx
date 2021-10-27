@@ -13,4 +13,4 @@ const Footer = (Mquery) => {
     )
 }
 
-export default Footer
+export default Footer;

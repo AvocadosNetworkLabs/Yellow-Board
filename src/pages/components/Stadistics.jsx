@@ -1,14 +1,16 @@
-import React from 'react'
+import React from 'react';
 
 const Stadistics = () => {
-    return (
-        <>
-          <div>
-            <p>Fisica Cuantica</p>
-            <p>Promedio general: <span>9.7</span></p>
-          </div>
-        </>
-    )
-}
+  return (
+    <>
+      <div>
+        <p>Fisica Cuantica</p>
+        <p>
+          Promedio general: <span>9.7</span>
+        </p>
+      </div>
+    </>
+  );
+};
 
-export default Stadistics
+export default Stadistics;

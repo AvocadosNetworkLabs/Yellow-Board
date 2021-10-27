@@ -16,7 +16,9 @@ __MACOSX
 .env.dev
 .env.development.local
 .env.test.local
+.env
 .env.production.local
+.next
 .next/
 
 npm-debug.log*
