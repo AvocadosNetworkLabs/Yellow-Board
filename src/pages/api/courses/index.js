@@ -1,22 +1,22 @@
 import { dbConnect } from '../../../utils/db';
 import { Types } from 'mongoose';
-import userCourses from 'models/coursesandusers';
+import Courses from 'models/coursesandusers';
 const ObjectId = Types.ObjectId;
 
 dbConnect();
+
 export default async function handler(req, res) {
-  const { method, body } = req;
+  const { method, body, url } = req;
+  console.log(method + ' ' + url);
   const { id } = body;
   switch (method) {
-    case 'GET':
+    case 'POST':
       try {
-        console.log(body);
-
-        //inerjoin
-        const userCoursess = await userCourses.aggregate([
+        console.log('body: ', body);
+        const userCourses = await Courses.aggregate([
           {
             $lookup: {
-              from: 'users', //users
+              from: 'users', //colection
               localField: 'userId', // profesor
               foreignField: '_id', //id user users
               as: 'userCourses',
@@ -24,9 +24,9 @@ export default async function handler(req, res) {
           },
           {
             $lookup: {
-              from: 'courses', //users
+              from: 'courses', //colection
               localField: 'courseId', // profesor
-              foreignField: '_id', //id user users
+              foreignField: '_id', //id user course
               as: 'userCourses',
             },
           },
@@ -36,22 +36,13 @@ export default async function handler(req, res) {
         //para condiciones dentro del query
         // { $match: { teacher: ObjectId(teacher) } },
 
-        console.log(userCoursess);
+        console.log('data', userCourses);
 
-        return res.status(200).json(userCoursess);
+        return res.status(201).json({ msg: 'Data found', data: userCourses });
       } catch (err) {
-        return res.status(500).json({ err: err.message });
-      }
-
-    case 'POST':
-      try {
-        const newCourse = new Courses(body);
-        const savedCourse = await newCourse.save();
-        return res.status(200).json(savedCourse);
-      } catch (err) {
-        return res.status(200).json({ msg: err });
+        return res.status(400).json({ msg: err.message });
       }
     default:
-      return res.status(200).json({ msg: 'method not suported 🐣' });
+      return res.status(400).json({ msg: 'method not suported 🐣' });
   }
 }

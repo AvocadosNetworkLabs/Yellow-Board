@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import mainStyles from '../../styles/main.module.scss';
+import cursosActivos from '../../styles/cursos.module.scss';
 import Router from 'next/router';
 import { PacmanLoader, HashLoader } from 'react-spinners';
 
@@ -38,18 +39,25 @@ const Dashboard = ({ Mquery, cookies }) => {
     setloading(true);
     setTimeout(() => {
       setloading(false);
-    }, 5500);
+    }, 500);
   }, []);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (view === 'cursos') {
-      let res = axios.post('/api/courses', data);
-      let results = res.data;
-      setstate({
-        ...state,
-        userCourses: results,
-      });
-      console.log('cursos', state.userCourses);
+      const { id } = data;
+      setstate({ ...state, loading: true });
+
+      setTimeout(async () => {
+        let res = await axios.post('api/courses', { id: id });
+        let results = res.data;
+        setstate({
+          ...state,
+          loading: false,
+          userCourses: results.data,
+        });
+      }, 2000);
+
+      // console.log('cursos', state.userCourses);
     } else if (view === 'tareas') {
     } else if (view === 'perfil') {
     }
@@ -110,92 +118,136 @@ const Dashboard = ({ Mquery, cookies }) => {
 
   return (
     <>
+      <Navbar Mquery={Mquery} cookies={cookies} />
       {view === 'tareas' ? (
         <>
-          <Navbar Mquery={Mquery} cookies={cookies} />
-          <div>
-            {data.userType === 'u' ? (
-              <div className={mainStyles.globalCont}>
-                <Menu data={data} setView={setView} />
-                <div className={mainStyles.taskCont}>
-                  <div className={mainStyles.headerM}>
-                    <p>Actividades</p>
-                  </div>
-                  <div className={mainStyles.postuContainer}>
-                    <ActivityCard />
-                    <ActivityCard />
-                    <ActivityCard />
-                  </div>
+          {data.userType === 'u' ? (
+            <div className={mainStyles.globalCont}>
+              <Menu view={view} data={data} setView={setView} />
+              <div className={mainStyles.taskCont}>
+                <div className={mainStyles.headerM}>
+                  <p>Actividades</p>
+                </div>
+                <div className={mainStyles.postuContainer}>
+                  <ActivityCard />
+                  <ActivityCard />
+                  <ActivityCard />
                 </div>
               </div>
-            ) : data.userType === 'm' ? (
-              <div className={mainStyles.globalCont}>
-                <Menu data={data} setView={setView} />
-                <div className={mainStyles.taskCont}>
-                  <div className={mainStyles.headerM}>
-                    <p>Actividades</p>
-                    <ButtonNew />
-                  </div>
-                  <div className={mainStyles.postmContainer}>
-                    <ActivityCard />
-                    <ActivityCard />
-                    <ActivityCard />
-                  </div>
+            </div>
+          ) : data.userType === 'm' ? (
+            <div className={mainStyles.globalCont}>
+              <Menu view={view} data={data} setView={setView} />
+              <div className={mainStyles.leftCont}>
+                <div className={mainStyles.headerM}>
+                  <p>Actividades</p>
+                  <ButtonNew />
+                </div>
+                <div className={mainStyles.postmContainer}>
+                  <ActivityCard />
+                  <ActivityCard />
+                  <ActivityCard />
                 </div>
               </div>
-            ) : data.userType === 'a' ? (
-              <div>
-                <Admin />
-              </div>
-            ) : null}
-          </div>
-          <Footer />
+            </div>
+          ) : data.userType === 'a' ? (
+            <div className={mainStyles.postmContainer}>
+              <Admin />
+            </div>
+          ) : null}
         </>
       ) : view === 'cursos' ? (
         <>
-          <Navbar Mquery={Mquery} cookies={cookies} />
-          <div>
-            {data.userType === 'u' ? (
-              <div className={mainStyles.globalCont}>
-                <Menu data={data} setView={setView} />
-                <Cursos />
+          {data.userType === 'u' ? (
+            <div className={mainStyles.globalCont}>
+              <Menu view={view} data={data} setView={setView} />
+              <div className={mainStyles.leftCont}>
+                <div className={mainStyles.postmContainer}>
+                  {state.loading === true ? (
+                    <div className={mainStyles.preloadCard}>
+                      <p className={mainStyles.preloadTitle2}>Loading...</p>
+                      <HashLoader />
+                    </div>
+                  ) : state.userCourses.length === 0 ? (
+                    <p className={mainStyles.preloadTitle2}>
+                      No esta registrado en ningun cursos
+                    </p>
+                  ) : (
+                    state.userCourses.map((item) => (
+                      <>
+                        <Cursos
+                          userType={data.userType}
+                          userCourses={item.userCourses}
+                        />
+                      </>
+                    ))
+                  )}
+                </div>
               </div>
-            ) : data.userType === 'm' ? (
-              <div className={mainStyles.globalCont}>
-                <Menu data={data} setView={setView} />
-                <Cursos />
+            </div>
+          ) : data.userType === 'm' ? (
+            <div className={mainStyles.globalCont}>
+              <Menu view={view} data={data} setView={setView} />
+              <div className={mainStyles.leftCont}>
+                <div className={mainStyles.postmContainer}>
+                  {state.loading === true ? (
+                    <div className={mainStyles.preloadCard}>
+                      <p className={mainStyles.preloadTitle2}>Loading...</p>
+                      <HashLoader />
+                    </div>
+                  ) : state.userCourses.length === 0 ? (
+                    <p className={mainStyles.preloadTitle2}>
+                      No esta registrado en ningun cursos
+                    </p>
+                  ) : (
+                    state.userCourses.map((item) => (
+                      <>
+                        <Cursos
+                          userType={data.userType}
+                          userCourses={item.userCourses}
+                        />
+                      </>
+                    ))
+                  )}
+                </div>
               </div>
-            ) : data.userType === 'a' ? (
-              <div>
-                <Admin />
-              </div>
-            ) : null}
-          </div>
-          <Footer />
+            </div>
+          ) : data.userType === 'a' ? (
+            <div className={mainStyles.postmContainer}>
+              <Admin />
+            </div>
+          ) : null}
         </>
       ) : view === 'perfil' ? (
         <>
-          <Navbar Mquery={Mquery} cookies={cookies} />
           <div>
             {data.userType === 'u' ? (
               <div className={mainStyles.globalCont}>
-                <Menu data={data} setView={setView} />
-                <Profile data={data} />
+                <Menu view={view} data={data} setView={setView} />
+                <div className={mainStyles.leftCont}>
+                  <div className={mainStyles.postmContainer}>
+                    <Profile data={data} />
+                  </div>
+                </div>
               </div>
             ) : data.userType === 'm' ? (
               <div className={mainStyles.globalCont}>
-                <Menu data={data} setView={setView} />
-                <Profile data={data} />
+                <Menu view={view} data={data} setView={setView} />
+                <div className={mainStyles.leftCont}>
+                  <div className={mainStyles.postmContainer}>
+                    <Profile data={data} />
+                  </div>
+                </div>
               </div>
             ) : data.userType === 'a' ? (
-              <div>
+              <div className={mainStyles.postmContainer}>
                 <Admin />
               </div>
             ) : null}
           </div>
-          <Footer />
         </>
       ) : null}
+      <Footer />
     </>
   );
 };

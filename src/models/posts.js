@@ -27,6 +27,11 @@ const postsSchema = new Schema(
     file: {
       type: String,
     },
+    date: {
+      type: Date,
+      required: true,
+      default: Date.now(),
+    },
     sta: {
       type: Number,
       default: 1,

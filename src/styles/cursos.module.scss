@@ -1,14 +1,24 @@
 .mainCard {
+  width: 90%;
   background-color: #e3e1e1;
-  padding: 40px;
+  height: 12rem;
+  padding: 3rem;
   border-radius: 5%;
-  height: 100%;
   border-radius: 3.5rem;
-  display: flex;
+  display: grid;
   justify-content: space-around;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 0 auto;
+  vertical-align: middle;
   margin: 20px;
 }
+.mainCont {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
 .viewcourses {
+  height: 4rem;
   background-color: #333333;
   color: white;
   width: 228px;
@@ -17,6 +27,7 @@
   font-size: 2rem;
 }
 .createExam {
+  height: 4rem;
   background-color: #69960b;
   color: white;
   width: 228px;
@@ -25,6 +36,19 @@
   font-size: 2rem;
 }
 .team {
-  text-align: center;
+  text-align: start;
+  font-weight: bold;
   font-size: 2rem;
+}
+.data {
+  text-align: start;
+  font-size: 1rem;
+}
+.datacont {
+  width: 100%;
+  margin-left: 2rem;
+  max-height: 2rem;
+  p {
+    margin: 0;
+  }
 }

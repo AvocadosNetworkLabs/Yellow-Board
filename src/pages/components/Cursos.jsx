@@ -1,22 +1,33 @@
 import React from 'react';
 import cursosActivos from '../../styles/cursos.module.scss';
+import { Button } from 'react-bootstrap';
 
-const Cursos = () => {
+const Cursos = ({ userCourses, userType }) => {
   return (
-    <>
+    <div className={cursosActivos.mainCont}>
       <div className={cursosActivos.mainCard}>
-        <a
-          href="http://localhost:3000/stadistics"
-          className={cursosActivos.viewcourses}
-        >
+        <Button variant="dark" className={cursosActivos.viewcourses}>
           Ver cursos
-        </a>
-        <a href="#" className={cursosActivos.createExam}>
-          Crear exámen
-        </a>
-        <p className={cursosActivos.team}>Matemáticas</p>
+        </Button>
+        {userType === 'm' ? (
+          <Button
+            variant="outline-success"
+            className={cursosActivos.createExam}
+          >
+            Crear exámen
+          </Button>
+        ) : null}
+        <div className={cursosActivos.datacont}>
+          <p className={cursosActivos.team}>{userCourses.courseName}</p>
+          {userType === 'm' ? (
+            <p className={cursosActivos.data}>
+              No.Estudiantes: {userCourses.students}
+            </p>
+          ) : null}
+          <p className={cursosActivos.data}> {userCourses.description}</p>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

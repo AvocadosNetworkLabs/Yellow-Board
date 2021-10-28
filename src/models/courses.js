@@ -1,37 +1,41 @@
-import { Schema, model, models, Types  } from "mongoose";
+import { Schema, model, models, Types } from 'mongoose';
 
-const coursesSchema = new Schema({
-    teacher:{
-        type: Types.ObjectId,
-        required: [true, 'Title is required'],
+const coursesSchema = new Schema(
+  {
+    teacher: {
+      type: Types.ObjectId,
+      required: [true, 'Title is required'],
     },
     courseName: {
-        type: String,
-        required: true,
-        trim: true,
+      type: String,
+      required: true,
+      trim: true,
     },
     description: {
-        type: String,
-        required: true,
-        trim: true
-    },   
+      type: String,
+      required: true,
+      trim: true,
+    },
     students: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true,
+      default: 0,
     },
-    startDate:{
-        type: String,
-        required: true,
+    startDate: {
+      type: String,
+      required: true,
+      default: 'no date set',
     },
-    sta:{
-        type: Number,
-        trim: true,
-        default: '1'
+    sta: {
+      type: Number,
+      trim: true,
+      default: '1',
     },
-},{
+  },
+  {
     timestamps: true,
     versionKey: false,
-})
-
+  }
+);
 
 export default models.Courses || model('Courses', coursesSchema);
