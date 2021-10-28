@@ -39,7 +39,8 @@ body::-webkit-scrollbar-button {
 
 .active {
   background-color: rgba(0, 0, 0, 0.733);
-  border: 1px solid rgba(255, 196, 0, 0.363);
+  border: 1px solid rgba(255, 255, 255, 0.363);
   color: #e4e4e4 !important;
   margin-left: 1rem;
+  transition: 1s;
 }
