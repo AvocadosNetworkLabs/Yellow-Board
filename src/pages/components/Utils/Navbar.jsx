@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Dstyles from '../../styles/navbar.module.scss';
+import Dstyles from '../../../styles/navbar.module.scss';
 import Router from 'next/router';
 import { Alert, Button } from 'react-bootstrap';
 import Cookies from 'js-cookie';
@@ -26,10 +26,10 @@ const Navbar = ({ Mquery, cookies }) => {
     var data = JSON.parse(cookies.userData);
   }
 
-  const logOut = () => {
+  const logOut = async () => {
+    await axios.get('/api/logout');
     Cookies.set('session', false);
     Router.push('/');
-    axios.post('api/logout');
   };
 
   const theSong = () => {

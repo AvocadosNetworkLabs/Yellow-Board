@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form, FloatingLabel } from 'react-bootstrap';
-import mainStyles from '../../styles/main.module.scss';
-import buttonNew from '../../styles/buttonnew.module.scss';
+import mainStyles from '../../../styles/main.module.scss';
+import buttonNew from '../../../styles/buttonnew.module.scss';
 import Fileupload from './Fileupload';
 
 const ButtonNew = () => {

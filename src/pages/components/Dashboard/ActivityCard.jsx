@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import ActivityCardStyles from '../../styles/activitycard.module.scss';
+import ActivityCardStyles from '../../../styles/activitycard.module.scss';
 
 const ActivityCard = () => {
   return (

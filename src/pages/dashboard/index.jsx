@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
-import Dashboard from './components/Dashboard';
+import Dashboard from '../components/Dashboard/Dashboard';
 
 const index = ({ cookies }) => {
   const isDesktopOrLaptop = useMediaQuery({

@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import Main from './components/Main';
+// import Main from './components/Main/Main';
+const Main = lazy(() => import('./components/Main/Main'));
 
 const index = ({ cookies }) => {
+  const TheLoading = () => (
+    <HashLoader color="#ffc400" loading={loading} size={100} />
+  );
   const isDesktopOrLaptop = useMediaQuery({
     query: '(min-width: 1224px)',
   });
@@ -14,11 +18,17 @@ const index = ({ cookies }) => {
     query: '(max-width: 599px)',
   });
   return isDesktopOrLaptop ? (
-    <Main Mquery="D" cookies={cookies} />
+    <Suspense fallback={TheLoading}>
+      <Main Mquery="D" cookies={cookies} />
+    </Suspense>
   ) : isTablet ? (
-    <Main Mquery="T" cookies={cookies} />
+    <Suspense fallback={TheLoading}>
+      <Main Mquery="T" cookies={cookies} />
+    </Suspense>
   ) : isMobile ? (
-    <Main Mquery="M" cookies={cookies} />
+    <Suspense fallback={TheLoading}>
+      <Main Mquery="M" cookies={cookies} />
+    </Suspense>
   ) : null;
 };
 

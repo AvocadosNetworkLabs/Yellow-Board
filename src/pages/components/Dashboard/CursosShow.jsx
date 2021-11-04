@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Navbar from './Navbar';
-import mainStyles from '../../styles/main.module.scss';
+import mainStyles from '../../../styles/main.module.scss';
 
 import Menu from './Menu';
 import Footer from './Footer';

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import StylesMenu from '../../styles/menu.module.scss';
+import StylesMenu from '../../../styles/menu.module.scss';
 
 const Menu = ({ setView, data, view }) => {
   useEffect(() => {

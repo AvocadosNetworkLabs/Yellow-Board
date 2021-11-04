@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import buttonNew from '../../styles/buttonnew.module.scss';
+import buttonNew from '../../../styles/buttonnew.module.scss';
 
 class Fileupload extends Component {
   state = {

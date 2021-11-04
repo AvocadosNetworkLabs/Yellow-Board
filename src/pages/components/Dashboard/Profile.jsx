@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import mainStyles from '../../styles/main.module.scss';
-import profileStyles from '../../styles/profile.module.scss';
+import profileStyles from '../../../styles/profile.module.scss';
 
 const Profile = ({ Mquery, data }) => {
   // console.log(data);

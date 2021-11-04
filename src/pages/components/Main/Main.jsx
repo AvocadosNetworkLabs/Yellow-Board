@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from './Navbar';
+import Navbar from '../Utils/Navbar';
 import Banner from './Banner';
 import Incentivos from './Incentivos';
-import Footer from './Footer';
+import Footer from '../Utils/Footer';
 import Router from 'next/router';
 import { PacmanLoader, HashLoader } from 'react-spinners';
-import mainStyles from '../../styles/main.module.scss';
+import mainStyles from '../../../styles/main.module.scss';
 import Cookies from 'js-cookie';
 
 export default function Main({ Mquery, cookies }) {
@@ -22,7 +22,10 @@ export default function Main({ Mquery, cookies }) {
     const session = Cookies.get('session');
 
     if (session === 'true') {
-      Router.push('/dashboard');
+      let data = JSON.parse(cookies.userData);
+      if (data.userType === 'm' || data.userType === 'u')
+        Router.push('/dashboard');
+      if (data.userType === 'a') Router.push('/admin');
     }
   });
 

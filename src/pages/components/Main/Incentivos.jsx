@@ -1,5 +1,5 @@
 import React from 'react';
-import Dstyles from '../../styles/incentivos.module.scss';
+import Dstyles from '../../../styles/incentivos.module.scss';
 
 const Incentivos = () => {
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import Profile from './components/Profile';
+import Profile from './components/Dashboard/Profile';
 
 const profile = () => {
   const isDesktopOrLaptop = useMediaQuery({

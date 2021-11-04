@@ -1,5 +1,5 @@
 import React from 'react';
-import cursosActivos from '../../styles/cursos.module.scss';
+import cursosActivos from '../../../styles/cursos.module.scss';
 import { Button } from 'react-bootstrap';
 
 const Cursos = ({ userCourses, userType }) => {
