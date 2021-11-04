@@ -3,14 +3,10 @@ import mainStyles from '../../../styles/main.module.scss';
 import cursosActivos from '../../../styles/cursos.module.scss';
 import Router from 'next/router';
 import { PacmanLoader, HashLoader } from 'react-spinners';
+import { Alert } from 'react-bootstrap';
 
-// import Menu from './Menu';
 import Navbar from '../Utils/Navbar';
 import Footer from '../Utils/Footer';
-// import ButtonNew from './ButtonNew';
-// import ActivityCard from './ActivityCard';
-// import Profile from './Profile';
-// import Cursos from './Cursos';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
@@ -19,7 +15,6 @@ const ActivityCard = lazy(() => import('./ActivityCard'));
 const Menu = lazy(() => import('./Menu'));
 const Profile = lazy(() => import('./Profile'));
 const Cursos = lazy(() => import('./Cursos'));
-// const ActivityCard = lazy(() => import('./ActivityCard'));
 
 const Dashboard = ({ Mquery, cookies }) => {
   const TheLoading = () => <HashLoader />;
@@ -134,129 +129,72 @@ const Dashboard = ({ Mquery, cookies }) => {
       <Navbar Mquery={Mquery} cookies={cookies} />
       {view === 'tareas' ? (
         <>
-          {data.userType === 'u' ? (
-            <Suspense fallback={TheLoading}>
-              <div className={mainStyles.globalCont}>
-                <Menu view={view} data={data} setView={setView} />
-                <div className={mainStyles.taskCont}>
-                  <div className={mainStyles.headerM}>
-                    <p>Actividades</p>
-                  </div>
-                  <div className={mainStyles.postuContainer}>
-                    <ActivityCard />
-                    <ActivityCard />
-                    <ActivityCard />
-                  </div>
+          <Suspense fallback={TheLoading}>
+            <div className={mainStyles.globalCont}>
+              <Menu view={view} data={data} setView={setView} />
+              <div className={mainStyles.leftCont}>
+                <div className={mainStyles.headerM}>
+                  <p>Actividades</p>
+                  {data.userType === 'm' ? <ButtonNew /> : <div></div>}
+                </div>
+                <div className={mainStyles.postmContainer}>
+                  <ActivityCard />
+                  <ActivityCard />
+                  <ActivityCard />
                 </div>
               </div>
-            </Suspense>
-          ) : data.userType === 'm' ? (
-            <Suspense fallback={TheLoading}>
-              <div className={mainStyles.globalCont}>
-                <Menu view={view} data={data} setView={setView} />
-                <div className={mainStyles.leftCont}>
-                  <div className={mainStyles.headerM}>
-                    <p>Actividades</p>
-                    <ButtonNew />
-                  </div>
-                  <div className={mainStyles.postmContainer}>
-                    <ActivityCard />
-                    <ActivityCard />
-                    <ActivityCard />
-                  </div>
-                </div>
-              </div>
-            </Suspense>
-          ) : null}
+            </div>
+          </Suspense>
         </>
       ) : view === 'cursos' ? (
         <>
-          {data.userType === 'u' ? (
-            <Suspense fallback={TheLoading}>
-              <div className={mainStyles.globalCont}>
-                <Menu view={view} data={data} setView={setView} />
-                <div className={mainStyles.leftCont}>
-                  <div className={mainStyles.postmContainer}>
-                    {state.loading === true ? (
-                      <div className={mainStyles.preloadCard}>
-                        <p className={mainStyles.preloadTitle2}>Loading...</p>
-                        <HashLoader />
-                      </div>
-                    ) : state.userCourses.length === 0 ? (
-                      <p className={mainStyles.preloadTitle2}>
-                        No esta registrado en ningun cursos
-                      </p>
-                    ) : (
-                      state.userCourses.map((item) => (
-                        <>
-                          <Cursos
-                            userType={data.userType}
-                            userCourses={item.userCourses}
-                          />
-                        </>
-                      ))
-                    )}
-                  </div>
+          <Suspense fallback={TheLoading}>
+            <div className={mainStyles.globalCont}>
+              <Menu view={view} data={data} setView={setView} />
+              <div className={mainStyles.leftCont}>
+                <div className={mainStyles.postmContainer}>
+                  {state.loading === true ? (
+                    <div className={mainStyles.preloadCard}>
+                      <p className={mainStyles.preloadTitle2}>Loading...</p>
+                      <HashLoader />
+                    </div>
+                  ) : state.userCourses.length === 0 ? (
+                    <div className={mainStyles.coursesAlert}>
+                      <Alert
+                        className={mainStyles.coursesAlertText}
+                        variant="info"
+                      >
+                        No estas incrito en ningun curso 🦐
+                      </Alert>
+                    </div>
+                  ) : (
+                    state.userCourses.map((item) => (
+                      <>
+                        <Cursos
+                          userType={data.userType}
+                          userCourses={item.userCourses}
+                        />
+                      </>
+                    ))
+                  )}
                 </div>
               </div>
-            </Suspense>
-          ) : data.userType === 'm' ? (
-            <Suspense fallback={TheLoading}>
-              <div className={mainStyles.globalCont}>
-                <Menu view={view} data={data} setView={setView} />
-                <div className={mainStyles.leftCont}>
-                  <div className={mainStyles.postmContainer}>
-                    {state.loading === true ? (
-                      <div className={mainStyles.preloadCard}>
-                        <p className={mainStyles.preloadTitle2}>Loading...</p>
-                        <HashLoader />
-                      </div>
-                    ) : state.userCourses.length === 0 ? (
-                      <p className={mainStyles.preloadTitle2}>
-                        No esta registrado en ningun cursos
-                      </p>
-                    ) : (
-                      state.userCourses.map((item) => (
-                        <>
-                          <Cursos
-                            userType={data.userType}
-                            userCourses={item.userCourses}
-                          />
-                        </>
-                      ))
-                    )}
-                  </div>
-                </div>
-              </div>
-            </Suspense>
-          ) : null}
+            </div>
+          </Suspense>
         </>
       ) : view === 'perfil' ? (
         <>
           <div>
-            {data.userType === 'u' ? (
-              <Suspense fallback={TheLoading}>
-                <div className={mainStyles.globalCont}>
-                  <Menu view={view} data={data} setView={setView} />
-                  <div className={mainStyles.leftCont}>
-                    <div className={mainStyles.postmContainer}>
-                      <Profile data={data} />
-                    </div>
+            <Suspense fallback={TheLoading}>
+              <div className={mainStyles.globalCont}>
+                <Menu view={view} data={data} setView={setView} />
+                <div className={mainStyles.leftCont}>
+                  <div className={mainStyles.postmContainer}>
+                    <Profile data={data} />
                   </div>
                 </div>
-              </Suspense>
-            ) : data.userType === 'm' ? (
-              <Suspense fallback={TheLoading}>
-                <div className={mainStyles.globalCont}>
-                  <Menu view={view} data={data} setView={setView} />
-                  <div className={mainStyles.leftCont}>
-                    <div className={mainStyles.postmContainer}>
-                      <Profile data={data} />
-                    </div>
-                  </div>
-                </div>
-              </Suspense>
-            ) : null}
+              </div>
+            </Suspense>
           </div>
         </>
       ) : null}

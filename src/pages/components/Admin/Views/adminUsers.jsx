@@ -260,6 +260,10 @@ const adminUsers = ({ cookies }) => {
                         <p>{`${oneUser.name} ${oneUser.lastname}`}</p>
                       </div>
                       <div className={AdminStyles.userInfo}>
+                        <p>Matricula: </p>
+                        <p>{oneUser.username}</p>
+                      </div>
+                      <div className={AdminStyles.userInfo}>
                         <p>Fecha de Nacimiento: </p>
                         <p>{oneUser.birthday}</p>
                       </div>

@@ -24,74 +24,36 @@ const Menu = ({ setView, data, view }) => {
   return (
     <>
       <aside className={StylesMenu.menu}>
-        {data.userType === 'm' ? (
-          <>
-            <p className={StylesMenu.user}>Bienvenid@ {data.name}</p>
-            <a
-              href="#"
-              id="cursos"
-              onClick={() => {
-                setView('cursos');
-              }}
-            >
-              Cursos
-            </a>
-            <a
-              href="#"
-              id="tareas"
-              onClick={(e) => {
-                setView('tareas');
-              }}
-            >
-              Tareas
-            </a>
-            <a
-              href="#"
-              id="perfil"
-              onClick={(e) => {
-                setView('perfil');
-              }}
-            >
-              Perfil
-            </a>
-          </>
-        ) : data.userType === 'u' ? (
-          <>
-            <p className={StylesMenu.user}>Bienvenid@ {data.name}</p>
-            <a
-              href="#"
-              id="cursos"
-              onClick={(e) => {
-                setView('cursos');
-              }}
-            >
-              Cursos
-            </a>
-            <a
-              href="#"
-              id="tareas"
-              onClick={(e) => {
-                setView('tareas');
-              }}
-            >
-              Tareas
-            </a>
-            <a
-              href="#"
-              id="perfil"
-              onClick={(e) => {
-                setView('perfil');
-              }}
-            >
-              Perfil
-            </a>
-          </>
-        ) : (
-          <>
-            <p className={StylesMenu.user}>Comete este camaron</p>
-            <Link href="#">🍤</Link>
-          </>
-        )}
+        <>
+          <p className={StylesMenu.user}>Bienvenid@ {data.name}</p>
+          <a
+            href="#"
+            id="cursos"
+            onClick={() => {
+              setView('cursos');
+            }}
+          >
+            Cursos
+          </a>
+          <a
+            href="#"
+            id="tareas"
+            onClick={(e) => {
+              setView('tareas');
+            }}
+          >
+            Tareas
+          </a>
+          <a
+            href="#"
+            id="perfil"
+            onClick={(e) => {
+              setView('perfil');
+            }}
+          >
+            Perfil
+          </a>
+        </>
       </aside>
     </>
   );

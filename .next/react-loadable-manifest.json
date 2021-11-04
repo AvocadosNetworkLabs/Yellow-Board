@@ -10,5 +10,41 @@
     "files": [
       "static/chunks/node_modules_howler_dist_howler_js.js"
     ]
+  },
+  "components/Dashboard/Dashboard.jsx -> ./ActivityCard": {
+    "id": "./src/pages/components/Dashboard/ActivityCard.jsx",
+    "files": [
+      "static/chunks/src_pages_components_Dashboard_ActivityCard_jsx.js"
+    ]
+  },
+  "components/Dashboard/Dashboard.jsx -> ./ButtonNew": {
+    "id": "./src/pages/components/Dashboard/ButtonNew.jsx",
+    "files": [
+      "static/chunks/src_pages_components_Dashboard_ButtonNew_jsx.js"
+    ]
+  },
+  "components/Dashboard/Dashboard.jsx -> ./Cursos": {
+    "id": "./src/pages/components/Dashboard/Cursos.jsx",
+    "files": [
+      "static/chunks/src_pages_components_Dashboard_Cursos_jsx.js"
+    ]
+  },
+  "components/Dashboard/Dashboard.jsx -> ./Menu": {
+    "id": "./src/pages/components/Dashboard/Menu.jsx",
+    "files": [
+      "static/chunks/src_pages_components_Dashboard_Menu_jsx.js"
+    ]
+  },
+  "components/Dashboard/Dashboard.jsx -> ./Profile": {
+    "id": "./src/pages/components/Dashboard/Profile.jsx",
+    "files": [
+      "static/chunks/src_pages_components_Dashboard_Profile_jsx.js"
+    ]
+  },
+  "index.jsx -> ./components/Main/Main": {
+    "id": "./src/pages/components/Main/Main.jsx",
+    "files": [
+      "static/chunks/src_pages_components_Main_Main_jsx.js"
+    ]
   }
 }
