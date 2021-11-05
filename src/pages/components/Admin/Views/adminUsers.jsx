@@ -306,23 +306,27 @@ const adminUsers = ({ cookies }) => {
                 </Card.Text>
               </Card.Body>
               <Card.Footer className={AdminStyles.CardFooter}>
-                <Button
-                  variant="danger"
-                  onClick={async () => {
-                    await axios.delete(`/api/getUsers/${oneUser._id}`);
-                    setuptade(!uptade);
-                  }}
-                >
-                  Borrar
-                </Button>
-                <Button variant="dark">Editar</Button>
+                {oneUser.name != 'Admin' ? (
+                  <>
+                    <Button
+                      variant="danger"
+                      onClick={async () => {
+                        await axios.delete(`/api/getUsers/${oneUser._id}`);
+                        setuptade(!uptade);
+                      }}
+                    >
+                      Borrar
+                    </Button>
+                    <Button variant="dark">Editar</Button>
+                  </>
+                ) : null}
               </Card.Footer>
             </Card>
           </div>
         </div>
-      </div>
 
-      <Footer />
+        <Footer />
+      </div>
     </>
   );
 };

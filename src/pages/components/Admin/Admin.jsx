@@ -28,7 +28,7 @@ const Admin = () => {
           icon="/assets/icons/user.png"
         />
         <Adminbtn
-          path="alumnos"
+          path=""
           title="administrar calificaciones"
           icon="/assets/icons/user.png"
         />
