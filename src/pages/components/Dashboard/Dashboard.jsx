@@ -1,6 +1,5 @@
 import React, { useState, useEffect, lazy, Suspense } from 'react';
 import mainStyles from '../../../styles/main.module.scss';
-import cursosActivos from '../../../styles/cursos.module.scss';
 import Router from 'next/router';
 import { PacmanLoader, HashLoader } from 'react-spinners';
 import { Alert } from 'react-bootstrap';
@@ -41,7 +40,7 @@ const Dashboard = ({ Mquery, cookies }) => {
     setloading(true);
     setTimeout(() => {
       setloading(false);
-    }, 5000);
+    }, 1500);
   }, []);
 
   useEffect(async () => {
@@ -81,7 +80,7 @@ const Dashboard = ({ Mquery, cookies }) => {
 
     setTimeout(() => {
       Router.push('/');
-    }, 5000);
+    }, 1500);
     return (
       <>
         <Navbar Mquery={Mquery} cookies={cookies} />
@@ -121,7 +120,7 @@ const Dashboard = ({ Mquery, cookies }) => {
   if (data.userType === 'a') {
     setTimeout(() => {
       Router.push('/admin ');
-    }, 5000);
+    }, 1500);
   }
 
   return (

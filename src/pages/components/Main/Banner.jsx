@@ -65,7 +65,7 @@ export default function Banner() {
               let data = res.data;
 
               if (data.Success === true) {
-                setMsg(data.msg);
+                setMsg(JSON.stringify(data.msg));
                 Cookies.set('session', true);
                 if (data.data.userType === 'm' || data.data.userType === 'u') {
                   Router.push('/dashboard');
@@ -75,7 +75,7 @@ export default function Banner() {
                 }
               }
               if (data.Success === false) {
-                setMsg(data.msg);
+                setMsg(JSON.stringify(data.msg));
                 Router.push('/');
               }
               setTimeout(() => {

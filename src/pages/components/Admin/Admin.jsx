@@ -13,24 +13,24 @@ const Admin = () => {
           icon="/assets/icons/user.png"
         />
         <Adminbtn
-          path="alumnos"
+          path="courses"
           title="Administrar cursos"
-          icon="/assets/icons/user.png"
+          icon="/assets/icons/courses.png"
         />
         <Adminbtn
-          path="alumnos"
+          path="posts"
           title="Administrar publicaciones"
-          icon="/assets/icons/user.png"
+          icon="/assets/icons/post.png"
         />
         <Adminbtn
-          path="alumnos"
+          path="files"
           title="Administrar archivos"
-          icon="/assets/icons/user.png"
+          icon="/assets/icons/files.png"
         />
         <Adminbtn
-          path=""
-          title="administrar calificaciones"
-          icon="/assets/icons/user.png"
+          path="grades"
+          title="Administrar calificaciones"
+          icon="/assets/icons/grades.png"
         />
       </div>
     </div>

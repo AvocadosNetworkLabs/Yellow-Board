@@ -16,13 +16,13 @@ export default async (req, res) => {
         const oneUsers = await Users.findById(id);
         if (!oneUsers)
           return res
-            .status(404)
-            .json({ Success: false, data: null, msg: 'Users does not exists' });
+            .status(200)
+            .json({ Success: 0, data: null, msg: 'Users does not exists' });
         return res
           .status(200)
-          .json({ Success: true, data: oneUsers, msg: `User found` });
+          .json({ Success: 1, data: oneUsers, msg: `User found` });
       } catch (err) {
-        return res.status(400).json({ msg: err.message });
+        return res.status(200).json({ msg: err.message });
       }
     case 'PUT':
       try {
@@ -30,26 +30,35 @@ export default async (req, res) => {
           new: true,
           runValidators: true,
         });
-        if (!updatedUsers)
-          return res.status(404).json({ msg: 'Users does not exists' });
-        return res
-          .status(200)
-          .json({ Success: true, data: updatedUsers, msg: `User found` });
+        if (!updatedUsers) return res.status(200).json();
+        return res.status(200).json({
+          Success: 1,
+          data: updatedUsers,
+          msg: `Usuario actualizado`,
+        });
       } catch (err) {
         return res
-          .status(400)
-          .json({ Success: true, data: null, msg: err.message });
+          .status(200)
+          .json({ Success: 0, data: null, msg: err.message });
       }
     case 'DELETE':
       try {
         const deletedUsers = await Users.findByIdAndDelete(id);
         if (!deletedUsers)
-          return res.status(404).json({ msg: 'Users does not exists' });
-        return res.status(204).json();
+          return res
+            .status(200)
+            .json({ Success: 0, data: null, msg: 'Users does not exists' });
+        return res
+          .status(200)
+          .json({ Success: 1, data: null, msg: 'Usuario borrado' });
       } catch (err) {
-        return res.status(400).json({ msg: err.message });
+        return res
+          .status(200)
+          .json({ Success: 0, data: null, msg: err.message });
       }
     default:
-      return res.status(400).json({ msg: 'This method is not supported' });
+      return res
+        .status(200)
+        .json({ Success: 0, data: null, msg: 'method not suported 🐣' });
   }
 };

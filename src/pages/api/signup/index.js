@@ -1,37 +1,31 @@
 import { dbConnect } from 'utils/db';
 import Users from 'models/users';
-import cookie from "cookie";
+import cookie from 'cookie';
 
 dbConnect();
 
 export default async function handler(req, res) {
+  const { method, body } = req;
 
-    const { method , body,  } = req;
-    const { user, psw } = body; 
+  console.log(method, req.url);
 
-    console.log(method, req.url);
-    console.log(body);
-
-    switch(method){
-    //   case 'GET':
-    //   try{
-    //     const users = await Users.find();
-    //     return res.status(200).json(users);
-    //   }catch(err){
-    //     return res.status(500).json({err: err.message});
-    //   }
-
-      case 'POST':
-      try{
-        console.log(body);
+  switch (method) {
+    case 'POST':
+      try {
         const newUser = new Users(body);
         const savedUser = await newUser.save();
-        return res.status(200).json(savedUser);
-      }catch(err){
-        return res.status(404).json({err: err.message});
+        return res
+          .status(200)
+          .json({ Success: 1, data: savedUser, msg: 'Usuario creado' });
+      } catch (err) {
+        return res
+          .status(200)
+          .json({ Success: 0, data: null, msg: err.message });
       }
 
-      default:
-        return res.status(400).json({msg: 'method not suported'})
-    }
+    default:
+      return res
+        .status(200)
+        .json({ Success: 0, data: null, msg: 'method not suported 🐣' });
+  }
 }

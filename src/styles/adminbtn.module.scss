@@ -1,10 +1,11 @@
 .btn {
+  width: 30rem;
   border-radius: 1rem;
   border: 1px solid rgb(163, 163, 163);
   background-color: rgb(245, 245, 245);
   max-height: 20rem;
-  min-width: 32rem;
-  max-width: 32rem;
+  min-width: 30rem;
+  max-width: 20rem;
   margin: 2rem auto;
   padding: 0;
   display: flex;
@@ -16,19 +17,24 @@
   &:hover {
     transform: scale(1.05);
     transition: 0.5s;
-    background-color: rgba(255, 200, 82, 0.493);
+    background: #f2994a;
+    background: -webkit-linear-gradient(to right, #f2994a, #f2c94c);
+    background: linear-gradient(to right, #f2994a, #f2c94c);
+    box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.5);
+    border: 2px solid rgb(255, 200, 82);
   }
   &:active {
-    transform: scale(0.95);
+    transform: scale(1);
     transition: 0.5s;
     background-color: rgba(255, 200, 82, 0.815);
+    box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.3);
   }
-
   &Title {
     font-size: 2rem;
     padding: 1rem;
   }
   &Img {
-    max-width: 13rem;
+    padding: 2rem;
+    max-width: 10rem;
   }
 }

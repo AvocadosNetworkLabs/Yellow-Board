@@ -3,5 +3,7 @@
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
   "/admin": "pages/admin.js",
-  "/admin/alumnos": "pages/admin/alumnos.js"
+  "/admin/alumnos": "pages/admin/alumnos.js",
+  "/api/getUsers": "pages/api/getUsers.js",
+  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js"
 }

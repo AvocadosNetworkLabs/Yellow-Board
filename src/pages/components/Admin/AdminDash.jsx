@@ -3,6 +3,7 @@ import Navbar from '../Utils/Navbar';
 import Footer from '../Utils/Footer';
 import Admin from './Admin';
 import mainStyles from '../../../styles/main.module.scss';
+import AdminStyles from '../../../styles/admin.module.scss';
 import HashLoader from 'react-spinners/HashLoader';
 import Router from 'next/router';
 import Cookies from 'js-cookie';
@@ -15,7 +16,7 @@ const AdminDash = ({ Mquery, cookies }) => {
     setloading(true);
     setTimeout(() => {
       setloading(false);
-    }, 5000);
+    }, 1500);
   }, []);
 
   const TheLoading = () => <HashLoader />;
@@ -44,7 +45,7 @@ const AdminDash = ({ Mquery, cookies }) => {
       axios.get('api/logout');
       Cookies.set('session', false);
       Router.push('/');
-    }, 5000);
+    }, 1500);
     return (
       <>
         <Navbar Mquery={Mquery} cookies={cookies} />
@@ -80,7 +81,7 @@ const AdminDash = ({ Mquery, cookies }) => {
 
     setTimeout(() => {
       Router.push('/dashboard');
-    }, 5000);
+    }, 1500);
     return (
       <>
         <Navbar Mquery={Mquery} cookies={cookies} />
@@ -120,6 +121,7 @@ const AdminDash = ({ Mquery, cookies }) => {
   return (
     <div>
       <Navbar Mquery={Mquery} cookies={cookies} />
+      <p className={AdminStyles.HeaderTitleDash}> Panel de Administracion</p>
       <Admin />
       <Footer Mquery={Mquery} />
     </div>
