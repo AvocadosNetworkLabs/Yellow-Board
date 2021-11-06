@@ -4,7 +4,6 @@ const coursesSchema = new Schema(
   {
     teacher: {
       type: Types.ObjectId,
-      required: [true, 'Title is required'],
     },
     courseName: {
       type: String,

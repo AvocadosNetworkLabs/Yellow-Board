@@ -1,23 +1,12 @@
 import { dbConnect } from '../../../utils/db';
 import Users from '../../../models/users';
-import cookie from 'cookie';
-// import cookieCutter from 'cookie-cutter';
-// import Cookies from 'cookies';
 
 dbConnect();
 
 export default async function handler(req, res) {
   const { method, body } = req;
-  const { user, psw } = body;
 
   console.log(req.method, req.url);
-
-  if (user === '' || psw === '') {
-    return res
-      .status(200)
-      .json({ Success: false, data: null, msg: `algun dato esta vacio 🛑` });
-  }
-
   switch (method) {
     case 'GET':
       try {

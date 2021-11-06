@@ -20,11 +20,8 @@ const Cursos = ({ userCourses, userType }) => {
         <div className={cursosActivos.datacont}>
           <p className={cursosActivos.team}>{userCourses.courseName}</p>
           {userType === 'm' ? (
-            <p className={cursosActivos.data}>
-              No.Estudiantes: {userCourses.students}
-            </p>
+            <p className={cursosActivos.data}>{userCourses.students} / 15</p>
           ) : null}
-          <p className={cursosActivos.data}> {userCourses.description}</p>
         </div>
       </div>
     </div>

@@ -7,13 +7,15 @@
 .textPhon {
   font-size: 4rem;
 }
+.bodyAll {
+  width: 100%;
+}
 
 .globalCont {
   width: 100%;
   background-color: #fff;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  flex-wrap: wrap;
   // margin: 0 auto;
 }
 .content {

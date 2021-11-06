@@ -1,39 +1,19 @@
 .admin {
   width: 80%;
   border: 1px solid rgb(189, 189, 189);
-  background-color: #dddddd;
-  margin: 2rem auto;
+  background-color: #ffffff;
+  margin-left: auto;
+  margin-right: auto;
   min-height: 90vh;
   padding: 2rem;
   border-radius: 1rem;
-  overflow-y: scroll;
-  scrollbar-color: #babac0 #fff;
-  scrollbar-width: thin;
-  &::-webkit-scrollbar {
-    background-color: #fff;
-    width: 16px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: #fff;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #babac0;
-    border-radius: 16px;
-    border: 4px solid #fff;
-  }
-
-  &::-webkit-scrollbar-button {
-    display: none;
-  }
 
   &Cont {
     width: 80%;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
-    gap: 1rem;
+    grid-gap: 3rem;
   }
 }
 
@@ -52,6 +32,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 1rem;
     width: 90%;
     margin: 3rem auto;
     padding: 1rem;
@@ -114,6 +95,13 @@
   margin: 0 auto;
   padding: 2rem;
   display: flex;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 1rem;
+  width: 80%;
+  margin: 2rem auto;
+  font-size: 3rem;
+  font-weight: bold;
   justify-content: space-between;
   &ButtonCont {
     width: 35rem;
@@ -124,15 +112,18 @@
     font-size: 3rem;
     font-weight: bold;
     &Dash {
+      background-color: #ffffff;
+      border-radius: 1rem;
+      padding: 1rem;
       width: 80%;
-      margin: 0 auto;
+      margin: 2rem auto;
       font-size: 3rem;
       font-weight: bold;
     }
   }
   &Btn {
     font-size: 2rem;
-    border-radius: 1.5rem;
+    // border-radius: 1rem;
   }
 }
 .Card {
@@ -340,10 +331,123 @@
   }
 }
 .Text {
-  width: 90%;
-  padding: 5rem;
+  width: 100%;
+  padding: 3rem;
   margin: 0 auto;
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: normal;
+}
+
+.dropdown {
+  text-align: center;
+  &BTN {
+    font-size: 1.5rem;
+  }
+  &Item {
+    font-size: 1.5rem;
+  }
+}
+
+.Delete {
+  color: rgba(255, 0, 0, 0.671);
+  font-size: 1.5rem;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    font-weight: 500;
+    color: rgb(255, 0, 0);
+  }
+}
+
+.mainCard {
+  width: 80%;
+  background-color: #000000;
+  padding: 3rem;
+  border-radius: 3.5rem;
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  transition: 0.5s;
+  box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.5);
+}
+
+.coursesCont {
+  width: 100%;
+  // overflow-x: hidden;
+  margin: 0 auto;
+  min-height: 30rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  // padding: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(55rem, 1fr));
+  // grid-template-columns: repeat(auto-fit, 50% [col-start] 50% [col-end]);
+  overflow-y: scroll;
+  scrollbar-color: #babac0 #fff;
+  scrollbar-width: thin;
+  &::-webkit-scrollbar {
+    background-color: #fff;
+    width: 16px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #fff;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #babac0;
+    border-radius: 16px;
+    border: 4px solid #fff;
+  }
+
+  &::-webkit-scrollbar-button {
+    display: none;
+  }
+}
+
+.datacont {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  p {
+    margin: 0;
+  }
+}
+.team {
+  text-align: start;
+  font-weight: bold;
+  color: #fff;
+  font-size: 2rem;
+}
+.data {
+  padding: 1rem;
+  text-align: end;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.bgcolor {
+  padding: 2rem;
+  background-image: url(../../public/assets/img/bg.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.Tables {
+  font-size: 2rem;
+}
+.nothing {
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 0 auto;
+  text-align: center;
 }

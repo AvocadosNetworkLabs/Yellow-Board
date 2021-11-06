@@ -126,77 +126,80 @@ const Dashboard = ({ Mquery, cookies }) => {
   return (
     <>
       <Navbar Mquery={Mquery} cookies={cookies} />
-      {view === 'tareas' ? (
-        <>
-          <Suspense fallback={TheLoading}>
-            <div className={mainStyles.globalCont}>
-              <Menu view={view} data={data} setView={setView} />
-              <div className={mainStyles.leftCont}>
-                <div className={mainStyles.headerM}>
-                  <p>Actividades</p>
-                  {data.userType === 'm' ? <ButtonNew /> : <div></div>}
-                </div>
-                <div className={mainStyles.postmContainer}>
-                  <ActivityCard />
-                  <ActivityCard />
-                  <ActivityCard />
-                </div>
-              </div>
-            </div>
-          </Suspense>
-        </>
-      ) : view === 'cursos' ? (
-        <>
-          <Suspense fallback={TheLoading}>
-            <div className={mainStyles.globalCont}>
-              <Menu view={view} data={data} setView={setView} />
-              <div className={mainStyles.leftCont}>
-                <div className={mainStyles.postmContainer}>
-                  {state.loading === true ? (
-                    <div className={mainStyles.preloadCard}>
-                      <p className={mainStyles.preloadTitle2}>Loading...</p>
-                      <HashLoader />
-                    </div>
-                  ) : state.userCourses.length === 0 ? (
-                    <div className={mainStyles.coursesAlert}>
-                      <Alert
-                        className={mainStyles.coursesAlertText}
-                        variant="info"
-                      >
-                        No estas incrito en ningun curso 🦐
-                      </Alert>
-                    </div>
-                  ) : (
-                    state.userCourses.map((item) => (
-                      <>
-                        <Cursos
-                          userType={data.userType}
-                          userCourses={item.userCourses}
-                        />
-                      </>
-                    ))
-                  )}
+      <div className={mainStyles.bodyAll}>
+        {view === 'tareas' ? (
+          <>
+            <Suspense fallback={TheLoading}>
+              <div className={mainStyles.globalCont}>
+                <Menu view={view} data={data} setView={setView} />
+                <div className={mainStyles.leftCont}>
+                  <div className={mainStyles.headerM}>
+                    <p>Actividades</p>
+                    {data.userType === 'm' ? <ButtonNew /> : <div></div>}
+                  </div>
+                  <div className={mainStyles.postmContainer}>
+                    <ActivityCard />
+                    <ActivityCard />
+                    <ActivityCard />
+                  </div>
                 </div>
               </div>
-            </div>
-          </Suspense>
-        </>
-      ) : view === 'perfil' ? (
-        <>
-          <div>
+            </Suspense>
+          </>
+        ) : view === 'cursos' ? (
+          <>
             <Suspense fallback={TheLoading}>
               <div className={mainStyles.globalCont}>
                 <Menu view={view} data={data} setView={setView} />
                 <div className={mainStyles.leftCont}>
                   <div className={mainStyles.postmContainer}>
-                    <Profile data={data} />
+                    {state.loading === true ? (
+                      <div className={mainStyles.preloadCard}>
+                        <p className={mainStyles.preloadTitle2}>Loading...</p>
+                        <HashLoader />
+                      </div>
+                    ) : state.userCourses.length === 0 ? (
+                      <div className={mainStyles.coursesAlert}>
+                        <Alert
+                          className={mainStyles.coursesAlertText}
+                          variant="info"
+                        >
+                          No estas incrito en ningun curso 🦐
+                        </Alert>
+                      </div>
+                    ) : (
+                      state.userCourses.map((item) => (
+                        <>
+                          <Cursos
+                            userType={data.userType}
+                            userCourses={item.userCourses}
+                          />
+                        </>
+                      ))
+                    )}
                   </div>
                 </div>
               </div>
             </Suspense>
-          </div>
-        </>
-      ) : null}
+          </>
+        ) : view === 'perfil' ? (
+          <>
+            <div>
+              <Suspense fallback={TheLoading}>
+                <div className={mainStyles.globalCont}>
+                  <Menu view={view} data={data} setView={setView} />
+                  <div className={mainStyles.leftCont}>
+                    <div className={mainStyles.postmContainer}>
+                      <Profile data={data} />
+                    </div>
+                  </div>
+                </div>
+              </Suspense>
+            </div>
+          </>
+        ) : null}
+      </div>
+
       <Footer />
     </>
   );

@@ -121,8 +121,10 @@ const AdminDash = ({ Mquery, cookies }) => {
   return (
     <div>
       <Navbar Mquery={Mquery} cookies={cookies} />
-      <p className={AdminStyles.HeaderTitleDash}> Panel de Administracion</p>
-      <Admin />
+      <div className={AdminStyles.bgcolor}>
+        <p className={AdminStyles.HeaderTitleDash}> Panel de Administracion</p>
+        <Admin />
+      </div>
       <Footer Mquery={Mquery} />
     </div>
   );

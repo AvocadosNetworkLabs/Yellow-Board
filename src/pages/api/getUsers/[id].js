@@ -22,7 +22,11 @@ export default async (req, res) => {
           .status(200)
           .json({ Success: 1, data: oneUsers, msg: `User found` });
       } catch (err) {
-        return res.status(200).json({ msg: err.message });
+        return res.status(200).json({
+          Success: 0,
+          data: null,
+          msg: '⚠️ Error al comunicarse',
+        });
       }
     case 'PUT':
       try {
@@ -37,9 +41,11 @@ export default async (req, res) => {
           msg: `Usuario actualizado`,
         });
       } catch (err) {
-        return res
-          .status(200)
-          .json({ Success: 0, data: null, msg: err.message });
+        return res.status(200).json({
+          Success: 0,
+          data: null,
+          msg: '⚠️ Error algun campo esta vacio',
+        });
       }
     case 'DELETE':
       try {
@@ -52,9 +58,11 @@ export default async (req, res) => {
           .status(200)
           .json({ Success: 1, data: null, msg: 'Usuario borrado' });
       } catch (err) {
-        return res
-          .status(200)
-          .json({ Success: 0, data: null, msg: err.message });
+        return res.status(200).json({
+          Success: 0,
+          data: null,
+          msg: '⚠️ Error al comunicarse',
+        });
       }
     default:
       return res

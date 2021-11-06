@@ -48,6 +48,13 @@ const Navbar = ({ Mquery, cookies }) => {
           <b> Play the song!</b>
           <br />
           <center>
+            <img
+              src="https://c.tenor.com/TbrvG1UPBX8AAAAd/never-gonna-give-you-up-dont-give.gif"
+              alt="Rickroll!!!!!1"
+            />
+          </center>
+          <br />
+          <center>
             <Button onClick={() => setShow(false)} variant="success">
               Close
             </Button>
@@ -57,6 +64,13 @@ const Navbar = ({ Mquery, cookies }) => {
       <nav className={Dstyles.Logo}>
         <div onClick={theSong}>
           <img
+            onClick={() => {
+              if (data.userType === 'u' || data.userType === 'm') {
+                Router.push('/dasboard');
+              } else {
+                Router.push('/admin');
+              }
+            }}
             src="https://media.discordapp.net/attachments/829935312657448977/829938121868312586/lt_bl.png"
             alt="Logo"
             className={Dstyles.LogoImg}

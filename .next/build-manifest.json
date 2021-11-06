@@ -34,10 +34,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/admin/alumnos.js"
     ],
-    "/next/dist/pages/_error": [
+    "/admin/courses": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/next/dist/pages/_error.js"
+      "static/chunks/pages/admin/courses.js"
     ]
   },
   "ampFirstPages": []
