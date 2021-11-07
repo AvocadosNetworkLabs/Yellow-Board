@@ -19,11 +19,9 @@
 
 .adminUsers {
   width: 80%;
-  height: auto;
   overflow: hidden;
   padding: 1rem;
   margin: 0 auto;
-  margin-bottom: 10rem;
   display: flex;
   border: 1px solid rgb(189, 189, 189);
   background-color: #dddddd;
@@ -123,7 +121,10 @@
   }
   &Btn {
     font-size: 2rem;
-    // border-radius: 1rem;
+    &Path {
+      font-size: 3rem;
+      float: right;
+    }
   }
 }
 .Card {
@@ -159,22 +160,33 @@
     margin: 0 auto;
     text-align: center;
   }
-  &Profile {
-    margin: 2rem auto;
-    width: 80%;
-    padding: 3rem;
-    &Img {
-      margin: 0 auto;
-      width: 30rem;
-      height: auto;
-    }
+}
+
+.CardProfile {
+  width: 80%;
+  margin: 3rem auto;
+  min-width: 320px;
+  min-height: 200px;
+  padding: 1.5rem;
+  font-size: 1vw;
+  &Img {
+    margin: 1rem auto;
+    width: 100%;
+    height: 100%;
+    max-height: 20rem;
+    max-width: 20rem;
+    display: block;
   }
 }
+
 .usersGobal {
   width: 100%;
-  height: 100vh;
+  max-width: 100%;
+  max-height: 100%;
   margin-bottom: 10rem;
+  display: block;
 }
+
 .userInfo {
   font-size: 1.5rem;
   font-weight: bold;
@@ -365,8 +377,8 @@
 .mainCard {
   width: 80%;
   background-color: #000000;
-  padding: 3rem;
-  border-radius: 3.5rem;
+  padding: 2rem;
+  border-radius: 1.5rem;
   display: flex;
   justify-content: space-around;
   margin: 0 auto;
@@ -378,17 +390,14 @@
 
 .coursesCont {
   width: 100%;
-  // overflow-x: hidden;
   margin: 0 auto;
-  min-height: 30rem;
+  min-height: 35rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   display: grid;
-  // padding: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(55rem, 1fr));
-  // grid-template-columns: repeat(auto-fit, 50% [col-start] 50% [col-end]);
   overflow-y: scroll;
   scrollbar-color: #babac0 #fff;
   scrollbar-width: thin;

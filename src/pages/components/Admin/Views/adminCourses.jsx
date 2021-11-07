@@ -76,10 +76,7 @@ const adminCourses = ({ cookies }) => {
     let model = {
       id: id,
     };
-    let res = await axios.post(
-      'http://localhost:3000/api/courses/userToCourseList',
-      model
-    );
+    let res = await axios.post('/api/courses/userToCourseList', model);
     let data = res.data;
     setusersList(data.data);
     setUserResp(data.data);
@@ -143,7 +140,7 @@ const adminCourses = ({ cookies }) => {
       ...state,
       AddUser: {
         ...state.AddUser,
-        [e.target.name]: e.target.value,
+        type: e.target.value,
       },
     });
   };
@@ -252,7 +249,7 @@ const adminCourses = ({ cookies }) => {
                       <th>Apellidos</th>
                       <th>Matricula</th>
                       <th>Rol</th>
-                      <th>Acciones</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -273,7 +270,7 @@ const adminCourses = ({ cookies }) => {
                         <td>
                           <Button
                             variant="danger"
-                            className={AdminStyles.HeaderBtn}
+                            className={AdminStyles.HeaderBtnPath}
                             onClick={() => {
                               let id = item._id;
                               DeleteUserCourse(id);
