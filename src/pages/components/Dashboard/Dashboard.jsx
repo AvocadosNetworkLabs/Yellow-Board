@@ -1,4 +1,10 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, {
+  useState,
+  useEffect,
+  lazy,
+  Suspense,
+  useLayoutEffect,
+} from 'react';
 import mainStyles from '../../../styles/main.module.scss';
 import Router from 'next/router';
 import { PacmanLoader, HashLoader } from 'react-spinners';
@@ -16,36 +22,55 @@ const Profile = lazy(() => import('./Profile'));
 const Cursos = lazy(() => import('./Cursos'));
 
 const Dashboard = ({ Mquery, cookies }) => {
+  const [cookieData, setcookiedata] = useState({
+    userData: {
+      id: '',
+      username: '',
+      name: '',
+      lastname: '',
+      password: '',
+      userType: '',
+      mail: '',
+      url: '/assets/profile/default.png',
+      direccion: '',
+      phone: '',
+      birthday: '',
+    },
+  });
   const TheLoading = () => <HashLoader />;
 
   const [time, setTime] = useState(5);
   const [view, setViews] = useState('tareas');
-  const session = Cookies.get('session');
 
   const [state, setstate] = useState({
     userCourses: [],
     userTasks: [],
   });
 
-  var data;
-
   const [loading, setloading] = useState(false);
-  const [Show, setShow] = useState(false);
-
   const setView = (view) => {
     setViews(view);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setloading(true);
+  }, []);
+
+  useEffect(() => {
     setTimeout(() => {
       setloading(false);
-    }, 1500);
+    }, 2500);
+  }, []);
+
+  useEffect(() => {
+    if (cookies.userData) {
+      setcookiedata(JSON.parse(cookies.userData));
+    }
   }, []);
 
   useEffect(async () => {
     if (view === 'cursos') {
-      const { id } = data;
+      const { id } = cookieData;
       setstate({ ...state, loading: true });
 
       setTimeout(async () => {
@@ -64,51 +89,15 @@ const Dashboard = ({ Mquery, cookies }) => {
     }
   }, [view]);
 
-  if (cookies.userData) {
-    if (session === 'true') data = JSON.parse(cookies.userData);
-  } else {
-    if (time < 0) {
-      setTime(0);
-      setTimeout(() => {
-        setShow(true);
-      }, 500);
-    } else {
-      setTimeout(() => {
-        setTime(time - 1);
-      }, 1000);
-    }
-
-    setTimeout(() => {
-      Router.push('/');
-    }, 1500);
-    return (
-      <>
-        <Navbar Mquery={Mquery} cookies={cookies} />
-        <div className={mainStyles.perload}>
-          <div className={mainStyles.preloadCard}>
-            <p className={mainStyles.preloadTitle}>
-              You need to login redirecting {time}
-            </p>
-            <HashLoader color="#ffc400" loading={loading} size={100} />
-            {Show ? (
-              <p className={mainStyles.preloadTitle}>
-                ⚠️ Your internet is slow please wait
-              </p>
-            ) : null}
-          </div>
-        </div>
-        <Footer />
-      </>
-    );
-  }
-
   if (loading === true) {
     return (
       <>
         <Navbar Mquery={Mquery} cookies={cookies} />
         <div className={mainStyles.perload}>
           <div className={mainStyles.preloadCard}>
-            <p className={mainStyles.preloadTitle}>Welcome back {data.name}!</p>
+            <p className={mainStyles.preloadTitle}>
+              Welcome back {cookieData.name}!
+            </p>
             <HashLoader color="#ffc400" loading={loading} size={100} />
           </div>
         </div>
@@ -117,7 +106,7 @@ const Dashboard = ({ Mquery, cookies }) => {
     );
   }
 
-  if (data.userType === 'a') {
+  if (cookieData.userType === 'a') {
     setTimeout(() => {
       Router.push('/admin ');
     }, 1500);
@@ -131,11 +120,11 @@ const Dashboard = ({ Mquery, cookies }) => {
           <>
             <Suspense fallback={TheLoading}>
               <div className={mainStyles.globalCont}>
-                <Menu view={view} data={data} setView={setView} />
+                <Menu view={view} data={cookieData} setView={setView} />
                 <div className={mainStyles.leftCont}>
                   <div className={mainStyles.headerM}>
                     <p>Actividades</p>
-                    {data.userType === 'm' ? <ButtonNew /> : <div></div>}
+                    {cookieData.userType === 'm' ? <ButtonNew /> : <div></div>}
                   </div>
                   <div className={mainStyles.postmContainer}>
                     <ActivityCard />
@@ -150,7 +139,7 @@ const Dashboard = ({ Mquery, cookies }) => {
           <>
             <Suspense fallback={TheLoading}>
               <div className={mainStyles.globalCont}>
-                <Menu view={view} data={data} setView={setView} />
+                <Menu view={view} data={cookieData} setView={setView} />
                 <div className={mainStyles.leftCont}>
                   <div className={mainStyles.postmContainer}>
                     {state.loading === true ? (
@@ -171,7 +160,7 @@ const Dashboard = ({ Mquery, cookies }) => {
                       state.userCourses.map((item) => (
                         <>
                           <Cursos
-                            userType={data.userType}
+                            userType={cookieData.userType}
                             userCourses={item.userCourses}
                           />
                         </>
@@ -187,10 +176,10 @@ const Dashboard = ({ Mquery, cookies }) => {
             <div>
               <Suspense fallback={TheLoading}>
                 <div className={mainStyles.globalCont}>
-                  <Menu view={view} data={data} setView={setView} />
+                  <Menu view={view} data={cookieData} setView={setView} />
                   <div className={mainStyles.leftCont}>
                     <div className={mainStyles.postmContainer}>
-                      <Profile data={data} />
+                      <Profile data={cookieData} />
                     </div>
                   </div>
                 </div>

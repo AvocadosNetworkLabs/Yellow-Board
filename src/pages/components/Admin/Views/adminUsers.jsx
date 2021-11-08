@@ -19,7 +19,21 @@ const adminUsers = ({ cookies }) => {
   const [Succes, setSucces] = useState(3);
   const [MSG, setMSG] = useState('');
   const session = Cookies.get('session');
-  var datas;
+  const [cookieData, setcookiedata] = useState({
+    userData: {
+      id: '',
+      username: '',
+      name: '',
+      lastname: '',
+      password: '',
+      userType: '',
+      mail: '',
+      url: '/assets/profile/default.png',
+      direccion: '',
+      phone: '',
+      birthday: '',
+    },
+  });
 
   const removealert = () => {
     setTimeout(() => {
@@ -80,6 +94,9 @@ const adminUsers = ({ cookies }) => {
 
   useEffect(async () => {
     setstate({ ...state, loading: true });
+    if (cookies.userData) {
+      setcookiedata(JSON.parse(cookies.userData));
+    }
     let res = await axios.get('/api/getUsers/');
     let data = res.data;
     setUsers(data.data);
@@ -109,44 +126,6 @@ const adminUsers = ({ cookies }) => {
       [e.target.name]: e.target.value,
     });
   };
-
-  if (cookies.userData) {
-    if (session === 'true') datas = JSON.parse(cookies.userData);
-  } else {
-    if (time < 0) {
-      setTime(0);
-      setTimeout(() => {
-        setShow(true);
-      }, 500);
-    } else {
-      setTimeout(() => {
-        setTime(time - 1);
-      }, 1000);
-    }
-
-    setTimeout(() => {
-      Router.push('/');
-    }, 5000);
-    return (
-      <>
-        <Navbar Mquery={Mquery} cookies={cookies} />
-        <div className={mainStyles.perload}>
-          <div className={mainStyles.preloadCard}>
-            <p className={mainStyles.preloadTitle}>
-              You need to login redirecting {time}
-            </p>
-            <HashLoader color="#ffc400" loading={loading} size={100} />
-            {Show ? (
-              <p className={mainStyles.preloadTitle}>
-                ⚠️ Your internet is slow please wait
-              </p>
-            ) : null}
-          </div>
-        </div>
-        <Footer />
-      </>
-    );
-  }
 
   return (
     <>
@@ -675,7 +654,7 @@ const adminUsers = ({ cookies }) => {
                       </>
                     ) : oneUser._id === '' ? (
                       <>
-                        {oneUser._id != datas.id ? (
+                        {oneUser._id != cookieData.id ? (
                           <Button disabled variant="danger">
                             Borrar
                           </Button>
@@ -686,7 +665,7 @@ const adminUsers = ({ cookies }) => {
                       </>
                     ) : (
                       <>
-                        {oneUser._id != datas.id ? (
+                        {oneUser._id != cookieData.id ? (
                           <Button
                             variant="danger"
                             onClick={() => {

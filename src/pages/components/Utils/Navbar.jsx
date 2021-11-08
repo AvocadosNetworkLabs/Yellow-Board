@@ -1,30 +1,91 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import Dstyles from '../../../styles/navbar.module.scss';
+import mainStyles from '../../../styles/main.module.scss';
+import HashLoader from 'react-spinners/HashLoader';
+
 import Router from 'next/router';
-import { Alert, Button } from 'react-bootstrap';
+import {
+  Alert,
+  Button,
+  Container,
+  Navbar,
+  OverlayTrigger,
+  Tooltip,
+} from 'react-bootstrap';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
 import useSound from 'use-sound';
 // import song from '';
 
-const Navbar = ({ Mquery, cookies }) => {
-  const [show, setShow] = useState(true);
+const Navbars = ({ Mquery, cookies }) => {
+  const [Show, setShow] = useState(false);
   const [playbackRate, setPlaybackRate] = useState(1);
   const [Song, setSong] = useState(1);
+  const [didPlay, setdidPlay] = useState(false);
+  const [loading, setloading] = useState(false);
+  const [cookieData, setcookiedata] = useState({
+    userData: {
+      id: '',
+      username: '',
+      name: '',
+      lastname: '',
+      password: '',
+      userType: '',
+      mail: '',
+      url: '/assets/profile/default.png',
+      direccion: '',
+      phone: '',
+      birthday: '',
+    },
+  });
 
   const [play, { stop }] = useSound(`/assets/songs/${Song}.mp3`, {
     playbackRate,
     interrupt: true,
     volume: 0.1,
   });
+  const renderTooltip = (props) => (
+    <Tooltip className={Dstyles.whiteTooltip} id="button-tooltip" {...props}>
+      {`Hey no me piques! o te pondre musica >:c`}
+    </Tooltip>
+  );
 
   const [count, setcount] = useState(0);
   const session = Cookies.get('session');
 
-  if (cookies.userData) {
-    var data = JSON.parse(cookies.userData);
-  }
+  useLayoutEffect(() => {
+    setloading(true);
+  }, []);
+
+  useEffect(() => {
+    if (cookies.userData && session === 'true') {
+      setcookiedata(JSON.parse(cookies.userData));
+    } else if (cookies.userData && session === 'false') {
+      logOut();
+    } else if (!cookies.userData && session === 'true') {
+      Router.push('/');
+      Cookies.set('session', false);
+    } else if (!cookies.userData && session === 'false') {
+      Router.push('/');
+    } else {
+      Router.push('/');
+      Cookies.set('session', 'false');
+    }
+
+    if (
+      cookieData.userType != 'a' &&
+      (cookieData.userType === 'u' || cookieData.userType === 'm')
+    ) {
+      setTimeout(() => {
+        Router.push('/dashboard');
+      }, 1500);
+    }
+
+    setTimeout(() => {
+      setloading(false);
+    }, 2500);
+  }, []);
 
   const logOut = async () => {
     await axios.get('/api/logout');
@@ -33,48 +94,42 @@ const Navbar = ({ Mquery, cookies }) => {
   };
 
   const theSong = () => {
-    console.log(count);
     setcount(count + 1);
-    if (count > 10) {
+    if (count === 10) {
       setShow(true);
     }
   };
 
   return (
-    <>
-      {count >= 10 ? (
-        <Alert show={show} className={Dstyles.alert} variant="success">
-          You click the logo for {count} times! you are very curious
-          <b> Play the song!</b>
-          <br />
-          <center>
-            <img
-              src="https://c.tenor.com/TbrvG1UPBX8AAAAd/never-gonna-give-you-up-dont-give.gif"
-              alt="Rickroll!!!!!1"
-            />
-          </center>
-          <br />
-          <center>
-            <Button onClick={() => setShow(false)} variant="success">
-              Close
-            </Button>
-          </center>
-        </Alert>
-      ) : null}
-      <nav className={Dstyles.Logo}>
+    <Navbar expand="lg" variant="dark" bg="dark" className={Dstyles.nav}>
+      <div>
         <div onClick={theSong}>
-          <img
-            onClick={() => {
-              if (data.userType === 'u' || data.userType === 'm') {
-                Router.push('/dasboard');
-              } else {
-                Router.push('/admin');
-              }
-            }}
-            src="https://media.discordapp.net/attachments/829935312657448977/829938121868312586/lt_bl.png"
-            alt="Logo"
-            className={Dstyles.LogoImg}
-          />
+          <OverlayTrigger
+            placement="bottom"
+            delay={{ show: 250, hide: 400 }}
+            overlay={renderTooltip}
+          >
+            <img
+              onClick={() => {
+                if (cookieData) {
+                  if (
+                    (cookieData && cookieData.userType === 'u') ||
+                    cookieData.userType === 'm'
+                  ) {
+                    Router.push('/dashboard');
+                  } else if (cookieData.userType === 'a') {
+                    Router.push('/admin');
+                  }
+                }
+                if (!cookieData) {
+                  Router.push('/');
+                }
+              }}
+              className={Dstyles.navLogo}
+              src="https://media.discordapp.net/attachments/906891142602305606/906911978646290452/yellowboard-removebg-preview1.png"
+              alt="yellowboar-logo"
+            />
+          </OverlayTrigger>
           {count >= 10 ? (
             <>
               <Button
@@ -88,7 +143,11 @@ const Navbar = ({ Mquery, cookies }) => {
                 />
               </Button>
               <Button
-                onClick={() => play()}
+                onClick={() => {
+                  setShow(true);
+                  setdidPlay(true);
+                  play();
+                }}
                 variant="light"
                 className={Dstyles.btnm}
               >
@@ -100,21 +159,47 @@ const Navbar = ({ Mquery, cookies }) => {
             </>
           ) : null}
         </div>
-        {session === 'true' ? (
-          <div className={Dstyles.profile}>
-            <img src={data.url} alt={`Profile of ${data.name}`} />
+        {count >= 10 ? (
+          <Alert show={show} className={Dstyles.alert} variant="success">
+            <center>
+              <p>
+                Te dije que no ahora te pondre este rolon!
+                <b> Dale PLAY!</b>
+              </p>
+              {didPlay === true ? (
+                <img
+                  src="https://c.tenor.com/TbrvG1UPBX8AAAAd/never-gonna-give-you-up-dont-give.gif"
+                  alt="Rickroll!!!!!1"
+                />
+              ) : null}
+              <p>number of click: {count}</p>
+              <Button onClick={() => setShow(false)} variant="success">
+                Close
+              </Button>
+            </center>
+          </Alert>
+        ) : null}
+      </div>
+      {session === 'true' ? (
+        <div className={Dstyles.navProfile}>
+          <div className={Dstyles.navProfileCont}>
+            <img
+              className={Dstyles.navProfileImg}
+              src={cookieData.url}
+              alt={`Profile of ${cookieData.name}`}
+            />
             <p className={Dstyles.profileName}>
-              {data.name}
-              <span>{data.lastname}</span>
+              {cookieData.name}
+              <span>{cookieData.lastname}</span>
             </p>
             <p className={Dstyles.profileLogout} onClick={logOut}>
               SALIR
             </p>
           </div>
-        ) : null}
-      </nav>
-    </>
+        </div>
+      ) : null}
+    </Navbar>
   );
 };
 
-export default Navbar;
+export default Navbars;

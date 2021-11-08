@@ -20,7 +20,7 @@ export default async (req, res) => {
             .json({ Success: 0, data: null, msg: 'Courses does not exists' });
         return res
           .status(200)
-          .json({ Success: 1, data: oneCourses, msg: `User found` });
+          .json({ Success: 1, data: oneCourses, msg: `Course found` });
       } catch (err) {
         return res.status(200).json({
           Success: 0,

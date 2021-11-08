@@ -25,8 +25,11 @@ const adminAlumnos = ({ cookies }) => {
 export const getServerSideProps = async (ctx) => {
   const { req, res } = ctx;
   const { cookies } = req;
-
-  return { props: { cookies: cookies || '' } };
+  let fakeCookie = {
+    userData:
+      '"id":"Error","username":"Error","name":"Error","lastname":"Error","password":"Error","userType":"u","mail":"error","url":"/assets/profile/default.png","direccion":"Error","phone":"Error","birthday":"2021-11-30"',
+  };
+  return { props: { cookies: cookies || fakeCookie } };
 };
 
 export default adminAlumnos;

@@ -4,11 +4,11 @@ const deliverySchema = new Schema(
   {
     userDeliver: {
       type: Types.ObjectId,
-      required: [true, 'Title is required'],
+      required: [true, 'User id is require is required'],
     },
     courseDeliver: {
       type: Types.ObjectId,
-      required: [true, 'Title is required'],
+      required: [true, 'Cours id is required'],
     },
     fileDeliver: {
       type: String,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
 import Navbar from '../Utils/Navbar';
 import Banner from './Banner';
 import Incentivos from './Incentivos';
@@ -11,23 +11,15 @@ import Cookies from 'js-cookie';
 export default function Main({ Mquery, cookies }) {
   const [loading, setloading] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setloading(true);
-    setTimeout(() => {
-      setloading(false);
-    }, 2000);
   }, []);
 
   useEffect(() => {
-    const session = Cookies.get('session');
-
-    if (session === 'true') {
-      let data = JSON.parse(cookies.userData);
-      if (data.userType === 'm' || data.userType === 'u')
-        Router.push('/dashboard');
-      if (data.userType === 'a') Router.push('/admin');
-    }
-  });
+    setTimeout(() => {
+      setloading(false);
+    }, 2500);
+  }, []);
 
   if (loading === true) {
     return (

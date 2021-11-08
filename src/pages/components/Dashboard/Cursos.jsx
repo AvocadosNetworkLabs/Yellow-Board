@@ -1,12 +1,18 @@
 import React from 'react';
 import cursosActivos from '../../../styles/cursos.module.scss';
+import Router from 'next/router';
+
 import { Button } from 'react-bootstrap';
 
-const Cursos = ({ userCourses, userType }) => {
+const Cursos = ({ userCourses, userType, id }) => {
   return (
     <div className={cursosActivos.mainCont}>
       <div className={cursosActivos.mainCard}>
-        <Button variant="dark" className={cursosActivos.viewcourses}>
+        <Button
+          variant="dark"
+          onClick={() => Router.push(`/dashboard/courses/${id}`)}
+          className={cursosActivos.viewcourses}
+        >
           Ver cursos
         </Button>
         {userType === 'm' ? (
