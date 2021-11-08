@@ -9,7 +9,7 @@ const Admin = () => {
       <div className={adminStyles.adminCont}>
         <Adminbtn
           path="alumnos"
-          title="Administrar alumnos"
+          title="Administrar usuarios"
           icon="/assets/icons/user.png"
         />
         <Adminbtn
