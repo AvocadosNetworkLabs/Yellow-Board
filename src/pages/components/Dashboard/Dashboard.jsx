@@ -13,7 +13,6 @@ import { Alert } from 'react-bootstrap';
 import Navbar from '../Utils/Navbar';
 import Footer from '../Utils/Footer';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 const ButtonNew = lazy(() => import('./ButtonNew'));
 const ActivityCard = lazy(() => import('./ActivityCard'));

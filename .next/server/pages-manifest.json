@@ -2,12 +2,5 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/dashboard": "pages/dashboard.js",
-  "/admin/courses": "pages/admin/courses.js",
-  "/api/courses/addCourse": "pages/api/courses/addCourse.js",
-  "/api/getUsers/typeUser": "pages/api/getUsers/typeUser.js",
-  "/": "pages/index.js",
-  "/api/logout": "pages/api/logout.js",
-  "/api/signin": "pages/api/signin.js",
-  "/api/courses": "pages/api/courses.js"
+  "/dashboard": "pages/dashboard.js"
 }
