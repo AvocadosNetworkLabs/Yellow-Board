@@ -10,9 +10,33 @@ import Cookies from 'js-cookie';
 
 export default function Main({ Mquery, cookies }) {
   const [loading, setloading] = useState(false);
+  const [cookieData, setcookiedata] = useState({
+    userData: {
+      id: '',
+      username: '',
+      name: '',
+      lastname: '',
+      password: '',
+      userType: '',
+      mail: '',
+      url: '/assets/profile/default.png',
+      direccion: '',
+      phone: '',
+      birthday: '',
+    },
+  });
 
   useLayoutEffect(() => {
     setloading(true);
+    let session = Cookies.get('session');
+    if (cookies.userData && session === 'true') {
+      setcookiedata(JSON.parse(cookies.userData));
+      if (cookieData === 'a') {
+        Router.push('/admin');
+      } else if (cookieData === 'u' || cookieData === 'm') {
+        Router.push('/dashboard');
+      }
+    }
   }, []);
 
   useEffect(() => {

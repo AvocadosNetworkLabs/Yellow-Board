@@ -25,7 +25,7 @@ const Menu = ({ setView, data, view }) => {
     <>
       <aside className={StylesMenu.menu}>
         <>
-          <p className={StylesMenu.user}>Bienvenid@ {data.name}</p>
+          <p className={StylesMenu.user}>Bienvenid@ {data.name || ''}</p>
           <a
             href="#"
             id="cursos"

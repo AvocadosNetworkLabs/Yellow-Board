@@ -5,13 +5,12 @@ import React, {
   Suspense,
   useLayoutEffect,
 } from 'react';
+import Navbar from 'pages/components/Utils/Navbar';
+import Footer from 'pages/components/Utils/Footer';
 import mainStyles from '../../../styles/main.module.scss';
 import Router from 'next/router';
-import { PacmanLoader, HashLoader } from 'react-spinners';
+import { HashLoader } from 'react-spinners';
 import { Alert } from 'react-bootstrap';
-
-import Navbar from '../Utils/Navbar';
-import Footer from '../Utils/Footer';
 import axios from 'axios';
 
 const ButtonNew = lazy(() => import('./ButtonNew'));
@@ -81,8 +80,6 @@ const Dashboard = ({ Mquery, cookies }) => {
           userCourses: results.data,
         });
       }, 2000);
-
-      // console.log('cursos', state.userCourses);
     } else if (view === 'tareas') {
     } else if (view === 'perfil') {
     }
@@ -106,9 +103,7 @@ const Dashboard = ({ Mquery, cookies }) => {
   }
 
   if (cookieData.userType === 'a') {
-    setTimeout(() => {
-      Router.push('/admin ');
-    }, 1500);
+    Router.push('/admin ');
   }
 
   return (
@@ -123,7 +118,11 @@ const Dashboard = ({ Mquery, cookies }) => {
                 <div className={mainStyles.leftCont}>
                   <div className={mainStyles.headerM}>
                     <p>Actividades</p>
-                    {cookieData.userType === 'm' ? <ButtonNew /> : <div></div>}
+                    {cookieData.userType === 'm' ? (
+                      <ButtonNew cookieData={cookieData} />
+                    ) : (
+                      <></>
+                    )}
                   </div>
                   <div className={mainStyles.postmContainer}>
                     <ActivityCard />
@@ -140,20 +139,27 @@ const Dashboard = ({ Mquery, cookies }) => {
               <div className={mainStyles.globalCont}>
                 <Menu view={view} data={cookieData} setView={setView} />
                 <div className={mainStyles.leftCont}>
-                  <div className={mainStyles.postmContainer}>
+                  <div className={mainStyles.headerM}>
+                    <p>Cursos</p>
+                  </div>
+                  <div className={mainStyles.coursesContainer}>
                     {state.loading === true ? (
                       <div className={mainStyles.preloadCard}>
                         <p className={mainStyles.preloadTitle2}>Loading...</p>
                         <HashLoader />
                       </div>
                     ) : state.userCourses.length === 0 ? (
-                      <div className={mainStyles.coursesAlert}>
-                        <Alert
-                          className={mainStyles.coursesAlertText}
-                          variant="info"
-                        >
-                          No estas incrito en ningun curso 🦐
-                        </Alert>
+                      <div className={mainStyles.nothingCount}>
+                        <p className={mainStyles.nothing}>
+                          Upsss!... No estas registrado en ningun curso
+                        </p>
+                        <center>
+                          <img
+                            className={mainStyles.nothingImg}
+                            src="https://media.tenor.com/images/d8ebb04280fd50216a4f846d330c5d3a/tenor.gif"
+                            alt="error loading"
+                          />
+                        </center>
                       </div>
                     ) : (
                       state.userCourses.map((item) => (
@@ -161,6 +167,7 @@ const Dashboard = ({ Mquery, cookies }) => {
                           <Cursos
                             userType={cookieData.userType}
                             userCourses={item.userCourses}
+                            id={item.courseId}
                           />
                         </>
                       ))

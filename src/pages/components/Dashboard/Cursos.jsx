@@ -6,28 +6,36 @@ import { Button } from 'react-bootstrap';
 
 const Cursos = ({ userCourses, userType, id }) => {
   return (
-    <div className={cursosActivos.mainCont}>
-      <div className={cursosActivos.mainCard}>
-        <Button
-          variant="dark"
-          onClick={() => Router.push(`/dashboard/courses/${id}`)}
-          className={cursosActivos.viewcourses}
-        >
-          Ver cursos
-        </Button>
-        {userType === 'm' ? (
+    <div className={cursosActivos.Main}>
+      <div className={cursosActivos.MainCard}>
+        <div className={cursosActivos.MainCardOptions}>
           <Button
-            variant="outline-success"
-            className={cursosActivos.createExam}
+            variant="dark"
+            onClick={() => Router.push(`/dashboard/courses/${id}`)}
+            className={cursosActivos.MainCardOptionsViewcourses}
           >
-            Crear exámen
+            Ver cursos
           </Button>
-        ) : null}
-        <div className={cursosActivos.datacont}>
-          <p className={cursosActivos.team}>{userCourses.courseName}</p>
           {userType === 'm' ? (
-            <p className={cursosActivos.data}>{userCourses.students} / 15</p>
+            <Button
+              variant="ligth"
+              className={cursosActivos.MainCardOptionsCreateExam}
+            >
+              Crear exámen
+            </Button>
           ) : null}
+        </div>
+        <div className={cursosActivos.MainCardData}>
+          <div>
+            <p className={cursosActivos.MainCardDataName}>
+              {userCourses.courseName}
+            </p>
+            {userType === 'm' ? (
+              <p className={cursosActivos.MainCardDataStudents}>
+                {userCourses.students} / 15
+              </p>
+            ) : null}
+          </div>
         </div>
       </div>
     </div>

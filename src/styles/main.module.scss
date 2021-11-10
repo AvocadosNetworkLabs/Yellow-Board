@@ -54,8 +54,8 @@
   }
 }
 
-.postuContainer {
-  width: 100%;
+.coursesContainer {
+  width: 80%;
   height: 90vh;
   margin-top: 1rem;
   margin: 0 auto;
@@ -151,5 +151,21 @@
     text-align: center;
     font-weight: bold;
     font-size: 1.8rem;
+  }
+}
+
+.nothing {
+  font-size: 4vh;
+  font-weight: 400;
+  margin: 0 auto;
+  text-align: center;
+  &Count {
+    display: flex;
+    flex-direction: column;
+  }
+  &Img {
+    width: 40%;
+    // height: 40rem;
+    margin-top: 5rem;
   }
 }

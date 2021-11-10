@@ -43,7 +43,7 @@ const Navbars = ({ Mquery, cookies }) => {
   const [play, { stop }] = useSound(`/assets/songs/${Song}.mp3`, {
     playbackRate,
     interrupt: true,
-    volume: 0.1,
+    volume: 1,
   });
   const renderTooltip = (props) => (
     <Tooltip className={Dstyles.whiteTooltip} id="button-tooltip" {...props}>
@@ -73,13 +73,11 @@ const Navbars = ({ Mquery, cookies }) => {
       Cookies.set('session', 'false');
     }
 
-    if (
-      cookieData.userType != 'a' &&
-      (cookieData.userType === 'u' || cookieData.userType === 'm')
-    ) {
-      setTimeout(() => {
-        Router.push('/dashboard');
-      }, 1500);
+    if (cookieData.userType === 'a') {
+      Router.push('/admin ');
+    }
+    if (cookieData.userType === 'u' || cookieData.userType === 'm') {
+      Router.push('/dashboard');
     }
 
     setTimeout(() => {
@@ -95,11 +93,10 @@ const Navbars = ({ Mquery, cookies }) => {
 
   const theSong = () => {
     setcount(count + 1);
-    if (count === 10) {
+    if (count >= 10) {
       setShow(true);
     }
   };
-
   return (
     <Navbar expand="lg" variant="dark" bg="dark" className={Dstyles.nav}>
       <div>
@@ -130,41 +127,42 @@ const Navbars = ({ Mquery, cookies }) => {
               alt="yellowboar-logo"
             />
           </OverlayTrigger>
-          {count >= 10 ? (
-            <>
-              <Button
-                onClick={() => stop()}
-                variant="light"
-                className={Dstyles.btnm}
-              >
-                <img
-                  src="https://cdn0.iconfinder.com/data/icons/music-sets/500/219-512.png"
-                  alt="play button"
-                />
-              </Button>
-              <Button
-                onClick={() => {
-                  setShow(true);
-                  setdidPlay(true);
-                  play();
-                }}
-                variant="light"
-                className={Dstyles.btnm}
-              >
-                <img
-                  src="https://vectorified.com/images/play-icon-png-14.png"
-                  alt="play button"
-                />
-              </Button>
-            </>
-          ) : null}
         </div>
         {count >= 10 ? (
-          <Alert show={show} className={Dstyles.alert} variant="success">
+          <Alert show={Show} className={Dstyles.alert} variant="success">
             <center>
               <p>
                 Te dije que no ahora te pondre este rolon!
                 <b> Dale PLAY!</b>
+                <br />
+                {count >= 10 ? (
+                  <>
+                    <Button
+                      onClick={() => stop()}
+                      variant="light"
+                      className={Dstyles.btnm}
+                    >
+                      <img
+                        src="https://cdn0.iconfinder.com/data/icons/music-sets/500/219-512.png"
+                        alt="play button"
+                      />
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        setShow(true);
+                        setdidPlay(true);
+                        play();
+                      }}
+                      variant="light"
+                      className={Dstyles.btnm}
+                    >
+                      <img
+                        src="https://vectorified.com/images/play-icon-png-14.png"
+                        alt="play button"
+                      />
+                    </Button>
+                  </>
+                ) : null}
               </p>
               {didPlay === true ? (
                 <img

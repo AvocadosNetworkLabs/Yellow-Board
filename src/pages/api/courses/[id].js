@@ -16,8 +16,8 @@ export default async (req, res) => {
         const oneCourses = await Courses.findById(id);
         if (!oneCourses)
           return res
-            .status(200)
-            .json({ Success: 0, data: null, msg: 'Courses does not exists' });
+            .status(404)
+            .json({ Success: 0, data: {}, msg: 'Courses does not exists' });
         return res
           .status(200)
           .json({ Success: 1, data: oneCourses, msg: `Course found` });
