@@ -1,31 +1,15 @@
-import formidable from 'formidable';
+import { IncomingForm } from 'formidable';
 import fs from 'fs';
+import path from 'path';
 
-export const config = {
-  api: {
-    bodyParse: false,
-  },
-};
-
-export default async (res, req) => {
+export default async (req, res) => {
   const { method, body } = req;
-
+  console.log(req.method, req.url);
+  console.log(req.files);
   switch (method) {
     case 'POST':
-      const form = new formidable.IncomingForm();
-      form.parse(req, async function (err, fields, files) {
-        console.log(files.file);
-        await saveFile(files.file);
-      });
-      return res.status(201).send('');
+      break;
     default:
       return res.status(200).json({ msg: 'method not suported 🐣' });
   }
-};
-
-const saveFile = async (file) => {
-  const data = fs.readFileSync(file.path);
-  fs.writeFileSync(`./public/documents/${file.name}`, data);
-  await fs.unlinkSync(file.path);
-  return;
 };

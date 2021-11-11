@@ -4,6 +4,7 @@ import buttonNew from '../../../styles/buttonnew.module.scss';
 import Dropzone from 'react-dropzone';
 import { ReactTinyLink } from 'react-tiny-link';
 import axios from 'axios';
+import FileUp from './Fileupload/Fileupload';
 
 const ButtonNew = ({ cookieData }) => {
   const maxFilesize = 10000000;
@@ -13,6 +14,8 @@ const ButtonNew = ({ cookieData }) => {
   const [filelist, setfilelist] = useState([]);
   const [courses, setcourses] = useState([]);
   const [inputVal, setinputVal] = useState(null);
+  const [Errormsg, setErrormsg] = useState(false);
+  const [ErrormsgId, setErrormsgId] = useState(false);
 
   const [state, setstate] = useState({
     extraResources: '',
@@ -147,7 +150,12 @@ const ButtonNew = ({ cookieData }) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className={buttonNew.ModalBody}>
-          <div className={buttonNew.ModalBodyForms}>
+          <form
+            action="/api/file"
+            method="POST"
+            encType="multipart/form-data"
+            className={buttonNew.ModalBodyForms}
+          >
             <div className={buttonNew.ModalBodyFormstwo}>
               <OverlayTrigger
                 placement="left"
@@ -160,6 +168,7 @@ const ButtonNew = ({ cookieData }) => {
                     <p className={buttonNew.ModalBodyActividad}>Actividad </p>
 
                     <input
+                      autocomplete="off"
                       onChange={(e) => {
                         setValues(e);
                       }}
@@ -176,6 +185,7 @@ const ButtonNew = ({ cookieData }) => {
                 <span>Titulo</span>
 
                 <input
+                  autocomplete="off"
                   onChange={(e) => {
                     setValues(e);
                   }}
@@ -193,8 +203,14 @@ const ButtonNew = ({ cookieData }) => {
             >
               <label>
                 <span>Materia</span>
+                {ErrormsgId === true ? (
+                  <Alert variant="danger" className={buttonNew.AlertTextDgr}>
+                    Error al registrar curso
+                  </Alert>
+                ) : null}
                 <div className={buttonNew.ModalBodyFormsthree}>
                   <input
+                    autocomplete="off"
                     name="course"
                     placeholder="Materia"
                     id="coursesList"
@@ -204,6 +220,14 @@ const ButtonNew = ({ cookieData }) => {
                       let input = document.getElementById('coursesList');
                       if (input.value.length === 24) {
                         input.disabled = true;
+                      } else if (
+                        input.value.length > 24 ||
+                        input.value.length < 24
+                      ) {
+                        setErrormsgId(true);
+                        setTimeout(() => {
+                          setErrormsgId(false);
+                        }, 5000);
                       }
                     }}
                     className={buttonNew.ModalBodyFormsInput}
@@ -233,6 +257,7 @@ const ButtonNew = ({ cookieData }) => {
               <span>Instrucciones | Explicacion</span>
 
               <textarea
+                autocomplete="off"
                 onChange={(e) => {
                   setValues(e);
                 }}
@@ -248,13 +273,19 @@ const ButtonNew = ({ cookieData }) => {
             >
               <label>
                 <span>Material Extra</span>
+                {Errormsg != false ? (
+                  <Alert variant="danger" className={buttonNew.AlertTextDgr}>
+                    No es un enlace
+                  </Alert>
+                ) : null}
                 <div className={buttonNew.ModalBodyFormsthree}>
                   <input
+                    autocomplete="off"
                     id="extrares"
                     onChange={(e) => {
                       setValues(e);
                     }}
-                    placeholder="Material extra"
+                    placeholder="Link de Youtube o paginas web"
                     name="extraResources"
                     className={buttonNew.ModalBodyFormsInput}
                   />
@@ -262,20 +293,32 @@ const ButtonNew = ({ cookieData }) => {
                   <div>
                     <Button
                       onClick={() => {
-                        setstate({
-                          ...state,
-                          extraResource: [
-                            ...state.extraResource,
-                            state.extraResources,
-                          ],
-                        });
-
                         let inputextra = document.getElementById('extrares');
+                        let match = '';
+
+                        try {
+                          match = new URL(inputextra.value);
+                        } catch (_) {
+                          setErrormsg(true);
+                          setTimeout(() => {
+                            setErrormsg(false);
+                          }, 5000);
+                        }
+
+                        if (
+                          match.protocol === 'http:' ||
+                          match.protocol === 'https:'
+                        ) {
+                          setstate({
+                            ...state,
+                            extraResource: [
+                              ...state.extraResource,
+                              state.extraResources,
+                            ],
+                            extraResources: '',
+                          });
+                        }
                         inputextra.value = '';
-                        setstate({
-                          ...state,
-                          extraResources: '',
-                        });
                       }}
                       variant="dark"
                     >
@@ -307,7 +350,12 @@ const ButtonNew = ({ cookieData }) => {
                             showGraphic={true}
                             maxLine={2}
                             minLine={1}
+                            header={`Material Extra ${key + 1}`}
                             url={link}
+                            autoPlay={true}
+                            proxyUrl={link}
+                            requestHeaders={true}
+                            description={`Material de clase con el que te podras apoyar visita: ${link}`}
                           ></ReactTinyLink>
                         </div>
                       ))}
@@ -324,6 +372,7 @@ const ButtonNew = ({ cookieData }) => {
               <span>Fecha limite</span>
 
               <input
+                autocomplete="off"
                 onChange={(e) => {
                   setValues(e);
                 }}
@@ -341,7 +390,9 @@ const ButtonNew = ({ cookieData }) => {
             >
               <label>
                 <span>Actividad (PDF, DOCX , PPTX)</span>
-                <Dropzone
+
+                <FileUp filelist={filelist} />
+                {/* <Dropzone
                   accept=".pptx, .pdf, .docx"
                   onDrop={handleOnDrop}
                   maxSize={maxFilesize}
@@ -352,7 +403,7 @@ const ButtonNew = ({ cookieData }) => {
                         className={buttonNew.DropzoneBorder}
                         {...getRootProps()}
                       >
-                        <input {...getInputProps()} />
+                        <input name="filetoupload" {...getInputProps()} />
                         <p>
                           Arrastre su archivo que desee subir o click para subir
                           uno
@@ -360,42 +411,11 @@ const ButtonNew = ({ cookieData }) => {
                       </div>
                     </div>
                   )}
-                </Dropzone>
-                <div className={buttonNew.FilesCont}>
-                  {filelist.length > 0 ? (
-                    <div className={buttonNew.FilesContFiles}>
-                      {filelist.map((file, key) => (
-                        <div key={key} className={buttonNew.Files}>
-                          <div className={buttonNew.FilesCard}>
-                            <p>{file.name}</p>
-                            <div className={buttonNew.FilesCardLeft}>
-                              <p>
-                                {((file.size * 10) / 10000000).toFixed(2)} MB
-                              </p>
-                              <Button
-                                variant="danger"
-                                className={buttonNew.buttonnew}
-                                onClick={() => {
-                                  removeItem(file, key);
-                                }}
-                              >
-                                Borrar
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <Alert className={buttonNew.AlertText} variant="info">
-                      Sube algun archivo para verlo aqui 🦐
-                    </Alert>
-                  )}
-                </div>
+                </Dropzone> */}
                 {/* <Fileupload /> */}
               </label>
             </OverlayTrigger>
-          </div>
+          </form>
         </Modal.Body>
         <Modal.Footer className={buttonNew.ModalFooter}>
           <Button variant="secondary" onClick={handleClose}>
