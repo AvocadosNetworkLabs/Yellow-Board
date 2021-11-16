@@ -9,36 +9,93 @@ import FileUp from './Fileupload/Fileupload';
 const ButtonNew = ({ cookieData }) => {
   const maxFilesize = 10000000;
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setstate({
+      ...state,
+      extraResource: [],
+    });
+  };
   const handleShow = () => setShow(true);
   const [filelist, setfilelist] = useState([]);
   const [courses, setcourses] = useState([]);
   const [inputVal, setinputVal] = useState(null);
   const [Errormsg, setErrormsg] = useState(false);
   const [ErrormsgId, setErrormsgId] = useState(false);
-
+  const [theFile, settheFile] = useState('');
+  const [FormError, setFormError] = useState('');
   const [state, setstate] = useState({
     extraResources: '',
     extraResource: [],
     files: [],
+    athor: cookieData.id,
   });
 
-  const uploadToServer = async () => {
-    setstate({ ...state, files: filelist });
-    console.log('full state', state);
-    let body = new FormData();
+  const uploadToClient = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const i = event.target.files[0];
+      let documentOriginalName = i.name;
+      let docChange = documentOriginalName.replace(/\s/g, '_');
+      console.log('Nombre Original ', i.name);
+      console.log('Con giones: ', docChange);
+      setstate({
+        ...state,
+        files: `/public/documents/${docChange}`,
+      });
+      settheFile(i);
+      // setCreateObjectURL(URL.createObjectURL(i));
+    }
+  };
 
-    body.append('files', state.files);
+  const uploadToServer = async (e) => {
+    if (
+      state.activityNum &&
+      state.athor &&
+      state.content &&
+      state.course &&
+      state.date &&
+      state.files &&
+      state.postTitle
+    ) {
+      if (state.activityNum == '' || state.activityNum === isNaN) {
+      } else if (state.athor == '') {
+        setFormError('⚠️ Error al crear tarea');
+        setTimeout(() => {
+          setFormError('');
+        }, 4000);
+      } else if (state.content == '') {
+        setFormError('⚠️ Error falta una descripcion');
+        setTimeout(() => {
+          setFormError('');
+        }, 4000);
+      } else if (state.course == '') {
+        setFormError('⚠️ Error falta elegir un curso');
+        setTimeout(() => {
+          setFormError('');
+        }, 4000);
+      } else if (state.data == '') {
+        setFormError('⚠️ Error falta agregar fecha de entrega');
+        setTimeout(() => {
+          setFormError('');
+        }, 4000);
+      } else if (state.file == '') {
+        setFormError('⚠️ Error falta agregar un archivo');
+        setTimeout(() => {
+          setFormError('');
+        }, 4000);
+      } else if (state.postTitle == '') {
+        setFormError('⚠️ Error falta el titulo de la actividad');
+        setTimeout(() => {
+          setFormError('');
+        }, 4000);
+      } else {
+        const body = new FormData();
+        body.append('file', theFile);
 
-    const response = await fetch('/api/file', {
-      method: 'POST',
-      body,
-    });
-    // await axios({
-    //   url: '/api/file',
-    //   method: 'POST',
-    //   data: formdata,
-    // });
+        let resFile = axios.post('/api/file', body);
+        let res = axios.post('/api/posts', state);
+      }
+    }
   };
 
   const setValues = (e) => {
@@ -123,6 +180,11 @@ const ButtonNew = ({ cookieData }) => {
 
   return (
     <>
+      {FormError != '' ? (
+        <Alert className={buttonNew.alert} variant="primary">
+          {FormError}
+        </Alert>
+      ) : null}
       <Button
         className={buttonNew.buttonnew}
         variant="dark"
@@ -391,7 +453,12 @@ const ButtonNew = ({ cookieData }) => {
               <label>
                 <span>Actividad (PDF, DOCX , PPTX)</span>
 
-                <FileUp filelist={filelist} />
+                <input
+                  type="file"
+                  name="myFile"
+                  onChange={uploadToClient}
+                  className={buttonNew.ModalBodyFormsInput}
+                />
                 {/* <Dropzone
                   accept=".pptx, .pdf, .docx"
                   onDrop={handleOnDrop}
@@ -411,7 +478,39 @@ const ButtonNew = ({ cookieData }) => {
                       </div>
                     </div>
                   )}
-                </Dropzone> */}
+                </Dropzone>
+                <div className={buttonNew.FilesCont}>
+                  {filelist.length > 0 ? (
+                    <div className={buttonNew.FilesContFiles}>
+                      {filelist.map((file, key) => (
+                        <div key={key} className={buttonNew.Files}>
+                          <div className={buttonNew.FilesCard}>
+                            <p>{file.name}</p>
+                            <div className={buttonNew.FilesCardLeft}>
+                              <p>
+                                {((file.size * 10) / 10000000).toFixed(2)} MB
+                              </p>
+                              <ProgressBar striped variant="success" now={40} />
+                              <Button
+                                variant="danger"
+                                className={buttonNew.buttonnew}
+                                onClick={() => {
+                                  removeItem(file, key);
+                                }}
+                              >
+                                Borrar
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <Alert className={buttonNew.AlertText} variant="info">
+                      Sube algun archivo para verlo aqui 🦐
+                    </Alert>
+                  )}
+                </div> */}
                 {/* <Fileupload /> */}
               </label>
             </OverlayTrigger>
@@ -423,8 +522,9 @@ const ButtonNew = ({ cookieData }) => {
           </Button>
           <Button
             variant="success"
-            onClick={() => {
-              uploadToServer();
+            type="submit"
+            onClick={(e) => {
+              uploadToServer(e);
               handleClose();
             }}
           >

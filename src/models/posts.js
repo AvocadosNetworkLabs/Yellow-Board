@@ -21,9 +21,7 @@ const postsSchema = new Schema(
     content: {
       type: String,
     },
-    extraResource: {
-      array: [String],
-    },
+    extraResource: [],
     file: {
       type: String,
     },
