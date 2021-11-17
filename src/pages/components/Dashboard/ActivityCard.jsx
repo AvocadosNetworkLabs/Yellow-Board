@@ -4,15 +4,34 @@ import ActivityCardStyles from '../../../styles/activitycard.module.scss';
 import axios from 'axios';
 import Link from 'next/link';
 
-const ActivityCard = ({ item }) => {
-  console.log(item);
-
+const ActivityCard = ({ item, setonAdd, onAdd }) => {
   let date = new Date(item.createdAt);
   let PostDate = `${date.getMonth()} / ${date.getDate()} / ${date.getFullYear()}`;
 
   return (
     <>
       <div className={ActivityCardStyles.activityCard}>
+        <div className={ActivityCardStyles.activityCardHeader}>
+          <div className={ActivityCardStyles.activityCardHeaderCont}>
+            <Button variant="dark">Edit</Button>
+            <Button
+              onClick={async () => {
+                let resfile = await axios.delete(`/api/file/${item._id}`, {
+                  data: {
+                    filePath: item.file,
+                  },
+                });
+                let data = resfile.data;
+                // console.log('onAdd antes: ', onAdd);
+                setonAdd(!onAdd);
+                // console.log('onAdd despues: ', onAdd);
+              }}
+              variant="danger"
+            >
+              Delete
+            </Button>
+          </div>
+        </div>
         <div className={ActivityCardStyles.header1}>
           <span>{`Actividad ${item.activityNum}`}</span>
           <span>{item.CoursData.courseName}</span>

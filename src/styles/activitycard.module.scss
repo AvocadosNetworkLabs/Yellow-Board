@@ -11,6 +11,21 @@
   border-radius: 2rem;
   transition: 1s;
 
+  &Header {
+    width: 100%;
+    &Cont {
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: flex-end;
+      Button {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        margin-left: 1rem;
+      }
+    }
+  }
+
   &:hover {
     transition: 1s;
     box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.5);

@@ -7,7 +7,7 @@ import axios from 'axios';
 import Link from 'next/link';
 // import FileUp from './Fileupload/Fileupload';
 
-const ButtonNew = ({ cookieData, courseId, setonAdd, onAdd, GetPosts }) => {
+const ButtonNew = ({ setonAdd, onAdd, cookieData, courseId }) => {
   const maxFilesize = 10000000;
   const [show, setShow] = useState(false);
   const handleClose = () => {
@@ -20,10 +20,6 @@ const ButtonNew = ({ cookieData, courseId, setonAdd, onAdd, GetPosts }) => {
       athor: cookieData.id,
     });
   };
-
-  useEffect(() => {
-    GetPosts(courseId);
-  }, [onAdd]);
 
   const handleShow = () => setShow(true);
   const [filelist, setfilelist] = useState([]);
@@ -49,7 +45,6 @@ const ButtonNew = ({ cookieData, courseId, setonAdd, onAdd, GetPosts }) => {
         file: `/documents/${docChange}`,
       });
       settheFile(i);
-      // setCreateObjectURL(URL.createObjectURL(i));
     }
   };
 
@@ -97,7 +92,7 @@ const ButtonNew = ({ cookieData, courseId, setonAdd, onAdd, GetPosts }) => {
       } else {
         const body = new FormData();
         body.append('file', theFile);
-
+        setonAdd(!onAdd);
         let resFile = axios.post('/api/file', body);
         let res = axios.post('/api/posts', state);
       }
@@ -106,7 +101,7 @@ const ButtonNew = ({ cookieData, courseId, setonAdd, onAdd, GetPosts }) => {
 
   const setValues = (e) => {
     setstate({ ...state, [e.target.name]: e.target.value });
-    console.log(state);
+    // console.log(state);
   };
 
   const renderTooltip = (props) => (
@@ -137,7 +132,7 @@ const ButtonNew = ({ cookieData, courseId, setonAdd, onAdd, GetPosts }) => {
     <Tooltip id="button-tooltip" className={buttonNew.tooltip} {...props}>
       <h3>🟢 Tip</h3>
       <hr />
-      <p>Solo puede agregar 1 archivo</p>
+      <p>Solo puede agregar 1 archivo y ES OBLIGATORIO SUBIR UN ARCHIVO</p>
     </Tooltip>
   );
 
@@ -485,6 +480,7 @@ const ButtonNew = ({ cookieData, courseId, setonAdd, onAdd, GetPosts }) => {
             type="submit"
             onClick={(e) => {
               uploadToServer(e);
+
               handleClose();
               setstate({
                 extraResources: '',
@@ -493,7 +489,6 @@ const ButtonNew = ({ cookieData, courseId, setonAdd, onAdd, GetPosts }) => {
                 file: '',
                 athor: cookieData.id,
               });
-              setonAdd(!onAdd);
             }}
           >
             Publicar

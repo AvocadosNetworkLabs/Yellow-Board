@@ -23,10 +23,14 @@ const CoursePage = ({ state, course, cookies, courseId }) => {
       birthday: '',
     },
   });
+
   const [onAdd, setonAdd] = useState(true);
   // const [coursID, setcourseID] = useState(courseId);
   const [courseList, setCourseList] = useState([]);
   useLayoutEffect(() => {}, []);
+  useEffect(() => {
+    GetPosts(courseId);
+  }, [onAdd]);
 
   useEffect(() => {
     if (cookies.userData) {
@@ -62,7 +66,6 @@ const CoursePage = ({ state, course, cookies, courseId }) => {
                   <ButtonNew
                     setonAdd={setonAdd}
                     onAdd={onAdd}
-                    GetPosts={GetPosts}
                     cookieData={cookieData}
                     courseId={course._id}
                   />
@@ -77,7 +80,12 @@ const CoursePage = ({ state, course, cookies, courseId }) => {
               <div className={Styles.MainContentActivitys}>
                 {courseList.length > 0 ? (
                   courseList.map((item, key) => (
-                    <ActivityCard item={item} key={key} />
+                    <ActivityCard
+                      setonAdd={setonAdd}
+                      onAdd={onAdd}
+                      item={item}
+                      key={key}
+                    />
                   ))
                 ) : (
                   <div className={mainStyles.nothingCount}>
