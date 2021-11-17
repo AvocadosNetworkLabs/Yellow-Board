@@ -7,7 +7,14 @@ import axios from 'axios';
 import Link from 'next/link';
 // import FileUp from './Fileupload/Fileupload';
 
-const ButtonNew = ({ setonAdd, onAdd, cookieData, courseId }) => {
+const ButtonNew = ({
+  setonAdd,
+  onAdd,
+  cookieData,
+  courseId,
+  FormError,
+  setFormError,
+}) => {
   const maxFilesize = 10000000;
   const [show, setShow] = useState(false);
   const handleClose = () => {
@@ -23,10 +30,9 @@ const ButtonNew = ({ setonAdd, onAdd, cookieData, courseId }) => {
 
   const handleShow = () => setShow(true);
   const [filelist, setfilelist] = useState([]);
-  const [courses, setcourses] = useState([]);
   const [Errormsg, setErrormsg] = useState(false);
   const [theFile, settheFile] = useState('');
-  const [FormError, setFormError] = useState('');
+  // const [FormError, setFormError] = useState('');
   const [state, setstate] = useState({
     extraResources: '',
     extraResource: [],
@@ -49,6 +55,7 @@ const ButtonNew = ({ setonAdd, onAdd, cookieData, courseId }) => {
   };
 
   const uploadToServer = async (e) => {
+    setonAdd(!onAdd);
     if (
       state.activityNum &&
       state.athor &&
@@ -59,6 +66,10 @@ const ButtonNew = ({ setonAdd, onAdd, cookieData, courseId }) => {
       state.postTitle
     ) {
       if (state.activityNum == '' || state.activityNum === isNaN) {
+        setFormError('⚠️ Error Numero actividad vacio');
+        setTimeout(() => {
+          setFormError('');
+        }, 4000);
       } else if (state.athor == '') {
         setFormError('⚠️ Error al crear tarea');
         setTimeout(() => {
@@ -92,7 +103,7 @@ const ButtonNew = ({ setonAdd, onAdd, cookieData, courseId }) => {
       } else {
         const body = new FormData();
         body.append('file', theFile);
-        setonAdd(!onAdd);
+
         let resFile = axios.post('/api/file', body);
         let res = axios.post('/api/posts', state);
       }
@@ -101,7 +112,6 @@ const ButtonNew = ({ setonAdd, onAdd, cookieData, courseId }) => {
 
   const setValues = (e) => {
     setstate({ ...state, [e.target.name]: e.target.value });
-    // console.log(state);
   };
 
   const renderTooltip = (props) => (
@@ -136,37 +146,11 @@ const ButtonNew = ({ setonAdd, onAdd, cookieData, courseId }) => {
     </Tooltip>
   );
 
-  const courseCall = async (id) => {
-    let res = await axios.post('/api/courses/userToCourseList/byid', {
-      id: id,
-    });
-    let data = res.data;
-    setcourses(data.data);
-  };
-
-  const removeItem = (file, key) => {
-    if (filelist.length > 1) {
-      const newArray = filelist.filter((elem) => elem.name !== file.name);
-
-      setfilelist(newArray);
-    } else {
-      const newArray = [];
-      setfilelist(newArray);
-    }
-  };
-
   return (
     <>
-      {FormError != '' ? (
-        <Alert className={buttonNew.alert} variant="primary">
-          {FormError}
-        </Alert>
-      ) : null}
       <Button
         variant="dark"
         onClick={() => {
-          const { id } = cookieData;
-          courseCall(id);
           handleShow();
         }}
       >
@@ -249,14 +233,6 @@ const ButtonNew = ({ setonAdd, onAdd, cookieData, courseId }) => {
                   disabled
                   className={buttonNew.ModalBodyFormsInput}
                 />
-                <datalist id="data">
-                  {courses.map((item, key) => (
-                    <option
-                      key={key}
-                      value={item._id}
-                    >{`${item.listCourse.courseName}`}</option>
-                  ))}
-                </datalist>
               </label>
             </OverlayTrigger>
             <label>
@@ -328,7 +304,7 @@ const ButtonNew = ({ setonAdd, onAdd, cookieData, courseId }) => {
                       }}
                       variant="dark"
                     >
-                      agregar
+                      Agregar
                     </Button>
                   </div>
                 </div>
@@ -472,11 +448,16 @@ const ButtonNew = ({ setonAdd, onAdd, cookieData, courseId }) => {
           </form>
         </Modal.Body>
         <Modal.Footer className={buttonNew.ModalFooter}>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button
+            className={buttonNew.HeaderBtn}
+            variant="danger"
+            onClick={handleClose}
+          >
             Cerrar
           </Button>
           <Button
-            variant="success"
+            className={buttonNew.HeaderBtn}
+            variant="dark"
             type="submit"
             onClick={(e) => {
               uploadToServer(e);

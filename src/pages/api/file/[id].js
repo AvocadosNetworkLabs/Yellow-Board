@@ -34,6 +34,27 @@ export default async (req, res) => {
           msg: '⚠️ Error al comunicarse',
         });
       }
+
+    case 'PUT':
+      try {
+        const updatedPosts = await Posts.findByIdAndUpdate(id, body, {
+          new: true,
+          runValidators: true,
+        });
+        if (!updatedPosts) return res.status(200).json();
+        return res.status(200).json({
+          Success: 1,
+          data: updatedPosts,
+          msg: `Post actualizado`,
+        });
+      } catch (err) {
+        return res.status(200).json({
+          Success: 0,
+          data: null,
+          msg: '⚠️ Error algun campo esta vacio',
+        });
+      }
+
     default:
       return res
         .status(200)

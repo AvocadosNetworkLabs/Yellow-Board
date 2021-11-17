@@ -24,19 +24,27 @@ const CoursePage = ({ state, course, cookies, courseId }) => {
     },
   });
 
-  const [onAdd, setonAdd] = useState(true);
-  // const [coursID, setcourseID] = useState(courseId);
+  const [FormError, setFormError] = useState('');
+  const [onAdd, setonAdd] = useState(false);
   const [courseList, setCourseList] = useState([]);
-  useLayoutEffect(() => {}, []);
-  useEffect(() => {
-    GetPosts(courseId);
+
+  useEffect(async () => {
+    const GetPosts2 = async (coursID) => {
+      const sendData = {
+        courseId: coursID,
+      };
+      const res = await axios.post('/api/posts/AllPosts', sendData);
+      const data = res.data;
+      setCourseList(data.data);
+    };
+    if (courseId != 404) GetPosts2(courseId);
   }, [onAdd]);
 
   useEffect(() => {
     if (cookies.userData) {
       setcookiedata(JSON.parse(cookies.userData));
     }
-    GetPosts(courseId);
+    if (courseId != 404) GetPosts(courseId);
   }, [courseId]);
 
   const GetPosts = async (coursID) => {
@@ -46,9 +54,17 @@ const CoursePage = ({ state, course, cookies, courseId }) => {
     const res = await axios.post('/api/posts/AllPosts', sendData);
     const data = res.data;
     setCourseList(data.data);
+    setonAdd(onAdd);
   };
 
   if (course) {
+    {
+      FormError != '' ? (
+        <Alert className={buttonNew.alert} variant="primary">
+          {FormError}
+        </Alert>
+      ) : null;
+    }
     if (state.userCourses.some((el) => el.courseId == course._id) === true) {
       return (
         <div className={Styles.Main}>
@@ -64,6 +80,8 @@ const CoursePage = ({ state, course, cookies, courseId }) => {
                 </Button>
                 {cookieData.userType === 'm' ? (
                   <ButtonNew
+                    FormError={FormError}
+                    setFormError={setFormError}
                     setonAdd={setonAdd}
                     onAdd={onAdd}
                     cookieData={cookieData}
@@ -82,8 +100,10 @@ const CoursePage = ({ state, course, cookies, courseId }) => {
                   courseList.map((item, key) => (
                     <ActivityCard
                       setonAdd={setonAdd}
+                      cookieData={cookieData}
                       onAdd={onAdd}
                       item={item}
+                      courseId={course._id}
                       key={key}
                     />
                   ))
