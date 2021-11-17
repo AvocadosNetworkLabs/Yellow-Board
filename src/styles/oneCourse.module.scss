@@ -22,6 +22,7 @@
     }
     Button {
       font-size: 2rem;
+      margin-left: 1rem;
     }
   }
 
@@ -78,5 +79,19 @@
   }
   Button {
     font-size: 2rem;
+  }
+}
+
+.headerM {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  p {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-top: 3rem;
+    margin-left: 3rem;
+    margin-bottom: 3rem;
   }
 }

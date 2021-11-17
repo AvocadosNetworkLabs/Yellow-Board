@@ -3,8 +3,5 @@
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
   "/dashboard": "pages/dashboard.js",
-  "/dashboard/courses/[id]": "pages/dashboard/courses/[id].js",
-  "/api/courses": "pages/api/courses.js",
-  "/api/courses/[id]": "pages/api/courses/[id].js",
-  "/api/courses/userinCourse": "pages/api/courses/userinCourse.js"
+  "/dashboard/courses/[id]": "pages/dashboard/courses/[id].js"
 }

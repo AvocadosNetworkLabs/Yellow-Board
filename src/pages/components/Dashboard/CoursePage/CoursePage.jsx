@@ -1,11 +1,48 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import ActivityCard from '../ActivityCard';
 import Styles from 'styles/oneCourse.module.scss';
+import mainStyles from '../../../../styles/main.module.scss';
 import { Button } from 'react-bootstrap';
 import router from 'next/router';
+import ButtonNew from '../ButtonNew';
+import axios from 'axios';
 
-const CoursePage = ({ state, course, cookies }) => {
+const CoursePage = ({ state, course, cookies, courseId }) => {
+  const [cookieData, setcookiedata] = useState({
+    userData: {
+      id: '',
+      username: '',
+      name: '',
+      lastname: '',
+      password: '',
+      userType: '',
+      mail: '',
+      url: '/assets/profile/default.png',
+      direccion: '',
+      phone: '',
+      birthday: '',
+    },
+  });
+  const [onAdd, setonAdd] = useState(true);
+  // const [coursID, setcourseID] = useState(courseId);
+  const [courseList, setCourseList] = useState([]);
   useLayoutEffect(() => {}, []);
+
+  useEffect(() => {
+    if (cookies.userData) {
+      setcookiedata(JSON.parse(cookies.userData));
+    }
+    GetPosts(courseId);
+  }, [courseId]);
+
+  const GetPosts = async (coursID) => {
+    const sendData = {
+      courseId: coursID,
+    };
+    const res = await axios.post('/api/posts/AllPosts', sendData);
+    const data = res.data;
+    setCourseList(data.data);
+  };
 
   if (course) {
     if (state.userCourses.some((el) => el.courseId == course._id) === true) {
@@ -14,18 +51,48 @@ const CoursePage = ({ state, course, cookies }) => {
           <div className={Styles.MainContainer}>
             <div className={Styles.MainHeader}>
               <p className={Styles.MainHeaderTitle}>{course.courseName}</p>
-              <Button variant="dark" onClick={() => router.push('/dashboard')}>
-                Regresar
-              </Button>
+              <div>
+                <Button
+                  variant="dark"
+                  onClick={() => router.push('/dashboard')}
+                >
+                  Regresar
+                </Button>
+                {cookieData.userType === 'm' ? (
+                  <ButtonNew
+                    setonAdd={setonAdd}
+                    onAdd={onAdd}
+                    GetPosts={GetPosts}
+                    cookieData={cookieData}
+                    courseId={course._id}
+                  />
+                ) : (
+                  <></>
+                )}
+              </div>
             </div>
             <hr />
             <div className={Styles.MainContent}>
-              {cookies.id}
               <p className={Styles.MainContentTitle}>Actividades</p>
               <div className={Styles.MainContentActivitys}>
-                <ActivityCard />
-                <ActivityCard />
-                <ActivityCard />
+                {courseList.length > 0 ? (
+                  courseList.map((item, key) => (
+                    <ActivityCard item={item} key={key} />
+                  ))
+                ) : (
+                  <div className={mainStyles.nothingCount}>
+                    <p className={mainStyles.nothing}>
+                      Upsss!... No tienes actividades
+                    </p>
+                    <center>
+                      <img
+                        className={mainStyles.nothingImg}
+                        src="https://media.tenor.com/images/d8ebb04280fd50216a4f846d330c5d3a/tenor.gif"
+                        alt="error loading"
+                      />
+                    </center>
+                  </div>
+                )}
               </div>
             </div>
           </div>

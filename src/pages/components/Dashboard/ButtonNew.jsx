@@ -1,33 +1,41 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { Modal, Button, OverlayTrigger, Tooltip, Alert } from 'react-bootstrap';
 import buttonNew from '../../../styles/buttonnew.module.scss';
-import Dropzone from 'react-dropzone';
-import { ReactTinyLink } from 'react-tiny-link';
+// import Dropzone from 'react-dropzone';
+// import { ReactTinyLink } from 'react-tiny-link';
 import axios from 'axios';
-import FileUp from './Fileupload/Fileupload';
+import Link from 'next/link';
+// import FileUp from './Fileupload/Fileupload';
 
-const ButtonNew = ({ cookieData }) => {
+const ButtonNew = ({ cookieData, courseId, setonAdd, onAdd, GetPosts }) => {
   const maxFilesize = 10000000;
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);
     setstate({
-      ...state,
+      extraResources: '',
       extraResource: [],
+      course: courseId,
+      file: '',
+      athor: cookieData.id,
     });
   };
+
+  useEffect(() => {
+    GetPosts(courseId);
+  }, [onAdd]);
+
   const handleShow = () => setShow(true);
   const [filelist, setfilelist] = useState([]);
   const [courses, setcourses] = useState([]);
-  const [inputVal, setinputVal] = useState(null);
   const [Errormsg, setErrormsg] = useState(false);
-  const [ErrormsgId, setErrormsgId] = useState(false);
   const [theFile, settheFile] = useState('');
   const [FormError, setFormError] = useState('');
   const [state, setstate] = useState({
     extraResources: '',
     extraResource: [],
-    files: [],
+    course: courseId,
+    file: '',
     athor: cookieData.id,
   });
 
@@ -36,11 +44,9 @@ const ButtonNew = ({ cookieData }) => {
       const i = event.target.files[0];
       let documentOriginalName = i.name;
       let docChange = documentOriginalName.replace(/\s/g, '_');
-      console.log('Nombre Original ', i.name);
-      console.log('Con giones: ', docChange);
       setstate({
         ...state,
-        files: `/public/documents/${docChange}`,
+        file: `/documents/${docChange}`,
       });
       settheFile(i);
       // setCreateObjectURL(URL.createObjectURL(i));
@@ -54,7 +60,7 @@ const ButtonNew = ({ cookieData }) => {
       state.content &&
       state.course &&
       state.date &&
-      state.files &&
+      state.file &&
       state.postTitle
     ) {
       if (state.activityNum == '' || state.activityNum === isNaN) {
@@ -114,7 +120,7 @@ const ButtonNew = ({ cookieData }) => {
     <Tooltip id="button-tooltip" className={buttonNew.tooltip} {...props}>
       <h3>🟢 Tip</h3>
       <hr />
-      <p>Boton para editar el curso</p>
+      <p>La materia se selecciona automaticamente</p>
     </Tooltip>
   );
   const renderTooltipthree = (props) => (
@@ -131,33 +137,9 @@ const ButtonNew = ({ cookieData }) => {
     <Tooltip id="button-tooltip" className={buttonNew.tooltip} {...props}>
       <h3>🟢 Tip</h3>
       <hr />
-      <p>Solo puede agregar mas de 1 archivo la primera vez</p>
+      <p>Solo puede agregar 1 archivo</p>
     </Tooltip>
   );
-
-  const handleOnDrop = (file, rejectedFiles) => {
-    if (rejectedFiles && rejectedFiles.length > 0) {
-      const rechasado = rejectedFiles[0];
-      const filesize = rechasado.file.size;
-      const fileType = rechasado.file.type;
-      if (filesize > maxFilesize) {
-        alert('Archivo muy largo el maximo permitido son 10 MB');
-      } else if (
-        fileType != '.pdf' ||
-        fileType != '.pptx' ||
-        fileType != '.docx'
-      ) {
-        alert('Archivo no soportado debe ser PPTX, PDF o Docx');
-      }
-    }
-    if (filelist.length > 0) {
-      setfilelist([...filelist, file[0]]);
-      console.log('dentro del if', filelist);
-    } else {
-      console.log(filelist);
-      setfilelist(file);
-    }
-  };
 
   const courseCall = async (id) => {
     let res = await axios.post('/api/courses/userToCourseList/byid', {
@@ -186,13 +168,10 @@ const ButtonNew = ({ cookieData }) => {
         </Alert>
       ) : null}
       <Button
-        className={buttonNew.buttonnew}
         variant="dark"
         onClick={() => {
-          // console.log(cookieData.id);
           const { id } = cookieData;
           courseCall(id);
-          console.log('cursos', courses);
           handleShow();
         }}
       >
@@ -230,7 +209,7 @@ const ButtonNew = ({ cookieData }) => {
                     <p className={buttonNew.ModalBodyActividad}>Actividad </p>
 
                     <input
-                      autocomplete="off"
+                      autoComplete="off"
                       onChange={(e) => {
                         setValues(e);
                       }}
@@ -247,7 +226,7 @@ const ButtonNew = ({ cookieData }) => {
                 <span>Titulo</span>
 
                 <input
-                  autocomplete="off"
+                  autoComplete="off"
                   onChange={(e) => {
                     setValues(e);
                   }}
@@ -265,46 +244,16 @@ const ButtonNew = ({ cookieData }) => {
             >
               <label>
                 <span>Materia</span>
-                {ErrormsgId === true ? (
-                  <Alert variant="danger" className={buttonNew.AlertTextDgr}>
-                    Error al registrar curso
-                  </Alert>
-                ) : null}
-                <div className={buttonNew.ModalBodyFormsthree}>
-                  <input
-                    autocomplete="off"
-                    name="course"
-                    placeholder="Materia"
-                    id="coursesList"
-                    list="data"
-                    onChange={(e) => {
-                      setValues(e);
-                      let input = document.getElementById('coursesList');
-                      if (input.value.length === 24) {
-                        input.disabled = true;
-                      } else if (
-                        input.value.length > 24 ||
-                        input.value.length < 24
-                      ) {
-                        setErrormsgId(true);
-                        setTimeout(() => {
-                          setErrormsgId(false);
-                        }, 5000);
-                      }
-                    }}
-                    className={buttonNew.ModalBodyFormsInput}
-                  />
-                  <Button
-                    onClick={() => {
-                      let input = document.getElementById('coursesList');
-                      setinputVal(!inputVal);
-                      input.disabled = inputVal;
-                    }}
-                    variant="dark"
-                  >
-                    Corregir
-                  </Button>
-                </div>
+                <input
+                  autoComplete="off"
+                  name="course"
+                  placeholder="Materia"
+                  id="coursesList"
+                  list="data"
+                  defaultValue={state.course}
+                  disabled
+                  className={buttonNew.ModalBodyFormsInput}
+                />
                 <datalist id="data">
                   {courses.map((item, key) => (
                     <option
@@ -319,7 +268,7 @@ const ButtonNew = ({ cookieData }) => {
               <span>Instrucciones | Explicacion</span>
 
               <textarea
-                autocomplete="off"
+                autoComplete="off"
                 onChange={(e) => {
                   setValues(e);
                 }}
@@ -342,7 +291,7 @@ const ButtonNew = ({ cookieData }) => {
                 ) : null}
                 <div className={buttonNew.ModalBodyFormsthree}>
                   <input
-                    autocomplete="off"
+                    autoComplete="off"
                     id="extrares"
                     onChange={(e) => {
                       setValues(e);
@@ -405,8 +354,18 @@ const ButtonNew = ({ cookieData }) => {
                   {state.extraResource.length > 0 ? (
                     <div className={buttonNew.ExtraLinks}>
                       {state.extraResource.map((link, key) => (
-                        <div className={buttonNew.ExtraLinksCard}>
-                          <ReactTinyLink
+                        <div key={key} className={buttonNew.ExtraLinks}>
+                          <Link target="_blank" href={link}>
+                            <div className={buttonNew.ExtraLinksCard}>
+                              <p
+                                className={buttonNew.ExtraLinksCardTitle}
+                              >{`Material Extra ${key + 1}`}</p>
+                              <p
+                                className={buttonNew.ExtraLinksCardDescription}
+                              >{`Material de clase con el que te podras apoyar visita: ${link}`}</p>
+                            </div>
+                          </Link>
+                          {/* <ReactTinyLink
                             key={key}
                             cardSize="small"
                             showGraphic={true}
@@ -418,7 +377,7 @@ const ButtonNew = ({ cookieData }) => {
                             proxyUrl={link}
                             requestHeaders={true}
                             description={`Material de clase con el que te podras apoyar visita: ${link}`}
-                          ></ReactTinyLink>
+                          ></ReactTinyLink> */}
                         </div>
                       ))}
                     </div>
@@ -434,7 +393,7 @@ const ButtonNew = ({ cookieData }) => {
               <span>Fecha limite</span>
 
               <input
-                autocomplete="off"
+                autoComplete="off"
                 onChange={(e) => {
                   setValues(e);
                 }}
@@ -456,6 +415,7 @@ const ButtonNew = ({ cookieData }) => {
                 <input
                   type="file"
                   name="myFile"
+                  accept=".pptx, .pdf, .docx"
                   onChange={uploadToClient}
                   className={buttonNew.ModalBodyFormsInput}
                 />
@@ -526,6 +486,14 @@ const ButtonNew = ({ cookieData }) => {
             onClick={(e) => {
               uploadToServer(e);
               handleClose();
+              setstate({
+                extraResources: '',
+                extraResource: [],
+                course: courseId,
+                file: '',
+                athor: cookieData.id,
+              });
+              setonAdd(!onAdd);
             }}
           >
             Publicar

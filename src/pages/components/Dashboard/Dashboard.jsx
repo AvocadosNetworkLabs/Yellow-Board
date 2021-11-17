@@ -36,9 +36,7 @@ const Dashboard = ({ Mquery, cookies }) => {
     },
   });
   const TheLoading = () => <HashLoader />;
-
-  const [time, setTime] = useState(5);
-  const [view, setViews] = useState('tareas');
+  const [view, setViews] = useState('perfil');
 
   const [state, setstate] = useState({
     userCourses: [],
@@ -80,7 +78,6 @@ const Dashboard = ({ Mquery, cookies }) => {
           userCourses: results.data,
         });
       }, 2000);
-    } else if (view === 'tareas') {
     } else if (view === 'perfil') {
     }
   }, [view]);
@@ -110,30 +107,7 @@ const Dashboard = ({ Mquery, cookies }) => {
     <>
       <Navbar Mquery={Mquery} cookies={cookies} />
       <div className={mainStyles.bodyAll}>
-        {view === 'tareas' ? (
-          <>
-            <Suspense fallback={TheLoading}>
-              <div className={mainStyles.globalCont}>
-                <Menu view={view} data={cookieData} setView={setView} />
-                <div className={mainStyles.leftCont}>
-                  <div className={mainStyles.headerM}>
-                    <p>Actividades</p>
-                    {cookieData.userType === 'm' ? (
-                      <ButtonNew cookieData={cookieData} />
-                    ) : (
-                      <></>
-                    )}
-                  </div>
-                  <div className={mainStyles.postmContainer}>
-                    <ActivityCard />
-                    <ActivityCard />
-                    <ActivityCard />
-                  </div>
-                </div>
-              </div>
-            </Suspense>
-          </>
-        ) : view === 'cursos' ? (
+        {view === 'cursos' ? (
           <>
             <Suspense fallback={TheLoading}>
               <div className={mainStyles.globalCont}>
@@ -165,7 +139,7 @@ const Dashboard = ({ Mquery, cookies }) => {
                       state.userCourses.map((item) => (
                         <>
                           <Cursos
-                            userType={cookieData.userType}
+                            cookieData={cookieData.userType}
                             userCourses={item.userCourses}
                             id={item.courseId}
                           />

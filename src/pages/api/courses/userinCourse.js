@@ -1,7 +1,5 @@
 import { dbConnect } from '../../../utils/db';
-import { Types } from 'mongoose';
 import Courses from 'models/coursesandusers';
-const ObjectId = Types.ObjectId;
 
 dbConnect();
 

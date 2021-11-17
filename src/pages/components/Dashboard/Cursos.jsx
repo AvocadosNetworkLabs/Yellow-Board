@@ -4,7 +4,7 @@ import Router from 'next/router';
 
 import { Button } from 'react-bootstrap';
 
-const Cursos = ({ userCourses, userType, id }) => {
+const Cursos = ({ userCourses, cookieData, id }) => {
   return (
     <div className={cursosActivos.Main}>
       <div className={cursosActivos.MainCard}>
@@ -16,7 +16,7 @@ const Cursos = ({ userCourses, userType, id }) => {
           >
             Ver cursos
           </Button>
-          {userType === 'm' ? (
+          {cookieData === 'm' ? (
             <Button
               variant="ligth"
               className={cursosActivos.MainCardOptionsCreateExam}
@@ -30,7 +30,7 @@ const Cursos = ({ userCourses, userType, id }) => {
             <p className={cursosActivos.MainCardDataName}>
               {userCourses.courseName}
             </p>
-            {userType === 'm' ? (
+            {cookieData === 'm' ? (
               <p className={cursosActivos.MainCardDataStudents}>
                 {userCourses.students} / 15
               </p>

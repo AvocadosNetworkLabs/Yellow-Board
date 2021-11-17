@@ -7,16 +7,9 @@ const Menu = ({ setView, data, view }) => {
     if (view === 'cursos') {
       document.getElementById('cursos').classList.add('active');
       document.getElementById('perfil').classList.remove('active');
-      document.getElementById('tareas').classList.remove('active');
     }
     if (view === 'perfil') {
       document.getElementById('perfil').classList.add('active');
-      document.getElementById('cursos').classList.remove('active');
-      document.getElementById('tareas').classList.remove('active');
-    }
-    if (view === 'tareas') {
-      document.getElementById('tareas').classList.add('active');
-      document.getElementById('perfil').classList.remove('active');
       document.getElementById('cursos').classList.remove('active');
     }
   }, [view]);
@@ -27,7 +20,7 @@ const Menu = ({ setView, data, view }) => {
         <>
           <p className={StylesMenu.user}>Bienvenid@ {data.name || ''}</p>
           <a
-            href="#"
+            href="#courses"
             id="cursos"
             onClick={() => {
               setView('cursos');
@@ -36,16 +29,7 @@ const Menu = ({ setView, data, view }) => {
             Cursos
           </a>
           <a
-            href="#"
-            id="tareas"
-            onClick={(e) => {
-              setView('tareas');
-            }}
-          >
-            Tareas
-          </a>
-          <a
-            href="#"
+            href="#profile"
             id="perfil"
             onClick={(e) => {
               setView('perfil');

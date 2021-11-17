@@ -76,6 +76,7 @@ const curso = ({ course, cookies }) => {
         setcookiedata={setcookiedata}
         state={state}
         course={courseData}
+        courseId={courseData._id}
         cookies={cookies}
       />
       <Footer />
