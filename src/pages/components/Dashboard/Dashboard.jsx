@@ -13,8 +13,6 @@ import { HashLoader } from 'react-spinners';
 import { Alert } from 'react-bootstrap';
 import axios from 'axios';
 
-const ButtonNew = lazy(() => import('./ButtonNew'));
-const ActivityCard = lazy(() => import('./ActivityCard'));
 const Menu = lazy(() => import('./Menu'));
 const Profile = lazy(() => import('./Profile'));
 const Cursos = lazy(() => import('./Cursos'));

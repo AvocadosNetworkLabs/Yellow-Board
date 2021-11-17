@@ -19,6 +19,7 @@ const Cursos = ({ userCourses, cookieData, id }) => {
           {cookieData === 'm' ? (
             <Button
               variant="ligth"
+              onClick={() => Router.push(`/dashboard/Exams/${id}`)}
               className={cursosActivos.MainCardOptionsCreateExam}
             >
               Crear exámen
