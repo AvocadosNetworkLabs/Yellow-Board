@@ -5,6 +5,7 @@ import mainStyles from '../../../../styles/main.module.scss';
 import { Button } from 'react-bootstrap';
 import router from 'next/router';
 import ButtonNew from '../ButtonNew';
+import { HashLoader } from 'react-spinners';
 import axios from 'axios';
 
 const CoursePage = ({ state, course, cookies, courseId }) => {
@@ -25,26 +26,16 @@ const CoursePage = ({ state, course, cookies, courseId }) => {
   });
 
   const [FormError, setFormError] = useState('');
-  const [onAdd, setonAdd] = useState(false);
   const [courseList, setCourseList] = useState([]);
-
-  useEffect(async () => {
-    const GetPosts2 = async (coursID) => {
-      const sendData = {
-        courseId: coursID,
-      };
-      const res = await axios.post('/api/posts/AllPosts', sendData);
-      const data = res.data;
-      setCourseList(data.data);
-    };
-    if (courseId != 404) GetPosts2(courseId);
-  }, [onAdd]);
+  const [Loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     if (cookies.userData) {
       setcookiedata(JSON.parse(cookies.userData));
     }
-    if (courseId != 404) GetPosts(courseId);
+    GetPosts(courseId);
+    setLoading(false);
   }, [courseId]);
 
   const GetPosts = async (coursID) => {
@@ -54,7 +45,6 @@ const CoursePage = ({ state, course, cookies, courseId }) => {
     const res = await axios.post('/api/posts/AllPosts', sendData);
     const data = res.data;
     setCourseList(data.data);
-    setonAdd(onAdd);
   };
 
   if (course) {
@@ -81,9 +71,10 @@ const CoursePage = ({ state, course, cookies, courseId }) => {
                 {cookieData.userType === 'm' ? (
                   <ButtonNew
                     FormError={FormError}
+                    GetPosts={GetPosts}
                     setFormError={setFormError}
-                    setonAdd={setonAdd}
-                    onAdd={onAdd}
+                    setLoading={setLoading}
+                    setCourseList={setCourseList}
                     cookieData={cookieData}
                     courseId={course._id}
                   />
@@ -96,14 +87,18 @@ const CoursePage = ({ state, course, cookies, courseId }) => {
             <div className={Styles.MainContent}>
               <p className={Styles.MainContentTitle}>Actividades</p>
               <div className={Styles.MainContentActivitys}>
-                {courseList.length > 0 ? (
+                {Loading === true ? (
+                  <div className={mainStyles.preloadCard}>
+                    <p className={mainStyles.preloadTitle2}>Loading...</p>
+                    <HashLoader />
+                  </div>
+                ) : courseList.length > 0 ? (
                   courseList.map((item, key) => (
                     <ActivityCard
-                      setonAdd={setonAdd}
                       cookieData={cookieData}
-                      onAdd={onAdd}
+                      setCourseList={setCourseList}
+                      setLoading={setLoading}
                       item={item}
-                      courseId={course._id}
                       key={key}
                     />
                   ))

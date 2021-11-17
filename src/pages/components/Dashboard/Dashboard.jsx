@@ -55,7 +55,7 @@ const Dashboard = ({ Mquery, cookies }) => {
   useEffect(() => {
     setTimeout(() => {
       setloading(false);
-    }, 2500);
+    }, 4500);
   }, []);
 
   useEffect(() => {

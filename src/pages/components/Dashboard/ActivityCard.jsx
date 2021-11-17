@@ -6,12 +6,14 @@ import axios from 'axios';
 import Link from 'next/link';
 import { Modal, Alert } from 'react-bootstrap';
 
-const ActivityCard = ({ item, setonAdd, onAdd, cookieData, courseId }) => {
+const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
+  const [onEdit, setonEdit] = useState(false);
   let date = new Date(item.createdAt);
   let PostDate = `${date.getMonth()} / ${date.getDate()} / ${date.getFullYear()}`;
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);
+    setonEdit(!onEdit);
   };
   const [Errormsg, setErrormsg] = useState(false);
 
@@ -27,6 +29,36 @@ const ActivityCard = ({ item, setonAdd, onAdd, cookieData, courseId }) => {
     athor: cookieData.id,
     date: item.date,
   });
+
+  useEffect(() => {
+    setstate({
+      _id: item._id,
+      activityNum: item.activityNum,
+      postTitle: item.postTitle,
+      content: item.content,
+      extraResources: '',
+      extraResource: item.extraResource,
+      course: item.course,
+      file: item.file,
+      athor: cookieData.id,
+      date: item.date,
+    });
+  }, []);
+
+  useEffect(() => {
+    setLoading(true);
+    const GetPosts2 = async (coursID) => {
+      const sendData = {
+        courseId: coursID,
+      };
+      const res = await axios.post('/api/posts/AllPosts', sendData);
+      const data = res.data;
+      setCourseList(data.data);
+    };
+    GetPosts2(state.course);
+    setLoading(false);
+  }, [onEdit]);
+
   const setValues = (e) => {
     setstate({ ...state, [e.target.name]: e.target.value });
   };
@@ -73,7 +105,7 @@ const ActivityCard = ({ item, setonAdd, onAdd, cookieData, courseId }) => {
           setFormError('');
         }, 4000);
       } else {
-        setonAdd(!onAdd);
+        setonEdit(!onEdit);
 
         let res = await axios.put(`/api/file/${state._id}`, state);
       }
@@ -96,14 +128,9 @@ const ActivityCard = ({ item, setonAdd, onAdd, cookieData, courseId }) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className={buttonNew.ModalBody}>
-          <form
-            action="/api/file"
-            method="POST"
-            encType="multipart/form-data"
-            className={buttonNew.ModalBodyForms}
-          >
+          <form className={buttonNew.ModalBodyForms}>
             <div className={buttonNew.ModalBodyFormstwo}>
-              <label>
+              <label for="activityNum">
                 <span>Numero de Actividad</span>
                 <div className={buttonNew.ModalBodyFormstwo}>
                   <p className={buttonNew.ModalBodyActividad}>Actividad </p>
@@ -122,7 +149,7 @@ const ActivityCard = ({ item, setonAdd, onAdd, cookieData, courseId }) => {
                   />
                 </div>
               </label>
-              <label>
+              <label for="postTitle">
                 <span>Titulo</span>
 
                 <input
@@ -138,7 +165,7 @@ const ActivityCard = ({ item, setonAdd, onAdd, cookieData, courseId }) => {
                 />
               </label>
             </div>
-            <label>
+            <label for="course">
               <span>Materia</span>
               <input
                 autoComplete="off"
@@ -151,7 +178,7 @@ const ActivityCard = ({ item, setonAdd, onAdd, cookieData, courseId }) => {
                 className={buttonNew.ModalBodyFormsInput}
               />
             </label>
-            <label>
+            <label for="content">
               <span>Instrucciones | Explicacion</span>
 
               <textarea
@@ -165,7 +192,7 @@ const ActivityCard = ({ item, setonAdd, onAdd, cookieData, courseId }) => {
                 className={buttonNew.ModalBodyFormsInput}
               ></textarea>
             </label>
-            <label>
+            <label for="extraResources">
               <span>Material Extra</span>
               {Errormsg != false ? (
                 <Alert variant="danger" className={buttonNew.AlertTextDgr}>
@@ -217,7 +244,7 @@ const ActivityCard = ({ item, setonAdd, onAdd, cookieData, courseId }) => {
                     }}
                     variant="dark"
                   >
-                    Confirmar
+                    Agregar
                   </Button>
                 </div>
               </div>
@@ -259,7 +286,7 @@ const ActivityCard = ({ item, setonAdd, onAdd, cookieData, courseId }) => {
                 )}
               </div>
             </label>
-            <label>
+            <label for="date">
               <span>Fecha limite</span>
 
               <input
@@ -290,7 +317,6 @@ const ActivityCard = ({ item, setonAdd, onAdd, cookieData, courseId }) => {
             type="submit"
             onClick={(e) => {
               uploadToServer(e);
-
               handleClose();
             }}
           >
@@ -349,14 +375,17 @@ const ActivityCard = ({ item, setonAdd, onAdd, cookieData, courseId }) => {
                 Editar
               </Button>
               <Button
-                onClick={async () => {
-                  let resfile = await axios.delete(`/api/file/${item._id}`, {
-                    data: {
-                      filePath: item.file,
-                    },
-                  });
-                  let data = resfile.data;
-                  setonAdd(!onAdd);
+                onClick={() => {
+                  const DeletePost = async () => {
+                    let resfile = await axios.delete(`/api/file/${item._id}`, {
+                      data: {
+                        filePath: item.file,
+                      },
+                    });
+                    let data = resfile.data;
+                  };
+                  DeletePost();
+                  setonEdit(!onEdit);
                 }}
                 variant="danger"
               >

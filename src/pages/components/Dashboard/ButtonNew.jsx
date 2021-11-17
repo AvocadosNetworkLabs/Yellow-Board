@@ -8,28 +8,48 @@ import Link from 'next/link';
 // import FileUp from './Fileupload/Fileupload';
 
 const ButtonNew = ({
-  setonAdd,
-  onAdd,
   cookieData,
   courseId,
-  FormError,
+  setLoading,
+  setCourseList,
   setFormError,
 }) => {
   const maxFilesize = 10000000;
+  const [onAdd, setonAdd] = useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);
     setstate({
       extraResources: '',
       extraResource: [],
-      course: courseId,
+      course: '',
       file: '',
       athor: cookieData.id,
     });
   };
 
+  useEffect(async () => {
+    const GetPosts = async (coursID) => {
+      setLoading(true);
+      const sendData = {
+        courseId: coursID,
+      };
+      const res = await axios.post('/api/posts/AllPosts', sendData);
+      const data = res.data;
+      setCourseList(data.data);
+    };
+    GetPosts(state.course);
+    setLoading(false);
+  }, [onAdd]);
+
+  useEffect(() => {
+    setstate({
+      ...state,
+      course: courseId,
+    });
+  }, []);
+
   const handleShow = () => setShow(true);
-  const [filelist, setfilelist] = useState([]);
   const [Errormsg, setErrormsg] = useState(false);
   const [theFile, settheFile] = useState('');
   // const [FormError, setFormError] = useState('');
@@ -55,7 +75,6 @@ const ButtonNew = ({
   };
 
   const uploadToServer = async (e) => {
-    setonAdd(!onAdd);
     if (
       state.activityNum &&
       state.athor &&
@@ -170,19 +189,14 @@ const ButtonNew = ({
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className={buttonNew.ModalBody}>
-          <form
-            action="/api/file"
-            method="POST"
-            encType="multipart/form-data"
-            className={buttonNew.ModalBodyForms}
-          >
+          <form className={buttonNew.ModalBodyForms}>
             <div className={buttonNew.ModalBodyFormstwo}>
               <OverlayTrigger
                 placement="left"
                 delay={{ show: 100, hide: 100 }}
                 overlay={renderTooltip}
               >
-                <label>
+                <label for="activityNum">
                   <span>Numero de Actividad</span>
                   <div className={buttonNew.ModalBodyFormstwo}>
                     <p className={buttonNew.ModalBodyActividad}>Actividad </p>
@@ -201,7 +215,7 @@ const ButtonNew = ({
                   </div>
                 </label>
               </OverlayTrigger>
-              <label>
+              <label for="postTitle">
                 <span>Titulo</span>
 
                 <input
@@ -221,21 +235,20 @@ const ButtonNew = ({
               delay={{ show: 100, hide: 100 }}
               overlay={renderTooltiptwo}
             >
-              <label>
+              <label for="course">
                 <span>Materia</span>
                 <input
                   autoComplete="off"
                   name="course"
                   placeholder="Materia"
                   id="coursesList"
-                  list="data"
                   defaultValue={state.course}
                   disabled
                   className={buttonNew.ModalBodyFormsInput}
                 />
               </label>
             </OverlayTrigger>
-            <label>
+            <label for="content">
               <span>Instrucciones | Explicacion</span>
 
               <textarea
@@ -253,7 +266,7 @@ const ButtonNew = ({
               delay={{ show: 100, hide: 100 }}
               overlay={renderTooltipthree}
             >
-              <label>
+              <label for="extraResources">
                 <span>Material Extra</span>
                 {Errormsg != false ? (
                   <Alert variant="danger" className={buttonNew.AlertTextDgr}>
@@ -360,7 +373,7 @@ const ButtonNew = ({
                 </div>
               </label>
             </OverlayTrigger>
-            <label>
+            <label for="date">
               <span>Fecha limite</span>
 
               <input
@@ -380,7 +393,7 @@ const ButtonNew = ({
               delay={{ show: 100, hide: 100 }}
               overlay={renderTooltipfour}
             >
-              <label>
+              <label for="myFile">
                 <span>Actividad (PDF, DOCX , PPTX)</span>
 
                 <input
@@ -460,8 +473,8 @@ const ButtonNew = ({
             variant="dark"
             type="submit"
             onClick={(e) => {
+              setonAdd(!onAdd);
               uploadToServer(e);
-
               handleClose();
               setstate({
                 extraResources: '',
