@@ -7,13 +7,12 @@ import Link from 'next/link';
 import { Modal, Alert } from 'react-bootstrap';
 
 const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
-  const [onEdit, setonEdit] = useState(false);
   let date = new Date(item.createdAt);
   let PostDate = `${date.getMonth()} / ${date.getDate()} / ${date.getFullYear()}`;
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);
-    setonEdit(!onEdit);
+    GetPosts(state.course);
   };
   const [Errormsg, setErrormsg] = useState(false);
 
@@ -45,20 +44,16 @@ const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
     });
   }, []);
 
-  useEffect(() => {
+  const GetPosts = async (coursID) => {
     setLoading(true);
-    const GetPosts2 = async (coursID) => {
-      const sendData = {
-        courseId: coursID,
-      };
-      const res = await axios.post('/api/posts/AllPosts', sendData);
-      const data = res.data;
-      setCourseList(data.data);
+    const sendData = {
+      courseId: coursID,
     };
-    GetPosts2(state.course);
+    const res = await axios.post('/api/posts/AllPosts', sendData);
+    const data = res.data;
+    setCourseList(data.data);
     setLoading(false);
-  }, [onEdit]);
-
+  };
   const setValues = (e) => {
     setstate({ ...state, [e.target.name]: e.target.value });
   };
@@ -105,8 +100,6 @@ const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
           setFormError('');
         }, 4000);
       } else {
-        setonEdit(!onEdit);
-
         let res = await axios.put(`/api/file/${state._id}`, state);
       }
     }
@@ -318,6 +311,7 @@ const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
             onClick={(e) => {
               uploadToServer(e);
               handleClose();
+              GetPosts(state.course);
             }}
           >
             Confirmar
@@ -385,7 +379,7 @@ const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
                     let data = resfile.data;
                   };
                   DeletePost();
-                  setonEdit(!onEdit);
+                  GetPosts(state.course);
                 }}
                 variant="danger"
               >

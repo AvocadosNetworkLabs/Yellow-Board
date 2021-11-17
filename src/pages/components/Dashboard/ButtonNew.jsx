@@ -15,20 +15,36 @@ const ButtonNew = ({
   setFormError,
 }) => {
   const maxFilesize = 10000000;
-  const [onAdd, setonAdd] = useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);
     setstate({
       extraResources: '',
       extraResource: [],
-      course: '',
+      course: courseId,
       file: '',
       athor: cookieData.id,
     });
+    GetPosts(state.course);
   };
 
-  useEffect(async () => {
+  const GetPosts = async (coursID) => {
+    setLoading(true);
+    const sendData = {
+      courseId: coursID,
+    };
+    const res = await axios.post('/api/posts/AllPosts', sendData);
+    const data = res.data;
+    setCourseList(data.data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    setstate({
+      ...state,
+      course: courseId,
+    });
+
     const GetPosts = async (coursID) => {
       setLoading(true);
       const sendData = {
@@ -38,15 +54,9 @@ const ButtonNew = ({
       const data = res.data;
       setCourseList(data.data);
     };
+
     GetPosts(state.course);
     setLoading(false);
-  }, [onAdd]);
-
-  useEffect(() => {
-    setstate({
-      ...state,
-      course: courseId,
-    });
   }, []);
 
   const handleShow = () => setShow(true);
@@ -122,6 +132,7 @@ const ButtonNew = ({
       } else {
         const body = new FormData();
         body.append('file', theFile);
+        GetPosts(state.course);
 
         let resFile = axios.post('/api/file', body);
         let res = axios.post('/api/posts', state);
@@ -161,7 +172,7 @@ const ButtonNew = ({
     <Tooltip id="button-tooltip" className={buttonNew.tooltip} {...props}>
       <h3>🟢 Tip</h3>
       <hr />
-      <p>Solo puede agregar 1 archivo y ES OBLIGATORIO SUBIR UN ARCHIVO</p>
+      <p>Solo puede agregar 1 archivo ⚠️ ES OBLIGATORIO SUBIR UN ARCHIVO</p>
     </Tooltip>
   );
 
@@ -473,7 +484,6 @@ const ButtonNew = ({
             variant="dark"
             type="submit"
             onClick={(e) => {
-              setonAdd(!onAdd);
               uploadToServer(e);
               handleClose();
               setstate({

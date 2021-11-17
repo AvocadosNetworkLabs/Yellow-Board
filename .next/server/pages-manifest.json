@@ -3,5 +3,11 @@
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
   "/dashboard/courses/[id]": "pages/dashboard/courses/[id].js",
-  "/dashboard": "pages/dashboard.js"
+  "/dashboard": "pages/dashboard.js",
+  "/api/posts/AllPosts": "pages/api/posts/AllPosts.js",
+  "/api/courses/userinCourse": "pages/api/courses/userinCourse.js",
+  "/api/courses/[id]": "pages/api/courses/[id].js",
+  "/api/file": "pages/api/file.js",
+  "/api/posts": "pages/api/posts.js",
+  "/api/file/[id]": "pages/api/file/[id].js"
 }
