@@ -8,6 +8,7 @@ import { Modal, Alert } from 'react-bootstrap';
 
 const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
   let date = new Date(item.createdAt);
+  const [FormError, setFormError] = useState(null);
   let PostDate = `${date.getMonth()} / ${date.getDate()} / ${date.getFullYear()}`;
   const [show, setShow] = useState(false);
   const handleClose = () => {
@@ -60,48 +61,33 @@ const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
 
   const uploadToServer = async (e) => {
     if (
-      state.activityNum &&
-      state.athor &&
-      state.content &&
-      state.course &&
-      state.date &&
-      state.file &&
-      state.postTitle
+      (!state.activityNum &&
+        !state.content &&
+        !state.data &&
+        !state.file &&
+        !state.postTitle) ||
+      state.activityNum === '' ||
+      state.content === '' ||
+      state.data === '' ||
+      state.file === '' ||
+      state.postTitle === ''
     ) {
-      if (state.activityNum == '' || state.activityNum === isNaN) {
-      } else if (state.athor == '') {
-        setFormError('⚠️ Error al crear tarea');
-        setTimeout(() => {
-          setFormError('');
-        }, 4000);
-      } else if (state.content == '') {
-        setFormError('⚠️ Error falta una descripcion');
-        setTimeout(() => {
-          setFormError('');
-        }, 4000);
-      } else if (state.course == '') {
-        setFormError('⚠️ Error falta elegir un curso');
-        setTimeout(() => {
-          setFormError('');
-        }, 4000);
-      } else if (state.data == '') {
-        setFormError('⚠️ Error falta agregar fecha de entrega');
-        setTimeout(() => {
-          setFormError('');
-        }, 4000);
-      } else if (state.file == '') {
-        setFormError('⚠️ Error falta agregar un archivo');
-        setTimeout(() => {
-          setFormError('');
-        }, 4000);
-      } else if (state.postTitle == '') {
-        setFormError('⚠️ Error falta el titulo de la actividad');
-        setTimeout(() => {
-          setFormError('');
-        }, 4000);
-      } else {
-        let res = await axios.put(`/api/file/${state._id}`, state);
-      }
+      setFormError('⚠️ Algun campo esta vacio');
+
+      setTimeout(() => {
+        setFormError(null);
+      }, 3000);
+    } else {
+      GetPosts(state.course);
+      setFormError('Tarea Creada');
+
+      let res = await axios.put(`/api/file/${state._id}`, state);
+
+      handleClose();
+
+      setTimeout(() => {
+        setFormError(null);
+      }, 6000);
     }
   };
 
@@ -115,6 +101,15 @@ const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
         onHide={handleClose}
         className={buttonNew.Modal}
       >
+        {FormError === 'Tarea Creada' ? (
+          <Alert className={buttonNew.alert} variant="primary">
+            {FormError}
+          </Alert>
+        ) : FormError === null ? null : (
+          <Alert className={buttonNew.alert} variant="danger">
+            {FormError}
+          </Alert>
+        )}
         <Modal.Header className={buttonNew.ModalHeader}>
           <Modal.Title className={buttonNew.ModalHeaderTitle}>
             Agregar actividad
@@ -123,7 +118,7 @@ const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
         <Modal.Body className={buttonNew.ModalBody}>
           <form className={buttonNew.ModalBodyForms}>
             <div className={buttonNew.ModalBodyFormstwo}>
-              <label for="activityNum">
+              <label htmlFor="activityNum">
                 <span>Numero de Actividad</span>
                 <div className={buttonNew.ModalBodyFormstwo}>
                   <p className={buttonNew.ModalBodyActividad}>Actividad </p>
@@ -142,7 +137,7 @@ const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
                   />
                 </div>
               </label>
-              <label for="postTitle">
+              <label htmlFor="postTitle">
                 <span>Titulo</span>
 
                 <input
@@ -158,7 +153,7 @@ const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
                 />
               </label>
             </div>
-            <label for="course">
+            <label htmlFor="course">
               <span>Materia</span>
               <input
                 autoComplete="off"
@@ -171,7 +166,7 @@ const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
                 className={buttonNew.ModalBodyFormsInput}
               />
             </label>
-            <label for="content">
+            <label htmlFor="content">
               <span>Instrucciones | Explicacion</span>
 
               <textarea
@@ -185,7 +180,7 @@ const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
                 className={buttonNew.ModalBodyFormsInput}
               ></textarea>
             </label>
-            <label for="extraResources">
+            <label htmlFor="extraResources">
               <span>Material Extra</span>
               {Errormsg != false ? (
                 <Alert variant="danger" className={buttonNew.AlertTextDgr}>
@@ -279,7 +274,7 @@ const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
                 )}
               </div>
             </label>
-            <label for="date">
+            <label htmlFor="date">
               <span>Fecha limite</span>
 
               <input

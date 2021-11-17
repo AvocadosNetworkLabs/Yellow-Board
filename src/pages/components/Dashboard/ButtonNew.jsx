@@ -7,14 +7,8 @@ import axios from 'axios';
 import Link from 'next/link';
 // import FileUp from './Fileupload/Fileupload';
 
-const ButtonNew = ({
-  cookieData,
-  courseId,
-  setLoading,
-  setCourseList,
-  setFormError,
-}) => {
-  const maxFilesize = 10000000;
+const ButtonNew = ({ cookieData, courseId, setLoading, setCourseList }) => {
+  const [FormError, setFormError] = useState(null);
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);
@@ -62,7 +56,6 @@ const ButtonNew = ({
   const handleShow = () => setShow(true);
   const [Errormsg, setErrormsg] = useState(false);
   const [theFile, settheFile] = useState('');
-  // const [FormError, setFormError] = useState('');
   const [state, setstate] = useState({
     extraResources: '',
     extraResource: [],
@@ -86,62 +79,48 @@ const ButtonNew = ({
 
   const uploadToServer = async (e) => {
     if (
-      state.activityNum &&
-      state.athor &&
-      state.content &&
-      state.course &&
-      state.date &&
-      state.file &&
-      state.postTitle
+      (!state.activityNum &&
+        !state.content &&
+        !state.data &&
+        !state.file &&
+        !state.postTitle) ||
+      state.activityNum === '' ||
+      state.content === '' ||
+      state.data === '' ||
+      state.file === '' ||
+      state.postTitle === ''
     ) {
-      if (state.activityNum == '' || state.activityNum === isNaN) {
-        setFormError('⚠️ Error Numero actividad vacio');
-        setTimeout(() => {
-          setFormError('');
-        }, 4000);
-      } else if (state.athor == '') {
-        setFormError('⚠️ Error al crear tarea');
-        setTimeout(() => {
-          setFormError('');
-        }, 4000);
-      } else if (state.content == '') {
-        setFormError('⚠️ Error falta una descripcion');
-        setTimeout(() => {
-          setFormError('');
-        }, 4000);
-      } else if (state.course == '') {
-        setFormError('⚠️ Error falta elegir un curso');
-        setTimeout(() => {
-          setFormError('');
-        }, 4000);
-      } else if (state.data == '') {
-        setFormError('⚠️ Error falta agregar fecha de entrega');
-        setTimeout(() => {
-          setFormError('');
-        }, 4000);
-      } else if (state.file == '') {
-        setFormError('⚠️ Error falta agregar un archivo');
-        setTimeout(() => {
-          setFormError('');
-        }, 4000);
-      } else if (state.postTitle == '') {
-        setFormError('⚠️ Error falta el titulo de la actividad');
-        setTimeout(() => {
-          setFormError('');
-        }, 4000);
-      } else {
-        const body = new FormData();
-        body.append('file', theFile);
-        GetPosts(state.course);
+      setFormError('⚠️ Algun campo esta vacio');
 
-        let resFile = axios.post('/api/file', body);
-        let res = axios.post('/api/posts', state);
-      }
+      setTimeout(() => {
+        setFormError(null);
+      }, 3000);
+    } else {
+      const body = new FormData();
+      body.append('file', theFile);
+      GetPosts(state.course);
+      setFormError('Tarea Creada');
+      let resFile = axios.post('/api/file', body);
+      let res = axios.post('/api/posts', state);
+      handleClose();
+      setstate({
+        extraResources: '',
+        extraResource: [],
+        course: courseId,
+        file: '',
+        athor: cookieData.id,
+      });
+
+      setTimeout(() => {
+        setFormError(null);
+      }, 6000);
     }
   };
 
   const setValues = (e) => {
     setstate({ ...state, [e.target.name]: e.target.value });
+
+    console.log(FormError);
   };
 
   const renderTooltip = (props) => (
@@ -182,6 +161,7 @@ const ButtonNew = ({
         variant="dark"
         onClick={() => {
           handleShow();
+          console.log(FormError);
         }}
       >
         Agregar tarea
@@ -194,6 +174,15 @@ const ButtonNew = ({
         onHide={handleClose}
         className={buttonNew.Modal}
       >
+        {FormError === 'Tarea Creada' ? (
+          <Alert className={buttonNew.alert} variant="primary">
+            {FormError}
+          </Alert>
+        ) : FormError === null ? null : (
+          <Alert className={buttonNew.alert} variant="danger">
+            {FormError}
+          </Alert>
+        )}
         <Modal.Header className={buttonNew.ModalHeader}>
           <Modal.Title className={buttonNew.ModalHeaderTitle}>
             Agregar actividad
@@ -207,7 +196,7 @@ const ButtonNew = ({
                 delay={{ show: 100, hide: 100 }}
                 overlay={renderTooltip}
               >
-                <label for="activityNum">
+                <label htmlFor="activityNum">
                   <span>Numero de Actividad</span>
                   <div className={buttonNew.ModalBodyFormstwo}>
                     <p className={buttonNew.ModalBodyActividad}>Actividad </p>
@@ -226,7 +215,7 @@ const ButtonNew = ({
                   </div>
                 </label>
               </OverlayTrigger>
-              <label for="postTitle">
+              <label htmlFor="postTitle">
                 <span>Titulo</span>
 
                 <input
@@ -246,7 +235,7 @@ const ButtonNew = ({
               delay={{ show: 100, hide: 100 }}
               overlay={renderTooltiptwo}
             >
-              <label for="course">
+              <label htmlFor="course">
                 <span>Materia</span>
                 <input
                   autoComplete="off"
@@ -259,7 +248,7 @@ const ButtonNew = ({
                 />
               </label>
             </OverlayTrigger>
-            <label for="content">
+            <label htmlFor="content">
               <span>Instrucciones | Explicacion</span>
 
               <textarea
@@ -277,7 +266,7 @@ const ButtonNew = ({
               delay={{ show: 100, hide: 100 }}
               overlay={renderTooltipthree}
             >
-              <label for="extraResources">
+              <label htmlFor="extraResources">
                 <span>Material Extra</span>
                 {Errormsg != false ? (
                   <Alert variant="danger" className={buttonNew.AlertTextDgr}>
@@ -384,7 +373,7 @@ const ButtonNew = ({
                 </div>
               </label>
             </OverlayTrigger>
-            <label for="date">
+            <label htmlFor="date">
               <span>Fecha limite</span>
 
               <input
@@ -404,7 +393,7 @@ const ButtonNew = ({
               delay={{ show: 100, hide: 100 }}
               overlay={renderTooltipfour}
             >
-              <label for="myFile">
+              <label htmlFor="myFile">
                 <span>Actividad (PDF, DOCX , PPTX)</span>
 
                 <input
@@ -485,14 +474,6 @@ const ButtonNew = ({
             type="submit"
             onClick={(e) => {
               uploadToServer(e);
-              handleClose();
-              setstate({
-                extraResources: '',
-                extraResource: [],
-                course: courseId,
-                file: '',
-                athor: cookieData.id,
-              });
             }}
           >
             Publicar

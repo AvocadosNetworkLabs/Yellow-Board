@@ -2,7 +2,7 @@ import React, { useState, useEffect, useLayoutEffect } from 'react';
 import ActivityCard from '../ActivityCard';
 import Styles from 'styles/oneCourse.module.scss';
 import mainStyles from '../../../../styles/main.module.scss';
-import { Button } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 import router from 'next/router';
 import ButtonNew from '../ButtonNew';
 import { HashLoader } from 'react-spinners';
@@ -25,7 +25,6 @@ const CoursePage = ({ state, course, cookies, courseId }) => {
     },
   });
 
-  const [FormError, setFormError] = useState('');
   const [courseList, setCourseList] = useState([]);
   const [Loading, setLoading] = useState(true);
 
@@ -48,13 +47,6 @@ const CoursePage = ({ state, course, cookies, courseId }) => {
   };
 
   if (course) {
-    {
-      FormError != '' ? (
-        <Alert className={buttonNew.alert} variant="primary">
-          {FormError}
-        </Alert>
-      ) : null;
-    }
     if (state.userCourses.some((el) => el.courseId == course._id) === true) {
       return (
         <div className={Styles.Main}>
@@ -70,9 +62,7 @@ const CoursePage = ({ state, course, cookies, courseId }) => {
                 </Button>
                 {cookieData.userType === 'm' ? (
                   <ButtonNew
-                    FormError={FormError}
                     GetPosts={GetPosts}
-                    setFormError={setFormError}
                     setLoading={setLoading}
                     setCourseList={setCourseList}
                     cookieData={cookieData}
@@ -83,6 +73,7 @@ const CoursePage = ({ state, course, cookies, courseId }) => {
                 )}
               </div>
             </div>
+
             <hr />
             <div className={Styles.MainContent}>
               <p className={Styles.MainContentTitle}>Actividades</p>
