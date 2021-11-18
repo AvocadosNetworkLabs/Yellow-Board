@@ -9,9 +9,7 @@ const examsSchema = new Schema(
     question: {
       type: String,
     },
-    answers: {
-      answers: [String],
-    },
+    answers: [],
     sta: {
       type: Number,
       default: 1,

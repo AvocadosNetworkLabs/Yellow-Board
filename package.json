@@ -4,7 +4,7 @@
   "description": "YellowBoard a elementary school app",
   "main": "index.js",
   "scripts": {
-    "dev": "next",
+    "dev": "next -p 6500",
     "build": "next build",
     "start": "next start"
   },

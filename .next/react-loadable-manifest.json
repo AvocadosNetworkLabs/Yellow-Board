@@ -10,11 +10,5 @@
     "files": [
       "static/chunks/node_modules_howler_dist_howler_js.js"
     ]
-  },
-  "index.jsx -> ./components/Main/Main": {
-    "id": "./src/pages/components/Main/Main.jsx",
-    "files": [
-      "static/chunks/src_pages_components_Main_Main_jsx.js"
-    ]
   }
 }

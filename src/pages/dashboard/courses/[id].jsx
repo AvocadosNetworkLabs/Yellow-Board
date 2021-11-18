@@ -7,7 +7,7 @@ import CoursePage from '../../components/Dashboard/CoursePage/CoursePage';
 import axios from 'axios';
 
 export const getServerSideProps = async ({ params, req }) => {
-  let url = 'http://localhost:3000/api/courses/';
+  let url = 'http://localhost:6500/api/courses/';
   const res = await fetch(url + params.id);
   const data = await res.json();
   let course = data.data;
