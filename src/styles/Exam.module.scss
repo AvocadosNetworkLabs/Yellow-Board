@@ -1,0 +1,84 @@
+.Main {
+  &Content {
+    background-color: #ebebeb;
+    box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.5);
+    padding: 6rem;
+    &Question {
+      width: 100%;
+      margin: 2rem auto;
+      background-color: #f3f3f3;
+      box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.3);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      &Pre {
+        width: 100%;
+        margin: 1.5rem auto;
+        background-color: #f3f3f3;
+        padding: 2rem 4rem;
+        border-radius: 1rem;
+        &RC {
+          display: flex;
+          &Title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin: 0 1rem;
+          }
+          &Sel {
+            font-size: 2rem;
+            font-weight: 600;
+            padding: 0.5rem;
+          }
+        }
+      }
+    }
+    &Q {
+      font-size: 2rem;
+      font-weight: 700;
+      display: flex;
+      padding: 2rem;
+
+      justify-content: flex-end;
+      &Title {
+        font-size: 3rem;
+        font-weight: 700;
+        display: flex;
+        justify-content: flex-start;
+      }
+    }
+    &P {
+      display: flex;
+      justify-content: center;
+      margin: 5rem 1rem;
+      &Input {
+        padding: 0.5rem;
+        width: 90%;
+        font-size: 2rem;
+        border-radius: 1rem;
+      }
+      &Title {
+        font-size: 3rem;
+        font-weight: bold;
+      }
+    }
+    width: 95%;
+    margin: 0 auto;
+    &Activitys {
+      width: 100%;
+      width: 100%;
+      margin: 2rem auto;
+      background-color: #f3f3f3;
+      box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.3);
+      padding: 1.5rem;
+      border-radius: 1rem;
+    }
+  }
+}
+
+.Respuesta {
+  margin: 3rem auto;
+  display: flex;
+  &Title {
+    font-size: 3rem;
+    margin: 0 2rem;
+  }
+}

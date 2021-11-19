@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
-import Styles from 'styles/oneCourse.module.scss';
+import StylesoneCourse from 'styles/oneCourse.module.scss';
+import Styles from 'styles/Exam.module.scss';
 import { Button, Alert } from 'react-bootstrap';
 import router from 'next/router';
 import { HashLoader } from 'react-spinners';
@@ -52,10 +53,10 @@ const CreateExam = ({ state, course, cookies, courseId }) => {
   if (course) {
     if (state.userCourses.some((el) => el.courseId == course._id) === true) {
       return (
-        <div className={Styles.Main}>
-          <div className={Styles.MainContainer}>
-            <div className={Styles.MainHeader}>
-              <p className={Styles.MainHeaderTitle}>
+        <div className={StylesoneCourse.Main}>
+          <div className={StylesoneCourse.MainContainer}>
+            <div className={StylesoneCourse.MainHeader}>
+              <p className={StylesoneCourse.MainHeaderTitle}>
                 Examen de {course.courseName}
               </p>
               <div>
@@ -69,29 +70,38 @@ const CreateExam = ({ state, course, cookies, courseId }) => {
             </div>
 
             <hr />
-            <div>
-              <p>{`Pregunta ${NoPreguntas} / 25 `}</p>
-              <div>
-                <div>
-                  <span>¿</span>
-                  <input type="text" />
-                  <span>?</span>
+            <div className={Styles.MainContent}>
+              <p
+                className={Styles.MainContentQ}
+              >{`Pregunta ${NoPreguntas} / 25 `}</p>
+              <div className={Styles.MainContentQuestion}>
+                <div className={Styles.MainContentP}>
+                  <span className={Styles.MainContentPTitle}>¿</span>
+                  <input
+                    className={Styles.MainContentPInput}
+                    placeholder="Cuanto es 2 + 2"
+                    type="text"
+                  />
+                  <span className={Styles.MainContentPTitle}>?</span>
                 </div>
-                <div>
-                  <p>Respuestas</p>
-                  <div>
-                    <p>Respuesta correcta:</p>
-                    <select>
-                      <option>A</option>
-                      <option>B</option>
-                      <option>C</option>
-                      <option>D</option>
+                <div className={Styles.MainContentQuestionPre}>
+                  <p className={Styles.MainContentQTitle}>Respuestas</p>
+                  <div className={Styles.MainContentQuestionPreRC}>
+                    <p className={Styles.MainContentQuestionPreRCTitle}>
+                      Respuesta correcta:
+                    </p>
+                    <select className={Styles.MainContentQuestionPreRCSel}>
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="C">C</option>
+                      <option value="D">D</option>
                     </select>
                   </div>
                   <div>
-                    <div>
-                      <p>A)</p>
+                    <div className={Styles.Respuesta}>
+                      <p className={Styles.RespuestaTitle}>A)</p>
                       <input
+                        className={Styles.MainContentPInput}
                         type="text"
                         onchange={() => {
                           var index = states.resp.indexOf('Respuesta 1');
@@ -102,22 +112,22 @@ const CreateExam = ({ state, course, cookies, courseId }) => {
                         }}
                       />
                     </div>
-                    <div>
-                      <p>B)</p>
-                      <input type="text" />
+                    <div className={Styles.Respuesta}>
+                      <p className={Styles.RespuestaTitle}>B)</p>
+                      <input className={Styles.MainContentPInput} type="text" />
                     </div>
-                    <div>
-                      <p>C)</p>
-                      <input type="text" />
+                    <div className={Styles.Respuesta}>
+                      <p className={Styles.RespuestaTitle}>C)</p>
+                      <input className={Styles.MainContentPInput} type="text" />
                     </div>
-                    <div>
-                      <p>D)</p>
-                      <input type="text" />
+                    <div className={Styles.Respuesta}>
+                      <p className={Styles.RespuestaTitle}>D)</p>
+                      <input className={Styles.MainContentPInput} type="text" />
                     </div>
                   </div>
                 </div>
               </div>
-              <div>
+              <div className={Styles.MainContentActivitys}>
                 <div>
                   <p>{`¿ ${states.pregunta} ?`}</p>
                 </div>
