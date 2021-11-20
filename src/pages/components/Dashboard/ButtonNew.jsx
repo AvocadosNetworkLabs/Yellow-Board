@@ -7,51 +7,44 @@ import axios from 'axios';
 import Link from 'next/link';
 // import FileUp from './Fileupload/Fileupload';
 
-const ButtonNew = ({ cookieData, courseId, setLoading, setCourseList }) => {
+const ButtonNew = ({ cookieData, course, setLoading, setCourseList }) => {
+  const [ifChange, setifChange] = useState(false);
   const [FormError, setFormError] = useState(null);
   const [show, setShow] = useState(false);
+
   const handleClose = () => {
     setShow(false);
     setstate({
       extraResources: '',
       extraResource: [],
-      course: courseId,
+      course: course._id,
       file: '',
       athor: cookieData.id,
     });
-    GetPosts(state.course);
-  };
-
-  const GetPosts = async (coursID) => {
-    setLoading(true);
-    const sendData = {
-      courseId: coursID,
-    };
-    const res = await axios.post('/api/posts/AllPosts', sendData);
-    const data = res.data;
-    setCourseList(data.data);
-    setLoading(false);
+    setifChange(!ifChange);
   };
 
   useEffect(() => {
+    setLoading(true);
     setstate({
       ...state,
-      course: courseId,
+      course: course._id,
     });
-
-    const GetPosts = async (coursID) => {
-      setLoading(true);
-      const sendData = {
-        courseId: coursID,
-      };
-      const res = await axios.post('/api/posts/AllPosts', sendData);
-      const data = res.data;
-      setCourseList(data.data);
-    };
-
-    GetPosts(state.course);
     setLoading(false);
   }, []);
+
+  useEffect(() => {
+    getpost();
+  }, [ifChange]);
+
+  const getpost = async () => {
+    let obj = {
+      courseId: course._id,
+    };
+    let res = await axios.post('/api/posts/AllPosts', obj);
+    let data = res.data;
+    setCourseList(data.data);
+  };
 
   const handleShow = () => setShow(true);
   const [Errormsg, setErrormsg] = useState(false);
@@ -59,7 +52,7 @@ const ButtonNew = ({ cookieData, courseId, setLoading, setCourseList }) => {
   const [state, setstate] = useState({
     extraResources: '',
     extraResource: [],
-    course: courseId,
+    course: course._id,
     file: '',
     athor: cookieData.id,
   });
@@ -98,7 +91,6 @@ const ButtonNew = ({ cookieData, courseId, setLoading, setCourseList }) => {
     } else {
       const body = new FormData();
       body.append('file', theFile);
-      GetPosts(state.course);
       setFormError('Tarea Creada');
       let resFile = axios.post('/api/file', body);
       let res = axios.post('/api/posts', state);
@@ -106,11 +98,11 @@ const ButtonNew = ({ cookieData, courseId, setLoading, setCourseList }) => {
       setstate({
         extraResources: '',
         extraResource: [],
-        course: courseId,
+        course: course._id,
         file: '',
         athor: cookieData.id,
       });
-
+      setifChange(!ifChange);
       setTimeout(() => {
         setFormError(null);
       }, 6000);
@@ -119,8 +111,6 @@ const ButtonNew = ({ cookieData, courseId, setLoading, setCourseList }) => {
 
   const setValues = (e) => {
     setstate({ ...state, [e.target.name]: e.target.value });
-
-    console.log(FormError);
   };
 
   const renderTooltip = (props) => (
@@ -161,11 +151,19 @@ const ButtonNew = ({ cookieData, courseId, setLoading, setCourseList }) => {
         variant="dark"
         onClick={() => {
           handleShow();
-          console.log(FormError);
         }}
       >
         Agregar tarea
       </Button>
+      {FormError === 'Tarea Creada' ? (
+        <Alert className={buttonNew.alert} variant="primary">
+          {FormError}
+        </Alert>
+      ) : FormError === null ? null : (
+        <Alert className={buttonNew.alert} variant="danger">
+          {FormError}
+        </Alert>
+      )}
 
       <Modal
         show={show}
@@ -174,15 +172,6 @@ const ButtonNew = ({ cookieData, courseId, setLoading, setCourseList }) => {
         onHide={handleClose}
         className={buttonNew.Modal}
       >
-        {FormError === 'Tarea Creada' ? (
-          <Alert className={buttonNew.alert} variant="primary">
-            {FormError}
-          </Alert>
-        ) : FormError === null ? null : (
-          <Alert className={buttonNew.alert} variant="danger">
-            {FormError}
-          </Alert>
-        )}
         <Modal.Header className={buttonNew.ModalHeader}>
           <Modal.Title className={buttonNew.ModalHeaderTitle}>
             Agregar actividad
@@ -464,7 +453,10 @@ const ButtonNew = ({ cookieData, courseId, setLoading, setCourseList }) => {
           <Button
             className={buttonNew.HeaderBtn}
             variant="danger"
-            onClick={handleClose}
+            onClick={() => {
+              setifChange(!ifChange);
+              handleClose();
+            }}
           >
             Cerrar
           </Button>

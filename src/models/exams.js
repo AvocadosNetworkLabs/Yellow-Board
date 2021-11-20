@@ -2,15 +2,9 @@ import { Schema, model, models, Types } from 'mongoose';
 
 const examsSchema = new Schema(
   {
-    courseExam: {
+    course: {
       type: Types.ObjectId,
-      required: [true, 'Title is required'],
-    },
-    gradesTitle: {
-      type: String,
-    },
-    grades: {
-      type: Number,
+      required: [true, 'Course is required'],
     },
     sta: {
       type: Number,

@@ -6,14 +6,21 @@ import axios from 'axios';
 import Link from 'next/link';
 import { Modal, Alert } from 'react-bootstrap';
 
-const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
+const ActivityCard = ({
+  item,
+  cookieData,
+  setLoading,
+  setCourseList,
+  course,
+}) => {
+  const [ifChange, setifChange] = useState(false);
   let date = new Date(item.createdAt);
-  const [FormError, setFormError] = useState(null);
+  const [FormError, setFormError] = useState('');
+  const [AlertType, setAlerType] = useState('');
   let PostDate = `${date.getMonth()} / ${date.getDate()} / ${date.getFullYear()}`;
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);
-    GetPosts(state.course);
   };
   const [Errormsg, setErrormsg] = useState(false);
 
@@ -45,16 +52,19 @@ const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
     });
   }, []);
 
-  const GetPosts = async (coursID) => {
-    setLoading(true);
-    const sendData = {
-      courseId: coursID,
+  useEffect(() => {
+    getpost();
+  }, [ifChange]);
+
+  const getpost = async () => {
+    let obj = {
+      courseId: course._id,
     };
-    const res = await axios.post('/api/posts/AllPosts', sendData);
-    const data = res.data;
+    let res = await axios.post('/api/posts/AllPosts', obj);
+    let data = res.data;
     setCourseList(data.data);
-    setLoading(false);
   };
+
   const setValues = (e) => {
     setstate({ ...state, [e.target.name]: e.target.value });
   };
@@ -73,27 +83,33 @@ const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
       state.postTitle === ''
     ) {
       setFormError('⚠️ Algun campo esta vacio');
+      setAlerType('danger');
 
       setTimeout(() => {
-        setFormError(null);
+        setFormError('');
       }, 3000);
     } else {
-      GetPosts(state.course);
-      setFormError('Tarea Creada');
+      setFormError('Tarea Editada');
+      setAlerType('success');
 
       let res = await axios.put(`/api/file/${state._id}`, state);
 
       handleClose();
 
       setTimeout(() => {
-        setFormError(null);
-      }, 6000);
+        setFormError('');
+      }, 4000);
     }
   };
 
   const handleShow = () => setShow(true);
   return (
     <>
+      {FormError != '' ? (
+        <Alert className={buttonNew.alert} variant={AlertType}>
+          {FormError}
+        </Alert>
+      ) : null}
       <Modal
         show={show}
         centered
@@ -101,15 +117,6 @@ const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
         onHide={handleClose}
         className={buttonNew.Modal}
       >
-        {FormError === 'Tarea Creada' ? (
-          <Alert className={buttonNew.alert} variant="primary">
-            {FormError}
-          </Alert>
-        ) : FormError === null ? null : (
-          <Alert className={buttonNew.alert} variant="danger">
-            {FormError}
-          </Alert>
-        )}
         <Modal.Header className={buttonNew.ModalHeader}>
           <Modal.Title className={buttonNew.ModalHeaderTitle}>
             Agregar actividad
@@ -306,7 +313,7 @@ const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
             onClick={(e) => {
               uploadToServer(e);
               handleClose();
-              GetPosts(state.course);
+              setifChange(!ifChange);
             }}
           >
             Confirmar
@@ -374,11 +381,11 @@ const ActivityCard = ({ item, cookieData, setLoading, setCourseList }) => {
                     let data = resfile.data;
                   };
                   DeletePost();
-                  GetPosts(state.course);
+                  setifChange(!ifChange);
                 }}
                 variant="danger"
               >
-                Delete
+                Borrar
               </Button>
             </div>
           ) : (

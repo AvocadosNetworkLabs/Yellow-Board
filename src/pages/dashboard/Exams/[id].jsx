@@ -12,7 +12,6 @@ export const getServerSideProps = async ({ params, req }) => {
   const data = await res.json();
   let course = data.data;
   const { cookies } = req;
-  // console.log('from server:', course);
   return { props: { course, cookies: cookies || '' } };
 };
 
@@ -32,7 +31,7 @@ const curso = ({ course, cookies }) => {
   });
 
   const [courseData, setsourseData] = useState({
-    _id: 404,
+    _id: course._id,
     teacher: 'Not Found',
     courseName: 'Not Found',
     description: 'Not Found',

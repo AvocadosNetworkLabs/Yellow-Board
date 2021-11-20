@@ -30,15 +30,6 @@ const curso = ({ course, cookies }) => {
     phone: '',
     birthday: '',
   });
-
-  const [courseData, setsourseData] = useState({
-    _id: 404,
-    teacher: 'Not Found',
-    courseName: 'Not Found',
-    description: 'Not Found',
-    students: 0,
-    startDate: 'Not Found',
-  });
   const [state, setstate] = useState({
     userCourses: [],
     userTasks: [],
@@ -54,8 +45,6 @@ const curso = ({ course, cookies }) => {
         ...state,
         userCourses: results.data,
       });
-
-      setsourseData(course);
     }
   }, []);
   const D = useMediaQuery({
@@ -75,8 +64,7 @@ const curso = ({ course, cookies }) => {
       <CoursePage
         setcookiedata={setcookiedata}
         state={state}
-        course={courseData}
-        courseId={courseData._id}
+        course={course}
         cookies={cookies}
       />
       <Footer />

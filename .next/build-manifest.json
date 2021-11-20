@@ -33,6 +33,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/dashboard/Exams/[id].js"
+    ],
+    "/dashboard/courses/[id]": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/dashboard/courses/[id].js"
     ]
   },
   "ampFirstPages": []

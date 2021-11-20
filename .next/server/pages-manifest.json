@@ -2,6 +2,16 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
+  "/dashboard/courses/[id]": "pages/dashboard/courses/[id].js",
+  "/dashboard": "pages/dashboard.js",
+  "/api/file": "pages/api/file.js",
+  "/api/posts": "pages/api/posts.js",
+  "/api/posts/AllPosts": "pages/api/posts/AllPosts.js",
+  "/api/courses": "pages/api/courses.js",
+  "/api/courses/[id]": "pages/api/courses/[id].js",
+  "/api/courses/userinCourse": "pages/api/courses/userinCourse.js",
+  "/api/file/[id]": "pages/api/file/[id].js",
   "/dashboard/Exams/[id]": "pages/dashboard/Exams/[id].js",
-  "/dashboard": "pages/dashboard.js"
+  "/api/questions/getFromExam": "pages/api/questions/getFromExam.js",
+  "/api/exams/ifexist": "pages/api/exams/ifexist.js"
 }

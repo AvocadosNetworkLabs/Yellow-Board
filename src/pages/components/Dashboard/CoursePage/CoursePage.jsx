@@ -8,7 +8,9 @@ import ButtonNew from '../ButtonNew';
 import { HashLoader } from 'react-spinners';
 import axios from 'axios';
 
-const CoursePage = ({ state, course, cookies, courseId }) => {
+const CoursePage = ({ state, course, cookies }) => {
+  // /api/posts/AllPosts
+  const [ifChange, setifChange] = useState(false);
   const [cookieData, setcookiedata] = useState({
     userData: {
       id: '',
@@ -25,26 +27,40 @@ const CoursePage = ({ state, course, cookies, courseId }) => {
     },
   });
 
+  useEffect(() => {
+    getpost();
+  }, [ifChange]);
+
+  const getpost = async () => {
+    let obj = {
+      courseId: course._id,
+    };
+    let res = await axios.post('/api/posts/AllPosts', obj);
+    let data = res.data;
+    setCourseList(data.data);
+  };
+
+  const GetPosts = async () => {
+    let obj = {
+      courseId: course._id,
+    };
+    let res = await axios.post('/api/posts/AllPosts', obj);
+    let data = res.data;
+    setCourseList(data.data);
+  };
+
   const [courseList, setCourseList] = useState([]);
-  const [Loading, setLoading] = useState(true);
+  const [examList, setexamList] = useState([]);
+  const [fullList, setFullList] = useState([]);
+  const [Loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
     if (cookies.userData) {
       setcookiedata(JSON.parse(cookies.userData));
     }
-    GetPosts(courseId);
     setLoading(false);
-  }, [courseId]);
-
-  const GetPosts = async (coursID) => {
-    const sendData = {
-      courseId: coursID,
-    };
-    const res = await axios.post('/api/posts/AllPosts', sendData);
-    const data = res.data;
-    setCourseList(data.data);
-  };
+  }, []);
 
   if (course) {
     if (state.userCourses.some((el) => el.courseId == course._id) === true) {
@@ -62,11 +78,12 @@ const CoursePage = ({ state, course, cookies, courseId }) => {
                 </Button>
                 {cookieData.userType === 'm' ? (
                   <ButtonNew
-                    GetPosts={GetPosts}
                     setLoading={setLoading}
                     setCourseList={setCourseList}
                     cookieData={cookieData}
-                    courseId={course._id}
+                    ifChange={ifChange}
+                    setifChange={setifChange}
+                    course={course}
                   />
                 ) : (
                   <></>
@@ -90,6 +107,10 @@ const CoursePage = ({ state, course, cookies, courseId }) => {
                       setCourseList={setCourseList}
                       setLoading={setLoading}
                       item={item}
+                      ifChange={ifChange}
+                      setifChange={setifChange}
+                      course={course}
+                      GetPosts={GetPosts}
                       key={key}
                     />
                   ))
