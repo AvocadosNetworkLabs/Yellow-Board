@@ -10,6 +10,15 @@
   margin: 5rem auto;
   border-radius: 2rem;
   transition: 1s;
+  &Done {
+    background-color: #eeeeee;
+    box-shadow: 1rem 1rem 1rem rgb(21, 255, 0);
+    width: 80%;
+    padding: 3rem;
+    margin: 5rem auto;
+    border-radius: 2rem;
+    transition: 1s;
+  }
 
   &:hover {
     transition: 1s;
@@ -71,6 +80,7 @@
 }
 .footerAct {
   width: 100%;
+  margin-top: 10rem;
   max-height: 6rem;
   display: flex;
   justify-content: space-between;

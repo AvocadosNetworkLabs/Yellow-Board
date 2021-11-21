@@ -10,7 +10,6 @@ import Footer from 'pages/components/Utils/Footer';
 import mainStyles from '../../../styles/main.module.scss';
 import Router from 'next/router';
 import { HashLoader } from 'react-spinners';
-import { Alert } from 'react-bootstrap';
 import axios from 'axios';
 
 const Menu = lazy(() => import('./Menu'));
@@ -134,14 +133,14 @@ const Dashboard = ({ Mquery, cookies }) => {
                         </center>
                       </div>
                     ) : (
-                      state.userCourses.map((item) => (
-                        <>
+                      state.userCourses.map((item, key) => (
+                        <div key={key}>
                           <Cursos
                             cookieData={cookieData.userType}
                             userCourses={item.userCourses}
                             id={item.courseId}
                           />
-                        </>
+                        </div>
                       ))
                     )}
                   </div>

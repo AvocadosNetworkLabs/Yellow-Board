@@ -113,3 +113,59 @@
   -o-animation: fadeIn 2s;
   -ms-animation: fadeIn 2s;
 }
+.AlertText {
+  color: #000;
+  background-color: #deff231f;
+  width: 80%;
+  font-size: 2vh;
+  margin: 0 auto;
+  text-align: center;
+}
+.Filess {
+  width: 100%;
+  &Cont {
+    width: 100%;
+    margin: 2rem auto;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    background-color: #e2e2e2;
+    border-radius: 1rem;
+
+    &Data {
+      display: flex;
+      &Title {
+        margin-top: 1rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+      &Text {
+        font-size: 1.5rem;
+        font-weight: 400;
+      }
+    }
+    &Descargas {
+      font-size: 1.5rem;
+      color: #5ba6ec;
+    }
+    img {
+      width: 6.5rem;
+      height: 7rem;
+    }
+    Button {
+      font-size: 1.5rem;
+      max-height: 4rem;
+    }
+  }
+}
+
+.Inputs {
+  width: 100%;
+  font-size: 2rem;
+  padding: 0.5rem;
+}
+
+.BTN {
+  font-size: 2rem;
+  float: right;
+}

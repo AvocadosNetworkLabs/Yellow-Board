@@ -10,7 +10,11 @@ const deliverySchema = new Schema(
       type: Types.ObjectId,
       required: [true, 'Cours id is required'],
     },
-    fileDeliver: {
+    activityDeliver: {
+      type: Types.ObjectId,
+      required: [true, 'Activity id is required'],
+    },
+    file: {
       type: String,
     },
     sta: {

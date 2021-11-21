@@ -12,7 +12,7 @@ export const getServerSideProps = async ({ params, req }) => {
   const data = await res.json();
   let course = data.data;
   const { cookies } = req;
-  return { props: { course, cookies: cookies || '' } };
+  return { props: { course: course || { _id: 404 }, cookies: cookies || '' } };
 };
 
 const curso = ({ course, cookies }) => {

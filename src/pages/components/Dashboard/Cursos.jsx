@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import cursosActivos from '../../../styles/cursos.module.scss';
 import Router from 'next/router';
+import axios from 'axios';
 
 import { Button } from 'react-bootstrap';
 
 const Cursos = ({ userCourses, cookieData, id }) => {
+  const [userList, setuserList] = useState([]);
+  const [ifchange, setifchange] = useState([]);
+
+  useEffect(() => {
+    const getusers = async () => {
+      let obj = {
+        _id: id,
+      };
+      let res = await axios.post('/api/getUsers/bycourse', obj);
+      let data = res.data;
+      setuserList(data.data.length);
+    };
+    getusers();
+  }, []);
   return (
     <div className={cursosActivos.Main}>
       <div className={cursosActivos.MainCard}>
@@ -24,7 +39,15 @@ const Cursos = ({ userCourses, cookieData, id }) => {
             >
               Crear exámen
             </Button>
-          ) : null}
+          ) : (
+            <Button
+              variant="ligth"
+              onClick={() => Router.push(`/dashboard/Exams/${id}`)}
+              className={cursosActivos.MainCardOptionsCreateExam}
+            >
+              Hacer examen
+            </Button>
+          )}
         </div>
         <div className={cursosActivos.MainCardData}>
           <div>
@@ -33,7 +56,7 @@ const Cursos = ({ userCourses, cookieData, id }) => {
             </p>
             {cookieData === 'm' ? (
               <p className={cursosActivos.MainCardDataStudents}>
-                {userCourses.students} / 15
+                {userList} / 15
               </p>
             ) : null}
           </div>

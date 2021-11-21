@@ -2,7 +2,7 @@ import React, { useState, useEffect, useLayoutEffect } from 'react';
 import ActivityCard from '../ActivityCard';
 import Styles from 'styles/oneCourse.module.scss';
 import mainStyles from '../../../../styles/main.module.scss';
-import { Button, Alert } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import router from 'next/router';
 import ButtonNew from '../ButtonNew';
 import { HashLoader } from 'react-spinners';
@@ -11,6 +11,7 @@ import axios from 'axios';
 const CoursePage = ({ state, course, cookies }) => {
   // /api/posts/AllPosts
   const [ifChange, setifChange] = useState(false);
+
   const [cookieData, setcookiedata] = useState({
     userData: {
       id: '',
@@ -28,21 +29,12 @@ const CoursePage = ({ state, course, cookies }) => {
   });
 
   useEffect(() => {
-    getpost();
-  }, [ifChange]);
+    if (course) getpost(course._id);
+  }, []);
 
-  const getpost = async () => {
+  const getpost = async (id) => {
     let obj = {
-      courseId: course._id,
-    };
-    let res = await axios.post('/api/posts/AllPosts', obj);
-    let data = res.data;
-    setCourseList(data.data);
-  };
-
-  const GetPosts = async () => {
-    let obj = {
-      courseId: course._id,
+      courseId: id,
     };
     let res = await axios.post('/api/posts/AllPosts', obj);
     let data = res.data;
@@ -53,6 +45,7 @@ const CoursePage = ({ state, course, cookies }) => {
   const [examList, setexamList] = useState([]);
   const [fullList, setFullList] = useState([]);
   const [Loading, setLoading] = useState(false);
+  const [activityId, setactivityId] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -84,10 +77,9 @@ const CoursePage = ({ state, course, cookies }) => {
                     ifChange={ifChange}
                     setifChange={setifChange}
                     course={course}
+                    getpost={getpost}
                   />
-                ) : (
-                  <></>
-                )}
+                ) : null}
               </div>
             </div>
 
@@ -110,8 +102,8 @@ const CoursePage = ({ state, course, cookies }) => {
                       ifChange={ifChange}
                       setifChange={setifChange}
                       course={course}
-                      GetPosts={GetPosts}
                       key={key}
+                      getpost={getpost}
                     />
                   ))
                 ) : (
@@ -136,28 +128,39 @@ const CoursePage = ({ state, course, cookies }) => {
     }
   }
 
+  if (!course) {
+    return (
+      <div className={Styles.Main}>
+        <div className={Styles.MainContainer}>
+          <div className={Styles.the404}>
+            <center>
+              <p className={Styles.the404Text}>No Existe este curso</p>
+              <p className={Styles.the404TextSmall}>
+                Si crees que es un error contacta a tu administrador
+              </p>
+              <br />
+              <img
+                className={Styles.the404Img}
+                src="https://cdn-images-1.medium.com/max/800/1*qdFdhbR00beEaIKDI_WDCw.gif"
+                alt="404"
+              />
+              <br />
+              <br />
+              <Button variant="dark" onClick={() => router.push('/dashboard')}>
+                Regresar
+              </Button>
+            </center>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className={Styles.Main}>
       <div className={Styles.MainContainer}>
-        <div className={Styles.the404}>
-          <div className={Styles.MainHeader}></div>
-          <center>
-            <p className={Styles.the404Text}>No Existe este curso</p>
-            <p className={Styles.the404TextSmall}>
-              Si crees que es un error contacta a tu administrador
-            </p>
-            <br />
-            <img
-              className={Styles.the404Img}
-              src="https://cdn-images-1.medium.com/max/800/1*qdFdhbR00beEaIKDI_WDCw.gif"
-              alt="404"
-            />
-            <br />
-            <br />
-            <Button variant="dark" onClick={() => router.push('/dashboard')}>
-              Regresar
-            </Button>
-          </center>
+        <div className={mainStyles.preloadCard}>
+          <p className={mainStyles.preloadTitle2}>Loading...</p>
+          <HashLoader />
         </div>
       </div>
     </div>

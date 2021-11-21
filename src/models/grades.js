@@ -4,11 +4,15 @@ const gradesSchema = new Schema(
   {
     userGrade: {
       type: Types.ObjectId,
-      required: [true, 'Title is required'],
+      required: [true, 'User is required'],
     },
     courseGrade: {
       type: Types.ObjectId,
-      required: [true, 'Title is required'],
+      required: [true, 'Course is required'],
+    },
+    activityId: {
+      type: Types.ObjectId,
+      required: [true, 'Activity is required'],
     },
     gradesTitle: {
       type: String,

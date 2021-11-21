@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AdminStyles from '../../../styles/admin.module.scss';
 import { Button, Dropdown } from 'react-bootstrap';
+import axios from 'axios';
 
 const Cursos = ({
   item,
   showAlertEdit,
-  setstate,
   state,
+  setstate,
   showAlert,
   showAlertAddUser,
   showAlertUserList,
@@ -84,7 +85,6 @@ const Cursos = ({
         <div className={AdminStyles.datacont}>
           <div>
             <p className={AdminStyles.team}>{item.courseName}</p>
-            <p className={AdminStyles.data}> {item.students} / 15</p>
           </div>
         </div>
       </div>

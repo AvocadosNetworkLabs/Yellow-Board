@@ -7,12 +7,19 @@ import axios from 'axios';
 import Link from 'next/link';
 // import FileUp from './Fileupload/Fileupload';
 
-const ButtonNew = ({ cookieData, course, setLoading, setCourseList }) => {
+const ButtonNew = ({
+  cookieData,
+  course,
+  setLoading,
+  setCourseList,
+  getpost,
+}) => {
   const [ifChange, setifChange] = useState(false);
   const [FormError, setFormError] = useState(null);
   const [show, setShow] = useState(false);
 
   const handleClose = () => {
+    // getpost();
     setShow(false);
     setstate({
       extraResources: '',
@@ -21,7 +28,6 @@ const ButtonNew = ({ cookieData, course, setLoading, setCourseList }) => {
       file: '',
       athor: cookieData.id,
     });
-    setifChange(!ifChange);
   };
 
   useEffect(() => {
@@ -33,18 +39,18 @@ const ButtonNew = ({ cookieData, course, setLoading, setCourseList }) => {
     setLoading(false);
   }, []);
 
-  useEffect(() => {
-    getpost();
-  }, [ifChange]);
+  // useEffect(() => {
 
-  const getpost = async () => {
-    let obj = {
-      courseId: course._id,
-    };
-    let res = await axios.post('/api/posts/AllPosts', obj);
-    let data = res.data;
-    setCourseList(data.data);
-  };
+  // }, [ifChange]);
+
+  // const getpost = async () => {
+  //   let obj = {
+  //     courseId: course._id,
+  //   };
+  //   let res = await axios.post('/api/posts/AllPosts', obj);
+  //   let data = res.data;
+  //   setCourseList(data.data);
+  // };
 
   const handleShow = () => setShow(true);
   const [Errormsg, setErrormsg] = useState(false);
@@ -454,8 +460,8 @@ const ButtonNew = ({ cookieData, course, setLoading, setCourseList }) => {
             className={buttonNew.HeaderBtn}
             variant="danger"
             onClick={() => {
-              setifChange(!ifChange);
               handleClose();
+              getpost(course._id);
             }}
           >
             Cerrar
@@ -466,6 +472,7 @@ const ButtonNew = ({ cookieData, course, setLoading, setCourseList }) => {
             type="submit"
             onClick={(e) => {
               uploadToServer(e);
+              getpost(course._id);
             }}
           >
             Publicar

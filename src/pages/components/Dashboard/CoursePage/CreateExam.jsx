@@ -56,6 +56,8 @@ const CreateExam = ({ state, course, cookies, courseId }) => {
   }, [courseId]);
 
   useEffect(() => {
+    setLoading(true);
+
     const GetQues = async () => {
       let obj = {
         _id: course._id,
@@ -67,11 +69,13 @@ const CreateExam = ({ state, course, cookies, courseId }) => {
       setQuesti(pres);
       setNQ(datas.length);
     };
-
-    GetQues();
+    if (course) GetQues();
+    setLoading(false);
   }, [onNext]);
 
   useEffect(() => {
+    setLoading(true);
+
     const GetQues = async () => {
       let obj = {
         _id: course._id,
@@ -94,18 +98,12 @@ const CreateExam = ({ state, course, cookies, courseId }) => {
       let pres = datas.data;
       setIfExist(pres);
     };
-    CheckExam();
-    GetQues();
+    if (course) {
+      CheckExam();
+      GetQues();
+    }
+    setLoading(false);
   }, []);
-
-  // const GetPosts = async (coursID) => {
-  //   const sendData = {
-  //     courseId: coursID,
-  //   };
-  //   const res = await axios.post('/api/posts/AllPosts', sendData);
-  //   const data = res.data;
-  //   setCourseList(data.data);
-  // };
 
   const setAnswer = (e, next, targ) => {
     let val = e.target.value;
@@ -126,7 +124,7 @@ const CreateExam = ({ state, course, cookies, courseId }) => {
     </Tooltip>
   );
 
-  if (course) {
+  if (course._id != 404) {
     if (state.userCourses.some((el) => el.courseId == course._id) === true) {
       return (
         <div className={StylesoneCourse.Main}>
@@ -514,32 +512,46 @@ const CreateExam = ({ state, course, cookies, courseId }) => {
       );
     }
   }
-
   return (
-    <div className={Styles.Main}>
-      <div className={Styles.MainContainer}>
-        <div className={Styles.the404}>
-          <div className={Styles.MainHeader}></div>
-          <center>
-            <p className={Styles.the404Text}>No Existe este curso</p>
-            <p className={Styles.the404TextSmall}>
-              Si crees que es un error contacta a tu administrador
-            </p>
-            <br />
-            <img
-              className={Styles.the404Img}
-              src="https://cdn-images-1.medium.com/max/800/1*qdFdhbR00beEaIKDI_WDCw.gif"
-              alt="404"
-            />
-            <br />
-            <br />
-            <Button variant="dark" onClick={() => router.push('/dashboard')}>
-              Regresar
-            </Button>
-          </center>
+    <>
+      {Loading === true ? (
+        <div className={Styles.Main}>
+          <div className={Styles.MainContainer}>
+            <div className={Styles.Loading}>
+              <HashLoader />
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <div className={Styles.Main}>
+          <div className={Styles.MainContainer}>
+            <div className={Styles.the404}>
+              <div className={Styles.MainHeader}></div>
+              <center>
+                <p className={Styles.the404Text}>No Existe este curso</p>
+                <p className={Styles.the404TextSmall}>
+                  Si crees que es un error contacta a tu administrador
+                </p>
+                <br />
+                <img
+                  className={Styles.the404Img}
+                  src="https://cdn-images-1.medium.com/max/800/1*qdFdhbR00beEaIKDI_WDCw.gif"
+                  alt="404"
+                />
+                <br />
+                <br />
+                <Button
+                  variant="dark"
+                  onClick={() => router.push('/dashboard')}
+                >
+                  Regresar
+                </Button>
+              </center>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

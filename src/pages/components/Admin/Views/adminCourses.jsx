@@ -15,12 +15,14 @@ const adminCourses = ({ cookies }) => {
   const [uptade, setuptade] = useState(false);
   const [usersList, setusersList] = useState([]);
   const [UserResp, setUserResp] = useState([]);
+  const [NList, setNList] = useState([]);
 
   const removealert = () => {
     setTimeout(() => {
       setSucces(3);
     }, 4000);
   };
+  const [ifchange, setifchange] = useState(true);
 
   const deleteCourse = async () => {
     hideAlert();
@@ -44,7 +46,9 @@ const adminCourses = ({ cookies }) => {
   const showAlertEdit = async () => {
     setAlertEdit(true);
   };
-  const hideAlertEdit = () => setAlertEdit(false);
+  const hideAlertEdit = () => {
+    setAlertEdit(false);
+  };
 
   const [AlertStateUsers, setAlertStateUsers] = useState(false);
   const showAlertAddUser = async () => {
@@ -60,7 +64,6 @@ const adminCourses = ({ cookies }) => {
   const showAlertUserList = async (id) => {
     setAlertList(true);
     listUsersCourse(id);
-    console.log('userList: ', usersList);
   };
   const hideAlertUserList = () => {
     setAlertList(false);
@@ -76,10 +79,14 @@ const adminCourses = ({ cookies }) => {
     let model = {
       id: id,
     };
+
+    console.log('the id:', model);
+
     let res = await axios.post('/api/courses/userToCourseList', model);
     let data = res.data;
     setusersList(data.data);
     setUserResp(data.data);
+    setNList(data.data.length);
   };
 
   const callUsers = async (type) => {
@@ -228,7 +235,8 @@ const adminCourses = ({ cookies }) => {
         >
           <Modal.Header className={AdminStyles.ModalHeader}>
             <Modal.Title className={AdminStyles.Title}>
-              Lista de usuarios
+              {`Lista de usuarios
+              ${NList} / 15`}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -238,7 +246,7 @@ const adminCourses = ({ cookies }) => {
                   placeholder="Buscar usuario | Nombre | Apellido | Matricula"
                   onChange={(e) => searchUsersCourses(e)}
                   className={AdminStyles.adminUsersSearch}
-                  autocomplete="off"
+                  autoComplete="off"
                 />
               </div>
               {usersList.length > 0 ? (
@@ -274,7 +282,7 @@ const adminCourses = ({ cookies }) => {
                             onClick={() => {
                               let id = item._id;
                               DeleteUserCourse(id);
-                              listUsersCourse();
+                              listUsersCourse(item.courseId);
                             }}
                           >
                             Borrar
@@ -332,7 +340,7 @@ const adminCourses = ({ cookies }) => {
                   <span>Usuarios</span>
                   <input
                     className={AdminStyles.addInputs}
-                    autocomplete="off"
+                    autoComplete="off"
                     type="text"
                     name="userId"
                     onChange={(e) => setValueAddUser(e)}
@@ -374,33 +382,37 @@ const adminCourses = ({ cookies }) => {
             </Button>
 
             <Button
-              variant="primary"
+              variant="dark"
               className={AdminStyles.HeaderBtn}
               onClick={async () => {
-                let dataSend = {
-                  courseId: state.AddUser._id,
-                  userId: state.AddUser.userId,
-                };
+                if (NList >= 15) {
+                  alert('No puede agregar mas de 15 usuarios');
+                } else {
+                  let dataSend = {
+                    courseId: state.AddUser._id,
+                    userId: state.AddUser.userId,
+                  };
 
-                let res = await axios.post(
-                  `/api/courses/userToCourse`,
-                  dataSend
-                );
+                  let res = await axios.post(
+                    `/api/courses/userToCourse`,
+                    dataSend
+                  );
 
-                setstate({
-                  ...state,
-                  AddUser: {
-                    type: 'm',
-                    userId: '',
-                    _id: '',
-                  },
-                });
-                let data = res.data;
-                setSucces(data.Success);
-                setMSG(JSON.stringify(data.msg));
-                setuptade(!uptade);
-                removealert();
-                hideAlertAddUser();
+                  setstate({
+                    ...state,
+                    AddUser: {
+                      type: 'm',
+                      userId: '',
+                      _id: '',
+                    },
+                  });
+                  let data = res.data;
+                  setSucces(data.Success);
+                  setMSG(JSON.stringify(data.msg));
+                  setuptade(!uptade);
+                  removealert();
+                  hideAlertAddUser();
+                }
               }}
             >
               Agregar
@@ -467,7 +479,7 @@ const adminCourses = ({ cookies }) => {
                 <span>Nombre del Curso</span>
                 <input
                   className={AdminStyles.addInputs}
-                  autocomplete="off"
+                  autoComplete="off"
                   type="text"
                   name="courseName"
                   onChange={(e) => setValueEdit(e)}
@@ -479,7 +491,7 @@ const adminCourses = ({ cookies }) => {
                 <span>Decripcion</span>
                 <textarea
                   className={AdminStyles.addInputs}
-                  autocomplete="off"
+                  autoComplete="off"
                   type="text"
                   name="description"
                   onChange={(e) => setValueEdit(e)}
@@ -491,7 +503,7 @@ const adminCourses = ({ cookies }) => {
                 <span>Fecha de inicio</span>
                 <input
                   className={AdminStyles.addInputs}
-                  autocomplete="off"
+                  autoComplete="off"
                   type="date"
                   name="startDate"
                   onChange={(e) => setValueEdit(e)}
@@ -561,7 +573,7 @@ const adminCourses = ({ cookies }) => {
                 <span>Nombre del Curso</span>
                 <input
                   className={AdminStyles.addInputs}
-                  autocomplete="off"
+                  autoComplete="off"
                   type="text"
                   name="courseName"
                   onChange={(e) => setValue(e)}
@@ -572,7 +584,7 @@ const adminCourses = ({ cookies }) => {
                 <span>Decripcion</span>
                 <textarea
                   className={AdminStyles.addInputs}
-                  autocomplete="off"
+                  autoComplete="off"
                   type="text"
                   name="description"
                   onChange={(e) => setValue(e)}
@@ -583,7 +595,7 @@ const adminCourses = ({ cookies }) => {
                 <span>Fecha de inicio</span>
                 <input
                   className={AdminStyles.addInputs}
-                  autocomplete="off"
+                  autoComplete="off"
                   type="date"
                   name="startDate"
                   onChange={(e) => setValue(e)}
@@ -650,13 +662,15 @@ const adminCourses = ({ cookies }) => {
               placeholder="Buscar curso"
               onChange={(e) => onSearch(e)}
               className={AdminStyles.adminUsersSearch}
-              autocomplete="off"
+              autoComplete="off"
             />
             {Courses.length > 0 ? (
               <div className={AdminStyles.coursesCont}>
                 {Courses.map((item, key) => (
                   <div key={key}>
                     <Cursos
+                      // setifchange={setifchange}
+                      // ifchange={ifchange}
                       showAlertUserList={showAlertUserList}
                       showAlertAddUser={showAlertAddUser}
                       showAlert={showAlert}
@@ -664,6 +678,7 @@ const adminCourses = ({ cookies }) => {
                       setstate={setstate}
                       showAlertEdit={showAlertEdit}
                       item={item}
+                      usersList={usersList}
                     />
                   </div>
                 ))}
@@ -678,7 +693,7 @@ const adminCourses = ({ cookies }) => {
                     width="480"
                     height="359"
                     frameBorder="0"
-                    class="giphy-embed"
+                    className="giphy-embed"
                   ></iframe>
                 </center>
               </>
