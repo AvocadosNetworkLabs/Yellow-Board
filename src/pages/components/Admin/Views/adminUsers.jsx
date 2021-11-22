@@ -205,7 +205,7 @@ const adminUsers = ({ cookies }) => {
                   <span>Name</span>
                   <input
                     className={AdminStyles.addInputs}
-                    autocomplete="off"
+                    autoComplete="off"
                     type="text"
                     name="name"
                     onChange={(e) => setValue(e)}
@@ -216,7 +216,7 @@ const adminUsers = ({ cookies }) => {
                   <span>LastName</span>
                   <input
                     className={AdminStyles.addInputs}
-                    autocomplete="off"
+                    autoComplete="off"
                     type="text"
                     name="lastname"
                     onChange={(e) => setValue(e)}
@@ -229,7 +229,7 @@ const adminUsers = ({ cookies }) => {
                   <span>Matricula</span>
                   <input
                     className={AdminStyles.addInputs}
-                    autocomplete="off"
+                    autoComplete="off"
                     type="text"
                     name="username"
                     onChange={(e) => setValue(e)}
@@ -240,7 +240,7 @@ const adminUsers = ({ cookies }) => {
                   <span>Password</span>
                   <input
                     className={AdminStyles.addInputs}
-                    autocomplete="off"
+                    autoComplete="off"
                     type="password"
                     name="password"
                     onChange={(e) => setValue(e)}
@@ -253,7 +253,7 @@ const adminUsers = ({ cookies }) => {
 
                 <select
                   className={AdminStyles.addInputs}
-                  autocomplete="off"
+                  autoComplete="off"
                   name="userType"
                   onChange={(e) => setValue(e)}
                   required
@@ -267,7 +267,7 @@ const adminUsers = ({ cookies }) => {
                 <span>Email</span>
                 <input
                   className={AdminStyles.addInputs}
-                  autocomplete="off"
+                  autoComplete="off"
                   type="email"
                   name="mail"
                   onChange={(e) => setValue(e)}
@@ -278,7 +278,7 @@ const adminUsers = ({ cookies }) => {
                 <span>Direccion</span>
                 <textarea
                   className={AdminStyles.addInputs}
-                  autocomplete="off"
+                  autoComplete="off"
                   type="text"
                   name="direccion"
                   onChange={(e) => setValue(e)}
@@ -290,7 +290,7 @@ const adminUsers = ({ cookies }) => {
                   <span>Phone</span>
                   <input
                     className={AdminStyles.addInputs}
-                    autocomplete="off"
+                    autoComplete="off"
                     type="tel"
                     name="phone"
                     onChange={(e) => setValue(e)}
@@ -301,7 +301,7 @@ const adminUsers = ({ cookies }) => {
                   <span>Birthday</span>
                   <input
                     className={AdminStyles.addInputs}
-                    autocomplete="off"
+                    autoComplete="off"
                     type="date"
                     name="birthday"
                     onChange={(e) => setValue(e)}
@@ -358,7 +358,7 @@ const adminUsers = ({ cookies }) => {
                   <span>Name</span>
                   <input
                     className={AdminStyles.addInputs}
-                    autocomplete="off"
+                    autoComplete="off"
                     type="text"
                     name="name"
                     onChange={(e) => setValueEdit(e)}
@@ -370,7 +370,7 @@ const adminUsers = ({ cookies }) => {
                   <span>LastName</span>
                   <input
                     className={AdminStyles.addInputs}
-                    autocomplete="off"
+                    autoComplete="off"
                     type="text"
                     name="lastname"
                     onChange={(e) => setValueEdit(e)}
@@ -384,7 +384,7 @@ const adminUsers = ({ cookies }) => {
                   <span>Matricula</span>
                   <input
                     className={AdminStyles.addInputs}
-                    autocomplete="off"
+                    autoComplete="off"
                     type="text"
                     name="username"
                     onChange={(e) => setValueEdit(e)}
@@ -396,7 +396,7 @@ const adminUsers = ({ cookies }) => {
                   <span>Password</span>
                   <input
                     className={AdminStyles.addInputs}
-                    autocomplete="off"
+                    autoComplete="off"
                     type="password"
                     name="password"
                     onChange={(e) => setValueEdit(e)}
@@ -410,7 +410,7 @@ const adminUsers = ({ cookies }) => {
 
                 <select
                   className={AdminStyles.addInputs}
-                  autocomplete="off"
+                  autoComplete="off"
                   name="userType"
                   onChange={(e) => setValueEdit(e)}
                   value={oneUser.userType}
@@ -425,7 +425,7 @@ const adminUsers = ({ cookies }) => {
                 <span>Email</span>
                 <input
                   className={AdminStyles.addInputs}
-                  autocomplete="off"
+                  autoComplete="off"
                   type="email"
                   name="mail"
                   onChange={(e) => setValueEdit(e)}
@@ -437,7 +437,7 @@ const adminUsers = ({ cookies }) => {
                 <span>Direccion</span>
                 <textarea
                   className={AdminStyles.addInputs}
-                  autocomplete="off"
+                  autoComplete="off"
                   type="text"
                   name="direccion"
                   onChange={(e) => setValueEdit(e)}
@@ -450,7 +450,7 @@ const adminUsers = ({ cookies }) => {
                   <span>Phone</span>
                   <input
                     className={AdminStyles.addInputs}
-                    autocomplete="off"
+                    autoComplete="off"
                     type="tel"
                     name="phone"
                     onChange={(e) => setValueEdit(e)}
@@ -462,7 +462,7 @@ const adminUsers = ({ cookies }) => {
                   <span>Birthday</span>
                   <input
                     className={AdminStyles.addInputs}
-                    autocomplete="off"
+                    autoComplete="off"
                     type="date"
                     name="birthday"
                     onChange={(e) => setValueEdit(e)}
@@ -532,7 +532,7 @@ const adminUsers = ({ cookies }) => {
                 placeholder="Buscar usuario | Nombre Apellido | Matricula"
                 onChange={(e) => onSearch(e)}
                 className={AdminStyles.adminUsersSearch}
-                autocomplete="off"
+                autoComplete="off"
               />
               <div className={AdminStyles.adminUsersLeft}>
                 <div className={AdminStyles.adminUsersCont}>

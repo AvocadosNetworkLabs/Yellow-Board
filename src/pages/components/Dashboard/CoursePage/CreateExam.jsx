@@ -151,7 +151,7 @@ const CreateExam = ({ state, course, cookies, courseId }) => {
                             className={Styles.MainContentPInput}
                             htmlFor={key}
                           >
-                            <input name={key} type="radio" />
+                            <input autoComplete="off" name={key} type="radio" />
 
                             <span>{` A) ${items.answers[0]}`}</span>
                           </label>
@@ -159,7 +159,7 @@ const CreateExam = ({ state, course, cookies, courseId }) => {
                             className={Styles.MainContentPInput}
                             htmlFor={key}
                           >
-                            <input name={key} type="radio" />
+                            <input autoComplete="off" name={key} type="radio" />
 
                             <span>{` B) ${items.answers[1]}`}</span>
                           </label>
@@ -167,7 +167,7 @@ const CreateExam = ({ state, course, cookies, courseId }) => {
                             className={Styles.MainContentPInput}
                             htmlFor={key}
                           >
-                            <input name={key} type="radio" />
+                            <input autoComplete="off" name={key} type="radio" />
 
                             <span>{` C) ${items.answers[2]}`}</span>
                           </label>
@@ -175,7 +175,7 @@ const CreateExam = ({ state, course, cookies, courseId }) => {
                             className={Styles.MainContentPInput}
                             htmlFor={key}
                           >
-                            <input name={key} type="radio" />
+                            <input autoComplete="off" name={key} type="radio" />
 
                             <span>{` D) ${items.answers[3]}`}</span>
                           </label>
@@ -247,6 +247,7 @@ const CreateExam = ({ state, course, cookies, courseId }) => {
                   <div className={Styles.MainContentP}>
                     <span className={Styles.MainContentPTitle}>¿</span>
                     <input
+                      autoComplete="off"
                       className={Styles.MainContentPInput}
                       placeholder="Cuanto es 2 + 2"
                       type="text"
@@ -287,6 +288,7 @@ const CreateExam = ({ state, course, cookies, courseId }) => {
                       <div className={Styles.Respuesta}>
                         <p className={Styles.RespuestaTitle}>A)</p>
                         <input
+                          autoComplete="off"
                           className={Styles.MainContentPInput}
                           type="text"
                           id="QA"
@@ -299,6 +301,7 @@ const CreateExam = ({ state, course, cookies, courseId }) => {
                       <div className={Styles.Respuesta}>
                         <p className={Styles.RespuestaTitle}>B)</p>
                         <input
+                          autoComplete="off"
                           className={Styles.MainContentPInput}
                           type="text"
                           id="QB"
@@ -325,6 +328,7 @@ const CreateExam = ({ state, course, cookies, courseId }) => {
                       <div className={Styles.Respuesta}>
                         <p className={Styles.RespuestaTitle}>D)</p>
                         <input
+                          autoComplete="off"
                           className={Styles.MainContentPInput}
                           type="text"
                           id="QD"
@@ -499,6 +503,7 @@ const CreateExam = ({ state, course, cookies, courseId }) => {
                         };
 
                         let res = await axios.post('/api/exams', obj);
+                        router.push('/dashboard');
                       }}
                     >
                       Finalizar Examen
