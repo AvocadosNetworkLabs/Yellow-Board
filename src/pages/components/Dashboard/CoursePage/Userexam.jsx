@@ -3,8 +3,8 @@ import StylesoneCourse from 'styles/oneCourse.module.scss';
 import Styles from 'styles/Exam.module.scss';
 import { Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
+import { HashLoader } from 'react-spinners';
 import router from 'next/router';
-import Preguntas from './Preguntas';
 
 const Userexam = ({ state, course, cookies, courseId }) => {
   const [cookieData, setcookiedata] = useState({
@@ -24,7 +24,9 @@ const Userexam = ({ state, course, cookies, courseId }) => {
   });
 
   const [questions, setquestions] = useState([]);
-
+  const [Alerts, setAlerts] = useState('');
+  const [AlertType, setAlertType] = useState('success');
+  const [theresult, setresult] = useState(0);
   useEffect(async () => {
     const GetQuestions = async () => {
       let obj = {
@@ -40,15 +42,25 @@ const Userexam = ({ state, course, cookies, courseId }) => {
     GetQuestions();
   }, []);
 
-  const [Loading, setLoading] = useState(false);
+  const [theLoading, settheLoading] = useState();
   const [uanswers, setuanswers] = useState([]);
-  const [canswers, setcanswers] = useState([]);
+  const [theview, settheview] = useState('exam');
+
+  const calificar = (correctas, incorrectas) => {
+    let final;
+    return (final = (correctas * 10) / (correctas + incorrectas));
+  };
 
   if (course._id != 404) {
     console.log(questions);
     if (state.userCourses.some((el) => el.courseId == course._id) === true) {
       return (
         <div className={StylesoneCourse.Main}>
+          {Alerts != '' ? (
+            <Alert className={Styles.alert} variant={AlertType}>
+              {Alerts}
+            </Alert>
+          ) : null}
           <div className={Styles.MainContainer}>
             <div className={StylesoneCourse.MainHeader}>
               <p className={StylesoneCourse.MainHeaderTitle}>
@@ -64,68 +76,167 @@ const Userexam = ({ state, course, cookies, courseId }) => {
               </div>
             </div>
             <hr />
-            <div className={Styles.MainContent}>
-              {questions.length > 0 ? (
-                questions.map((question, key) => (
-                  <div key={key}>
-                    <Preguntas
-                      question={question}
-                      uanswers={uanswers}
-                      setuanswers={setuanswers}
-                      setcanswers={setcanswers}
-                      canswers={canswers}
-                      key={key}
-                    />
+
+            {theLoading === true ? (
+              <div className={Styles.Main}>
+                <div className={Styles.MainContainer}>
+                  <div className={Styles.Loading}>
+                    <HashLoader />
                   </div>
-                ))
-              ) : (
-                <Alert variant="danger"> Aun no hay examen </Alert>
-              )}
-            </div>
-            <div>
-              <Button
-                onClick={() => {
-                  let uresp = Object.values(uanswers);
-                  console.log(uresp);
-                  console.log(canswers);
-                  // let cat = [];
+                </div>
+              </div>
+            ) : (
+              <div className={Styles.MainContent}>
+                {questions.length > 0 ? (
+                  questions.map((question, key) => {
+                    return (
+                      <div
+                        key={key}
+                        id={`C${key}`}
+                        className={Styles.MainContentActivitys}
+                      >
+                        <div>
+                          <p
+                            className={Styles.MainContentQuestionPreRCTitle}
+                          >{`¿ ${question.question} ?`}</p>
+                        </div>
+                        <div className={Styles.MainContentQuestionPre}>
+                          {question.answers.map((answers, key2) => {
+                            let name;
+                            switch (key2) {
+                              case 0:
+                                name = 'A';
+                                break;
+                              case 1:
+                                name = 'B';
+                                break;
+                              case 2:
+                                name = 'C';
+                                break;
+                              case 3:
+                                name = 'D';
+                                break;
+                            }
+                            return (
+                              <label
+                                key={key2}
+                                className={Styles.MainContentPInput}
+                                htmlFor="answare"
+                              >
+                                <input
+                                  name={`${question.question}`}
+                                  id={`Q${key2}`}
+                                  type="radio"
+                                  value={name}
+                                  onChange={(e) => {
+                                    if (
+                                      question.correctAns === e.target.value
+                                    ) {
+                                      uanswers[key] = true;
+                                      console.log(typeof uanswers[0]);
+                                    } else {
+                                      uanswers[key] = false;
+                                    }
+                                  }}
+                                />
+                                <span>{` ${name}) ${answers} `}</span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <Alert variant="danger"> Aun no hay examen </Alert>
+                )}
 
-                  // var cat;
+                <div>
+                  <div className={Styles.Footer}>
+                    <Button
+                      className={Styles.FooterBtn}
+                      variant="dark"
+                      id="end"
+                      onClick={() => {
+                        settheLoading(true);
+                        console.log(uanswers);
 
-                  let yFilter = canswers.map((itemY, key) => {
-                    return itemY;
-                  });
-                  console.log('y', yFilter);
+                        let correct = 0;
+                        let inc = 0;
+                        let notempty = uanswers.every((el) => {
+                          if (
+                            el === '' ||
+                            el === undefined ||
+                            el === null ||
+                            el === 'empty'
+                          )
+                            return true;
+                        });
+                        let someempty = uanswers.length < questions.length;
+                        console.log(notempty);
+                        console.log(someempty);
+                        if (notempty === true || someempty === true) {
+                          setAlerts('Faltan preguntas por responder');
+                          setAlertType('danger');
 
-                  let count = 0;
-                  let cat = uresp.filter((itemX, key) => {
-                    yFilter.forEach((seg, key) => {
-                      if (seg === itemX) {
-                        count += 1;
-                      }
-                      console.log('primer: ', seg);
-                      console.log('segundo', itemX);
-                    });
-                  });
+                          setTimeout(() => {
+                            setAlerts('');
+                          }, 5000);
+                        } else {
+                          uanswers.map((items, key) => {
+                            if (items === true) {
+                              correct += 1;
+                              let Card = document.getElementById(`C${key}`);
+                              Card.classList.add(`${Styles.Calc}`);
+                            } else {
+                              inc += 1;
+                              let Card = document.getElementById(`C${key}`);
+                              Card.classList.add(`${Styles.Cale}`);
+                            }
+                            setAlerts('Enviando examen');
+                            setAlertType('info');
 
-                  console.log(count);
-                  console.log(cat);
+                            let input = document.getElementById(`Q${key}`);
 
-                  // canswers.forEach((el) =>
-                  //   uresp.forEach((el2) => {
-                  //     if (el === el2) {
-                  //       console.log('1', el);
-                  //       console.log('2', el2);
-                  //       cat.push(el);
-                  //       call = call + 1;
-                  //     }
-                  //   })
-                  // );
-                }}
-              >
-                Finalizar
-              </Button>
-            </div>
+                            let btn = document.getElementById('end');
+                            input.disabled = true;
+                            btn.disabled = true;
+                          });
+
+                          setTimeout(() => {
+                            let results = calificar(correct, inc);
+                            setAlerts(
+                              `Su calificacion es de ${results.toFixed(2)}`
+                            );
+
+                            if (results < 6) {
+                              setAlertType('danger');
+                            } else {
+                              setAlertType('success');
+                            }
+
+                            setresult(results);
+                            settheview('cal');
+                          }, 5000);
+                        }
+                        settheLoading(false);
+                      }}
+                    >
+                      Finalizar
+                    </Button>
+                    {theview === 'cal' ? (
+                      <Button
+                        className={Styles.FooterBtn}
+                        variant="dark"
+                        onClick={() => router.push('/dashboard')}
+                      >
+                        Regresar
+                      </Button>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       );
@@ -133,7 +244,7 @@ const Userexam = ({ state, course, cookies, courseId }) => {
   }
   return (
     <>
-      {Loading === true ? (
+      {theLoading === true ? (
         <div className={Styles.Main}>
           <div className={Styles.MainContainer}>
             <div className={Styles.Loading}>
