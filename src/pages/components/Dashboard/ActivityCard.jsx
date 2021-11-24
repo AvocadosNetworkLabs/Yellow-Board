@@ -443,6 +443,7 @@ const ActivityCard = ({
       <div className={ActivityCardStyles.activityCard}>
         <div className={ActivityCardStyles.header1}>
           <span>{`Actividad ${item.activityNum}`}</span>
+          <span id="done"></span>
           <span>{item.CoursData.courseName}</span>
         </div>
         <div className={ActivityCardStyles.metadata}>
@@ -537,7 +538,7 @@ const ActivityCard = ({
                 disabled
                 variant="dark"
               >
-                Subir actividad
+                Entregada ✅
               </Button>
             ) : (
               <Button
@@ -548,7 +549,7 @@ const ActivityCard = ({
                 }}
                 variant="dark"
               >
-                Subir actividad
+                Subir archivo
               </Button>
             )
           ) : (
@@ -561,7 +562,7 @@ const ActivityCard = ({
               disabled={btnblock}
               variant="dark"
             >
-              Subir actividad
+              {btnblock == false ? 'Subir archivo' : 'Entregada ✅'}
             </Button>
           )}
         </div>

@@ -282,11 +282,16 @@
   padding: 2rem;
   margin: 2rem auto;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 .Calc {
   background-color: rgba(84, 202, 5, 0.205);
 }
 .Cale {
   background-color: rgb(192, 0, 0, 0.205);
+}
+.nalert {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 2rem;
 }

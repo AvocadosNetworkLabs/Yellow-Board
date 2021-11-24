@@ -114,7 +114,7 @@ const CoursePage = ({ state, course, cookies }) => {
                     <center>
                       <img
                         className={mainStyles.nothingImg}
-                        src="https://media.tenor.com/images/d8ebb04280fd50216a4f846d330c5d3a/tenor.gif"
+                        src="https://cdn.lowgif.com/full/2df4642bdfe3f1cf-confetti-explosion-gif-www-pixshark-com-images.gif"
                         alt="error loading"
                       />
                     </center>

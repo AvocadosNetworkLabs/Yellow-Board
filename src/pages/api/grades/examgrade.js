@@ -8,13 +8,11 @@ dbConnect();
 export default async function handler(req, res) {
   const { method, body } = req;
   console.log(req.method, req.url);
-  console.log(body);
   switch (method) {
     case 'POST':
       try {
         const newGrades = new Grades(body);
         const savedGrades = await newGrades.save();
-        console.log(savedGrades);
         return res.status(200).json({
           Success: 1,
           data: savedGrades,
@@ -25,5 +23,7 @@ export default async function handler(req, res) {
           .status(200)
           .json({ Success: 0, data: null, msg: err.message });
       }
+    default:
+      return res.status(200).json({ msg: 'method not suported 🐣' });
   }
 }
