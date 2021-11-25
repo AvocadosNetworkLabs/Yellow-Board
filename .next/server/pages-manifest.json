@@ -4,8 +4,8 @@
   "/_error": "pages/_error.js",
   "/admin/alumnos": "pages/admin/alumnos.js",
   "/": "pages/index.js",
-  "/api/getUsers": "pages/api/getUsers.js",
-  "/api/getUsers/[id]": "pages/api/getUsers/[id].js",
+  "/dashboard": "pages/dashboard.js",
   "/api/signin": "pages/api/signin.js",
-  "/admin": "pages/admin.js"
+  "/api/profile": "pages/api/profile.js",
+  "/api/getUsers": "pages/api/getUsers.js"
 }

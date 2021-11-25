@@ -13,9 +13,22 @@ const Profile = ({ Mquery, data, uid }) => {
   const [Alertshow, setAlertshow] = useState('');
   const [image, setImage] = useState('');
   const [createObjectURL, setCreateObjectURL] = useState(null);
-  const uploadToClient = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0];
+  const uploadToClient = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const i = e.target.files[0];
+
+      if (!i) {
+        setAlertshow('Error imagen no admitida o no hay imagen');
+        setTimeout(() => {
+          setAlertshow('');
+        }, 5000);
+        setImage(i);
+        return (
+          <Alert className={profileStyles.alert} variant="danger">
+            {Alertshow}
+          </Alert>
+        );
+      }
 
       if (i.name === state.udta[0].url) {
         setAlertshow('La imagen es la misma...');
@@ -30,21 +43,28 @@ const Profile = ({ Mquery, data, uid }) => {
   };
 
   const uploadToServer = async () => {
-    if (image.name.replace(/\s/g, '_') === state.udta[0].url) {
-      setAlertshow('La imagen es la misma...');
+    if (image) {
+      if (image.name.replace(/\s/g, '_') === state.udta[0].url) {
+        setAlertshow('La imagen es la misma...');
+        setTimeout(() => {
+          setAlertshow('');
+        }, 5000);
+      } else {
+        const body = new FormData();
+        body.append('file', image);
+        let response = await fetch('/api/file/img', {
+          method: 'POST',
+          body,
+        });
+        let resp = await axios.put(`/api/file/img/${uid}`, {
+          url: `/assets/profile/${image.name.replace(/\s/g, '_')}`,
+        });
+      }
+    } else {
+      setAlertshow('Subir una imagen');
       setTimeout(() => {
         setAlertshow('');
       }, 5000);
-    } else {
-      const body = new FormData();
-      body.append('file', image);
-      let response = await fetch('/api/file/img', {
-        method: 'POST',
-        body,
-      });
-      let resp = await axios.put(`/api/file/img/${uid}`, {
-        url: `/assets/profile/${image.name.replace(/\s/g, '_')}`,
-      });
     }
   };
   const [state, setstate] = useState({ loading: false });
