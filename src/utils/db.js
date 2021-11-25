@@ -11,13 +11,13 @@ export async function dbConnect() {
 
   conn.isConnected = db.connections[0].readyState;
 
-  console.log('connected to:', db.connection.db.databaseName);
+  // console.log('connected to:', db.connection.db.databaseName);
 }
 
 connection.on('connected', () => {
-  console.log('Mongo db is connected');
+  // console.log('Mongo db is connected');
 });
 
 connection.on('error', (err) => {
-  console.log('DB error: ', err);
+  // console.log('DB error: ', err);
 });

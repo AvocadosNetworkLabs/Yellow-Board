@@ -137,6 +137,7 @@ const Dashboard = ({ Mquery, cookies }) => {
                         <div key={key}>
                           <Cursos
                             cookieData={cookieData.userType}
+                            uid={cookieData.id}
                             userCourses={item.userCourses}
                             id={item.courseId}
                           />

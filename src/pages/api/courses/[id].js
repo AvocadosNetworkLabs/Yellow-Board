@@ -29,7 +29,7 @@ export default async (req, res) => {
         });
       }
     case 'PUT':
-      console.log(body);
+      // console.log(body);
       try {
         const updatedCourses = await Courses.findByIdAndUpdate(id, body, {
           new: true,

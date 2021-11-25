@@ -14,7 +14,7 @@ export default async (req, res) => {
   switch (method) {
     case 'DELETE':
       try {
-        console.log(body);
+        // console.log(body);
         const deletedPosts = await Posts.findByIdAndDelete(id);
         fs.unlink(`./public${body.filePath}`, function (err) {
           if (err) console.log(err);

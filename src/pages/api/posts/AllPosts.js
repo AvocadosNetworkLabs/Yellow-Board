@@ -7,10 +7,10 @@ dbConnect();
 
 export default async function handler(req, res) {
   const { method, body } = req;
-  console.log(req.method, req.url);
+  // console.log(req.method, req.url);
 
   const { courseId } = body;
-  console.log(courseId);
+  // console.log(courseId);
   switch (method) {
     case 'POST':
       try {

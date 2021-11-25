@@ -24,7 +24,7 @@ export default async (req, res) => {
         form.parse(req, (err, fields, files) => {
           if (err) return reject(err);
           resolve({ fields, files });
-          // console.log(err, fields, files);
+          // // console.log(err, fields, files);
         });
       });
       return res.status(200).json({

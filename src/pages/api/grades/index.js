@@ -5,15 +5,15 @@ dbConnect();
 
 export default async function handler(req, res) {
   const { method, body } = req;
-  console.log(req.method, req.url);
-  console.log(body);
+  // console.log(req.method, req.url);
+  // console.log(body);
   switch (method) {
     case 'POST':
       try {
         // const extraRes = { $push: { extraResource } };
         const newGrades = new Grades(body);
         const savedGrades = await newGrades.save();
-        console.log(savedGrades);
+        // console.log(savedGrades);
         return res.status(200).json({
           Success: 1,
           data: savedGrades,

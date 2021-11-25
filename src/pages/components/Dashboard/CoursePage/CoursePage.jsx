@@ -9,7 +9,6 @@ import { HashLoader } from 'react-spinners';
 import axios from 'axios';
 
 const CoursePage = ({ state, course, cookies }) => {
-  // /api/posts/AllPosts
   const [ifChange, setifChange] = useState(false);
 
   const [cookieData, setcookiedata] = useState({
@@ -42,10 +41,7 @@ const CoursePage = ({ state, course, cookies }) => {
   };
 
   const [courseList, setCourseList] = useState([]);
-  const [examList, setexamList] = useState([]);
-  const [fullList, setFullList] = useState([]);
   const [Loading, setLoading] = useState(false);
-  const [activityId, setactivityId] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -69,7 +65,7 @@ const CoursePage = ({ state, course, cookies }) => {
                 >
                   Regresar
                 </Button>
-                {cookieData.userType === 'm' ? (
+                {cookieData.userType === 'm' || cookieData.userType === 'a' ? (
                   <ButtonNew
                     setLoading={setLoading}
                     setCourseList={setCourseList}
@@ -108,9 +104,7 @@ const CoursePage = ({ state, course, cookies }) => {
                   ))
                 ) : (
                   <div className={mainStyles.nothingCount}>
-                    <p className={mainStyles.nothing}>
-                      Upsss!... No tienes actividades
-                    </p>
+                    <p className={mainStyles.nothing}>No tienes actividades</p>
                     <center>
                       <img
                         className={mainStyles.nothingImg}

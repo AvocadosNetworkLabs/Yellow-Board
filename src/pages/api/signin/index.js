@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   const { method, body } = req;
   const { user, psw } = body;
 
-  console.log(req.method, req.url);
+  // console.log(req.method, req.url);
 
   if (user === '' || psw === '') {
     return res
@@ -29,7 +29,7 @@ export default async function handler(req, res) {
 
     case 'POST':
       try {
-        // console.log(user + ' ' + psw);
+        // // console.log(user + ' ' + psw);
         // const newUsers = new Users(body);
         const savedUser = await Users.find({
           $and: [
@@ -54,21 +54,17 @@ export default async function handler(req, res) {
               path: '/',
             })
           );
-          return res
-            .status(200)
-            .json({
-              Success: true,
-              data: savedUser[0],
-              msg: `Bienvenido ${savedUser[0].username} 🍪`,
-            });
+          return res.status(200).json({
+            Success: true,
+            data: savedUser[0],
+            msg: `Bienvenido ${savedUser[0].username} 🍪`,
+          });
         } else {
-          return res
-            .status(200)
-            .json({
-              Success: false,
-              data: null,
-              msg: `Usuario no registrado o credenciales incorrectas 🤚`,
-            });
+          return res.status(200).json({
+            Success: false,
+            data: null,
+            msg: `Usuario no registrado o credenciales incorrectas 🤚`,
+          });
         }
       } catch (err) {
         return res.status(200).json({ Success: false, msg: err });

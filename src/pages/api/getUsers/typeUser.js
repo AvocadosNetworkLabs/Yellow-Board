@@ -8,8 +8,8 @@ export default async function handler(req, res) {
 
   const { type } = body;
 
-  console.log(req.method, req.url);
-  console.log(body);
+  // console.log(req.method, req.url);
+  // console.log(body);
 
   switch (method) {
     case 'POST':

@@ -7,8 +7,8 @@ dbConnect();
 
 export default async function handler(req, res) {
   const { method, body } = req;
-  console.log(req.method, req.url);
-  console.log(body);
+  // console.log(req.method, req.url);
+  // console.log(body);
   switch (method) {
     case 'POST':
       try {
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
             { userGrade: ObjectId(body.userGrade) },
           ],
         });
-        console.log(NewGrades);
+        // console.log(NewGrades);
         return res.status(200).json({
           Success: 4,
           data: NewGrades,

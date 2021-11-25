@@ -475,18 +475,18 @@ const adminUsers = ({ cookies }) => {
           </Modal.Body>
           <Modal.Footer className={AdminStyles.ModalFooter}>
             <Button
-              variant="secondary"
+              variant="danger"
               className={AdminStyles.HeaderBtn}
               onClick={hideAlertEdit}
             >
               Cerrar
             </Button>
             <Button
-              variant="primary"
+              variant="dark"
               className={AdminStyles.HeaderBtn}
               onClick={async () => {
                 hideAlertEdit();
-                console.log(oneUser);
+                // console.log(oneUser);
                 let res = await axios.put(
                   `/api/getUsers/${oneUser._id}`,
                   oneUser
@@ -560,7 +560,7 @@ const adminUsers = ({ cookies }) => {
                             );
                             let data = res.data;
                             setOneUser(data.data);
-                            console.log(oneUser);
+                            // console.log(oneUser);
                           }}
                         >
                           <Card.Img variant="top" src={item.url} />

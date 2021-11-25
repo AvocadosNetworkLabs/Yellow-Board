@@ -7,8 +7,8 @@ dbConnect();
 
 export default async function handler(req, res) {
   const { method, body } = req;
-  console.log(req.method, req.url);
-  console.log(body);
+  // console.log(req.method, req.url);
+  // console.log(body);
   switch (method) {
     case 'POST':
       try {
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
             { userDeliver: ObjectId(body.userDeliver) },
           ],
         });
-        console.log(Deliverys);
+        // console.log(Deliverys);
         return res
           .status(200)
           .json({ Success: 4, data: Deliverys, msg: `Cursos encontrados` });

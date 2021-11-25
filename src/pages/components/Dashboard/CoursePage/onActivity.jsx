@@ -46,15 +46,25 @@ const onActivity = ({ activity, cookies }) => {
     const GetFiles = async () => {
       let res = await axios.post('/api/delivery/UserDataDeliver', {
         id: activity.CourseData._id,
+        activityDeliver: activity,
       });
       let data = res.data;
       setFileList(data.data);
-      console.log(data.data);
+      // console.log(data.data);
     };
     GetFiles();
   }, []);
 
-  console.log(activity);
+  const GetFiles2 = async () => {
+    let res = await axios.post('/api/delivery/UserDataDeliver', {
+      id: activity.CourseData._id,
+    });
+    let data = res.data;
+    setFileList(data.data);
+    // console.log(data.data);
+  };
+
+  // console.log(activity);
   if (activity) {
     return (
       <div className={Styles.Main}>
@@ -64,14 +74,27 @@ const onActivity = ({ activity, cookies }) => {
               {`Actividad ${activity.OnePost.activityNum} `}
             </p>
             <div>
-              <Button
-                variant="dark"
-                onClick={() => {
-                  router.push(`/dashboard/courses/${activity.CourseData._id}`);
-                }}
-              >
-                Regresar
-              </Button>
+              {cookieData.userType === 'm' || cookieData.userType === 'u' ? (
+                <Button
+                  variant="dark"
+                  onClick={() => {
+                    router.push(
+                      `/dashboard/courses/${activity.CourseData._id}`
+                    );
+                  }}
+                >
+                  Regresar
+                </Button>
+              ) : (
+                <Button
+                  variant="dark"
+                  onClick={() => {
+                    router.push(`/admin/delivers/${activity.CourseData._id}`);
+                  }}
+                >
+                  Regresar
+                </Button>
+              )}
             </div>
           </div>
 
@@ -124,7 +147,8 @@ const onActivity = ({ activity, cookies }) => {
                   >
                     Click para descargar documento
                   </a>
-                  {cookieData.userType === 'm' ? null : (
+                  {cookieData.userType === 'm' ||
+                  cookieData.userType === 'a' ? null : (
                     <Button className={ActivityCardStyles.btn} variant="dark">
                       Subir actividad
                     </Button>
@@ -137,9 +161,15 @@ const onActivity = ({ activity, cookies }) => {
                   <span>Entregas de los alumnos</span>
                 </div>
                 <div>
-                  {FileList.length > 0 ? (
+                  {FileList && FileList.length > 0 ? (
                     FileList.map((file, key) => (
-                      <FileCard file={file} key={key} activity={activity} />
+                      <FileCard
+                        file={file}
+                        key={key}
+                        cookieData={cookieData}
+                        activity={activity}
+                        GetFiles2={GetFiles2}
+                      />
                     ))
                   ) : (
                     <p>No hay entregas</p>

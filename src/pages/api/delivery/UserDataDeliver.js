@@ -7,10 +7,10 @@ dbConnect();
 
 export default async function handler(req, res) {
   const { method, body } = req;
-  console.log(req.method, req.url);
+  // console.log(req.method, req.url);
 
-  const { id } = body;
-  console.log(id);
+  const { id, activityDeliver } = body;
+  // console.log(activityDeliver.OnePost._id);
   switch (method) {
     case 'POST':
       try {
@@ -34,8 +34,15 @@ export default async function handler(req, res) {
           },
           { $unwind: '$CoursData' },
           { $unwind: '$userDatas' },
+          // { $unwind: '$ActivityGrade' },
 
-          { $match: { sta: 1, courseDeliver: ObjectId(id) } },
+          {
+            $match: {
+              sta: 1,
+              courseDeliver: ObjectId(id),
+              activityDeliver: ObjectId(activityDeliver.OnePost._id),
+            },
+          },
         ]);
         return res
           .status(200)

@@ -26,16 +26,16 @@ export default function Main({ Mquery, cookies }) {
     },
   });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setloading(true);
     let session = Cookies.get('session');
     if (cookies.userData && session === 'true') {
       setcookiedata(JSON.parse(cookies.userData));
-      if (cookieData === 'a') {
-        Router.push('/admin');
-      } else if (cookieData === 'u' || cookieData === 'm') {
-        Router.push('/dashboard');
-      }
+    }
+    if (cookieData.userType === 'a') {
+      Router.push('/admin');
+    } else if (cookieData.userType === 'u' || cookieData.userType === 'm') {
+      Router.push('/dashboard');
     }
   }, []);
 

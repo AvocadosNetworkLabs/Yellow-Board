@@ -25,7 +25,7 @@ const curso = ({ activity, cookies }) => {
     query: '(max-width: 599px)',
   });
 
-  console.log(activity);
+  // console.log(activity);
   return (
     <>
       <Navbar cookies={cookies} />

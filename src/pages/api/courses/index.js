@@ -7,12 +7,11 @@ dbConnect();
 
 export default async function handler(req, res) {
   const { method, body, url } = req;
-  console.log(method + ' ' + url);
+  // console.log(method + ' ' + url);
   const { id } = body;
   switch (method) {
     case 'POST':
       try {
-        console.log('body: ', body);
         const userCourses = await Courses.aggregate([
           {
             $lookup: {
@@ -35,8 +34,6 @@ export default async function handler(req, res) {
         ]);
         //para condiciones dentro del query
         // { $match: { teacher: ObjectId(teacher) } },
-
-        console.log('data', userCourses);
 
         return res.status(201).json({ msg: 'Data found', data: userCourses });
       } catch (err) {

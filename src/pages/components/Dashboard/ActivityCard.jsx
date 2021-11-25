@@ -84,7 +84,7 @@ const ActivityCard = ({
     // setifChange(!ifChange);
     // return Temp;
     setTemp(Temp);
-    console.log('oneDeliver', Temp);
+    // console.log('oneDeliver', Temp);
   };
 
   useEffect(() => {
@@ -488,7 +488,7 @@ const ActivityCard = ({
           <a className={ActivityCardStyles.showfile} href={item.file} download>
             Click para descargar documento
           </a>
-          {cookieData.userType === 'm' ? (
+          {cookieData.userType === 'm' || cookieData.userType === 'a' ? (
             <div className={ActivityCardStyles.ButtonsTeacher}>
               <Button
                 onClick={() => {

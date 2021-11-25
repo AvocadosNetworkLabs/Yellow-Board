@@ -80,7 +80,7 @@ const adminCourses = ({ cookies }) => {
       id: id,
     };
 
-    console.log('the id:', model);
+    // console.log('the id:', model);
 
     let res = await axios.post('/api/courses/userToCourseList', model);
     let data = res.data;
@@ -181,7 +181,7 @@ const adminCourses = ({ cookies }) => {
   const searchUsersCourses = (e) => {
     const data = UserResp;
     const query = e.target.value;
-    console.log(data);
+    // console.log(data);
     const userFiltere = data.filter((data) => {
       let fullname = `${data.listUsers.username} ${data.listUsers.lastname}`;
       return (
@@ -313,7 +313,7 @@ const adminCourses = ({ cookies }) => {
           </Modal.Body>
           <Modal.Footer className={AdminStyles.ModalFooter}>
             <Button
-              variant="secondary"
+              variant="danger"
               className={AdminStyles.HeaderBtn}
               onClick={() => hideAlertUserList()}
             >
@@ -374,7 +374,7 @@ const adminCourses = ({ cookies }) => {
           </Modal.Body>
           <Modal.Footer className={AdminStyles.ModalFooter}>
             <Button
-              variant="secondary"
+              variant="danger"
               className={AdminStyles.HeaderBtn}
               onClick={() => hideAlertAddUser()}
             >
@@ -515,7 +515,7 @@ const adminCourses = ({ cookies }) => {
           </Modal.Body>
           <Modal.Footer className={AdminStyles.ModalFooter}>
             <Button
-              variant="secondary"
+              variant="danger"
               className={AdminStyles.HeaderBtn}
               onClick={() => hideAlertEdit()}
             >
@@ -523,7 +523,7 @@ const adminCourses = ({ cookies }) => {
             </Button>
 
             <Button
-              variant="primary"
+              variant="dark"
               className={AdminStyles.HeaderBtn}
               onClick={async () => {
                 setstate({
@@ -606,7 +606,7 @@ const adminCourses = ({ cookies }) => {
           </Modal.Body>
           <Modal.Footer className={AdminStyles.ModalFooter}>
             <Button
-              variant="secondary"
+              variant="danger"
               className={AdminStyles.HeaderBtn}
               onClick={handleClose}
             >
@@ -614,7 +614,7 @@ const adminCourses = ({ cookies }) => {
             </Button>
 
             <Button
-              variant="primary"
+              variant="dark"
               className={AdminStyles.HeaderBtn}
               onClick={async () => {
                 let res = await axios.post(

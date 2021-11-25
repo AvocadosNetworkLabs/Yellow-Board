@@ -5,10 +5,10 @@ dbConnect();
 
 export default async function handler(req, res) {
   const { method, body } = req;
-  console.log(req.method, req.url);
-  console.log(body);
+  // console.log(req.method, req.url);
+  // console.log(body);
   const { extraResource } = body;
-  console.log(extraResource);
+  // console.log(extraResource);
   switch (method) {
     case 'POST':
       try {

@@ -10,12 +10,12 @@ export default async function handler(req, res) {
 
   const { id } = body;
 
-  console.log(req.method, req.url);
+  // console.log(req.method, req.url);
 
   switch (method) {
     case 'POST':
       try {
-        console.log('body: ', body);
+        // console.log('body: ', body);
         const userCourses = await Courses.aggregate([
           {
             $lookup: {
@@ -41,7 +41,7 @@ export default async function handler(req, res) {
         //para condiciones dentro del query
         // { $match: { teacher: ObjectId(teacher) } },
 
-        console.log('data', userCourses);
+        // console.log('data', userCourses);
 
         return res.status(201).json({ msg: 'Data found', data: userCourses });
       } catch (err) {

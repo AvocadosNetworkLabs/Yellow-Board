@@ -3,9 +3,8 @@ import Styles from 'styles/oneCourse.module.scss';
 import ModalsS from 'styles/Exam.module.scss';
 import { Button, Modal, Alert } from 'react-bootstrap';
 import axios from 'axios';
-import { set } from 'js-cookie';
 
-const FileCard = ({ file, key, activity }) => {
+const FileCard = ({ GetFiles2, file, key, activity, cookieData }) => {
   let titulo = `${activity.CourseData.courseName} - Actividad ${activity.OnePost.activityNum}`;
   const [show, setShow] = useState(false);
   const [theAlert, settheAlert] = useState(null);
@@ -20,12 +19,13 @@ const FileCard = ({ file, key, activity }) => {
     activityId: activity.OnePost._id,
     gradesTitle: titulo,
   });
-
-  let GradesList;
+  const [ongrade, setongradec] = useState('');
 
   useEffect(() => {
     GetGrades();
   }, []);
+
+  // console.log('file:', file);
 
   const GetGrades = async () => {
     let res = await axios.post('/api/grades/oneGrade', state);
@@ -74,13 +74,13 @@ const FileCard = ({ file, key, activity }) => {
                     variant="danger"
                     onClick={() => {
                       let res = axios.delete(`/api/grades/${onegrade._id}`);
-                      GetGrades();
                       settheAlert2('Calificacion borrada');
                       setAlertype2('success');
 
                       setTimeout(() => {
                         settheAlert2(null);
                       }, 3000);
+                      GetGrades();
                     }}
                   >
                     Borrar
@@ -97,6 +97,7 @@ const FileCard = ({ file, key, activity }) => {
                     type="number"
                     max="10"
                     min="0"
+                    autoComplete="false"
                     onChange={(e) => {
                       setstate({ ...state, [e.target.name]: e.target.value });
                     }}
@@ -146,7 +147,6 @@ const FileCard = ({ file, key, activity }) => {
                       setTimeout(() => {
                         settheAlert2(null);
                       }, 3000);
-                      // handleClose();
                       GetGrades();
                     }
                   } else {
@@ -177,16 +177,44 @@ const FileCard = ({ file, key, activity }) => {
         <a className={Styles.FilessContDescargas} href={file.file} download>
           Descargar archivo
         </a>
-        <Button
-          variant="dark"
-          onClick={() => {
-            handleOpen();
-            GetGrades();
-            console.log(onegrade);
-          }}
-        >
-          Asignar calificacion
-        </Button>
+        <div>
+          <Button
+            variant="dark"
+            onClick={() => {
+              handleOpen();
+              GetGrades();
+            }}
+          >
+            Asignar calificacion
+          </Button>
+          {cookieData.userType === 'a' ? (
+            <Button
+              variant="danger"
+              onClick={async (e) => {
+                let res3 = await axios.delete(`/api/file/deliver/${file._id}`, {
+                  data: {
+                    filePath: file.file,
+                    gradefor: file.activityDeliver,
+                  },
+                });
+                if (!ongrade) null;
+                if (ongrade && onegrade._id != null) {
+                  let res2 = await axios.delete(`/api/grades/${onegrade._id}`);
+                  settheAlert2('Archivo borrada');
+                  setAlertype2('success');
+
+                  setTimeout(() => {
+                    settheAlert2(null);
+                  }, 3000);
+                }
+                GetGrades();
+                GetFiles2();
+              }}
+            >
+              Borrar
+            </Button>
+          ) : null}
+        </div>
       </div>
     </div>
   );

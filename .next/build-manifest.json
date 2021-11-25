@@ -24,10 +24,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/dashboard/Exams/do/[id]": [
+    "/dashboard": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/dashboard/Exams/do/[id].js"
+      "static/chunks/pages/dashboard.js"
+    ],
+    "/dashboard/courses/activity/[id]": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/dashboard/courses/activity/[id].js"
     ]
   },
   "ampFirstPages": []

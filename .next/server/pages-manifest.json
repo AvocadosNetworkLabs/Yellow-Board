@@ -2,5 +2,7 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/dashboard/Exams/do/[id]": "pages/dashboard/Exams/do/[id].js"
+  "/dashboard/courses/activity/[id]": "pages/dashboard/courses/activity/[id].js",
+  "/dashboard": "pages/dashboard.js",
+  "/api/profile": "pages/api/profile.js"
 }

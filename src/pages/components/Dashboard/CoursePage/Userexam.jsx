@@ -42,7 +42,7 @@ const Userexam = ({ state, course, cookies, courseId }) => {
   // const GetIP = async () => {
   //   let res = axios.get('https://geolocation-db.com/json/');
   //   let ip = res.data;
-  //   console.log(ip);
+  //   // console.log(ip);
   //   setip(ip);
   // };
   const Getexam = async () => {
@@ -60,7 +60,7 @@ const Userexam = ({ state, course, cookies, courseId }) => {
   const sendCall = async () => {
     let correct = 0;
     let inc = 0;
-    let notempty = uanswers.every((el) => {
+    let notempty = uanswers.map((el) => {
       if (el === '' || el === undefined || el === null || el === 'empty')
         return true;
     });
@@ -233,6 +233,7 @@ const Userexam = ({ state, course, cookies, courseId }) => {
                                     id={`Q${key2}`}
                                     type="radio"
                                     value={name}
+                                    defaultValue=""
                                     onChange={(e) => {
                                       if (
                                         question.correctAns === e.target.value
