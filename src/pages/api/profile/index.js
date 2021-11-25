@@ -12,6 +12,7 @@ export default async function handler(req, res) {
     case 'POST':
       try {
         const User = await Users.find({ _id: ObjectId(id) });
+        console.log(User);
         return res
           .status(200)
           .json({ Success: 1, data: User, msg: `Perfil encontrado` });

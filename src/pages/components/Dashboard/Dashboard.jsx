@@ -157,7 +157,7 @@ const Dashboard = ({ Mquery, cookies }) => {
                   <Menu view={view} data={cookieData} setView={setView} />
                   <div className={mainStyles.leftCont}>
                     <div className={mainStyles.postmContainer}>
-                      <Profile data={cookieData} />
+                      <Profile data={cookieData} uid={cookieData.id} />
                     </div>
                   </div>
                 </div>
