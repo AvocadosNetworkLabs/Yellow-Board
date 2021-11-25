@@ -6,11 +6,9 @@ import AdminStyles from '../../../styles/admin.module.scss';
 import { Button, Modal, Alert, Table } from 'react-bootstrap';
 
 const Cursos = ({ userCourses, cookieData, id, uid }) => {
-  const [userList, setuserList] = useState({
-    calList: [],
-  });
+  const [userList, setuserList] = useState([]);
   const [show, setshow] = useState(false);
-  const [calList, setcalList] = useState({ calLists: '' });
+  const [calList, setcalList] = useState({ calLists: [] });
 
   const handleOpen = () => setshow(true);
   const handleClose = () => setshow(false);
@@ -36,7 +34,8 @@ const Cursos = ({ userCourses, cookieData, id, uid }) => {
     };
     let res = await axios.post('/api/grades/userGrades', obj);
     let datass = res.data;
-    setcalList({ ...userList, calLists: datass.data });
+    setcalList({ calLists: datass.data });
+    console.log('datacoming', datass.data);
   };
 
   return (
@@ -124,28 +123,30 @@ const Cursos = ({ userCourses, cookieData, id, uid }) => {
             <p className={cursosActivos.MainCardDataName}>
               {userCourses.courseName}
             </p>
-            <Button
-              variant="dark"
-              onClick={() => {
-                Getcal();
+            {cookieData === 'u' ? (
+              <Button
+                variant="dark"
+                onClick={() => {
+                  Getcal();
 
-                let svg;
-                if (calList.calLists.length === 1) {
-                  svg = calList.calLists[0].grades;
-                } else {
-                  let sum = calList.calLists.reduce(
-                    (current, previous) => (current.grades += previous.grades)
-                  );
-                  console.log(sum);
-                  svg = sum / calList.calLists.length;
-                  console.log(svg);
-                }
-                setfn(svg);
-                handleOpen();
-              }}
-            >
-              Ver calificaciones
-            </Button>
+                  let svg;
+                  if (calList.calLists.length === 1) {
+                    svg = calList.calLists[0].grades;
+                  } else {
+                    let sum = calList.calLists.reduce(
+                      (current, previous) => (current.grades += previous.grades)
+                    );
+                    console.log(sum);
+                    svg = sum / calList.calLists.length;
+                    console.log(svg);
+                  }
+                  setfn(svg);
+                  handleOpen();
+                }}
+              >
+                Ver calificaciones
+              </Button>
+            ) : null}
             {cookieData === 'm' ? (
               <p className={cursosActivos.MainCardDataStudents}>
                 {userList} / 15

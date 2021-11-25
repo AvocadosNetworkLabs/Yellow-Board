@@ -7,13 +7,11 @@ dbConnect();
 
 export default async function handler(req, res) {
   const { method, body } = req;
-  console.log(body);
   const { id } = body;
   switch (method) {
     case 'POST':
       try {
-        const User = await Users.findOne({ _id: ObjectId(id) });
-        console.log(User);
+        const User = await Users.find({ _id: ObjectId(id) });
         return res
           .status(200)
           .json({ Success: 1, data: User, msg: `Perfil encontrado` });

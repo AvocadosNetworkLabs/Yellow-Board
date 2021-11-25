@@ -67,7 +67,7 @@ const Dashboard = ({ Mquery, cookies }) => {
       setstate({ ...state, loading: true });
 
       setTimeout(async () => {
-        let res = await axios.post('api/courses', { id: id });
+        let res = await axios.post('/api/courses', { id: id });
         let results = res.data;
         setstate({
           ...state,
