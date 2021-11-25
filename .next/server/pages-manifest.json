@@ -2,10 +2,17 @@
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
-  "/admin/alumnos": "pages/admin/alumnos.js",
   "/": "pages/index.js",
   "/dashboard": "pages/dashboard.js",
+  "/api/logout": "pages/api/logout.js",
   "/api/signin": "pages/api/signin.js",
+  "/admin": "pages/admin.js",
+  "/admin/courses": "pages/admin/courses.js",
+  "/api/getUsers/typeUser": "pages/api/getUsers/typeUser.js",
+  "/api/courses/addCourse": "pages/api/courses/addCourse.js",
+  "/api/courses/userToCourse": "pages/api/courses/userToCourse.js",
   "/api/profile": "pages/api/profile.js",
-  "/api/getUsers": "pages/api/getUsers.js"
+  "/api/courses": "pages/api/courses.js",
+  "/api/getUsers/bycourse": "pages/api/getUsers/bycourse.js",
+  "/api/grades/userGrades": "pages/api/grades/userGrades.js"
 }

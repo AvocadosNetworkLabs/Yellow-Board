@@ -131,7 +131,7 @@ const Profile = ({ Mquery, data, uid }) => {
                   type="file"
                   name="url"
                   className={profileStyles.inputfile}
-                  accept="image/png, image/jpeg"
+                  accept="image/png, image/jpeg, .gif"
                   onChange={uploadToClient}
                 />
               </>

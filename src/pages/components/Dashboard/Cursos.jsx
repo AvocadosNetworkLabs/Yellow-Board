@@ -132,6 +132,8 @@ const Cursos = ({ userCourses, cookieData, id, uid }) => {
                   let svg;
                   if (calList.calLists.length === 1) {
                     svg = calList.calLists[0].grades;
+                  } else if (calList.calLists.length === 0) {
+                    svg = 0;
                   } else {
                     let sum = calList.calLists.reduce(
                       (current, previous) => (current.grades += previous.grades)
