@@ -56,7 +56,7 @@ const Cursos = ({
                 });
               }}
             >
-              <p>Agregra Usuario</p>
+              <p>Agregar Usuario</p>
             </Dropdown.Item>
             <Dropdown.Item
               className={AdminStyles.dropdownItem}

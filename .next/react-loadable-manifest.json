@@ -11,22 +11,10 @@
       "static/chunks/node_modules_howler_dist_howler_js.js"
     ]
   },
-  "components/Dashboard/Dashboard.jsx -> ./Cursos": {
-    "id": "./src/pages/components/Dashboard/Cursos.jsx",
+  "index.jsx -> ./components/Main/Main": {
+    "id": "./src/pages/components/Main/Main.jsx",
     "files": [
-      "static/chunks/src_pages_components_Dashboard_Cursos_jsx.js"
-    ]
-  },
-  "components/Dashboard/Dashboard.jsx -> ./Menu": {
-    "id": "./src/pages/components/Dashboard/Menu.jsx",
-    "files": [
-      "static/chunks/src_pages_components_Dashboard_Menu_jsx.js"
-    ]
-  },
-  "components/Dashboard/Dashboard.jsx -> ./Profile": {
-    "id": "./src/pages/components/Dashboard/Profile.jsx",
-    "files": [
-      "static/chunks/src_pages_components_Dashboard_Profile_jsx.js"
+      "static/chunks/src_pages_components_Main_Main_jsx.js"
     ]
   }
 }

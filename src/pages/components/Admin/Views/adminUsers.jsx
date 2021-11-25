@@ -132,7 +132,7 @@ const adminUsers = ({ cookies }) => {
       <Navbar cookies={cookies} />
       <div className={AdminStyles.bgcolor}>
         {Succes === 1 ? (
-          <Alert className={AdminStyles.alert} variant="primary">
+          <Alert className={AdminStyles.alert} variant="dark">
             {MSG}
           </Alert>
         ) : Succes === 0 ? (
@@ -560,10 +560,13 @@ const adminUsers = ({ cookies }) => {
                             );
                             let data = res.data;
                             setOneUser(data.data);
-                            // console.log(oneUser);
                           }}
                         >
-                          <Card.Img variant="top" src={item.url} />
+                          <Card.Img
+                            className={AdminStyles.CardImage}
+                            variant="top"
+                            src={item.url}
+                          />
                           <Card.Body className={AdminStyles.CardBody}>
                             <Card.Title>{`${item.name} ${item.lastname}`}</Card.Title>
                           </Card.Body>

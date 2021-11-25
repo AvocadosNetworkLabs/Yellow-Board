@@ -56,7 +56,7 @@ const Profile = ({ Mquery, data, uid }) => {
     let datas = res.data;
 
     setstate({ ...state, udta: datas.data, loading: false });
-    setCreateObjectURL(datas.data[0].url);
+    setCreateObjectURL(data.url);
   };
   return (
     <div className={profileStyles.contenido}>

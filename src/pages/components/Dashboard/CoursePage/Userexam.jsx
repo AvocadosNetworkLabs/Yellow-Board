@@ -87,10 +87,8 @@ const Userexam = ({ state, course, cookies, courseId }) => {
         setAlerts('Enviando examen');
         setAlertType('info');
 
-        let input = document.getElementById(`Q${key}`);
-
         let btn = document.getElementById('end');
-        input.disabled = true;
+
         btn.disabled = true;
       });
 
