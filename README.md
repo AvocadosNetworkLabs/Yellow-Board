@@ -42,20 +42,20 @@ Remember to create 2 accounts (teacher, student)
 
 ## Screen Shots
 
-#### Login
+#### [Login](https://ibb.co/ZgSgh9m)
 
-[Login](https://ibb.co/ZgSgh9m)
+![Login img](https://ibb.co/ZgSgh9m)
 
 #### AdminDashboard
 
-[Menu](https://ibb.co/ScD64rz)
-[Users](https://ibb.co/KhBpWHy)
-[Course](https://ibb.co/D7tF1LW)
+![Admin img](https://ibb.co/ScD64rz)
+![Admin img](https://ibb.co/KhBpWHy)
+![Admin img](https://ibb.co/D7tF1LW)
 
 ### UserDashboard
 
-[UserProfile](https://ibb.co/9w2jtgT)
-[UserCourses](https://ibb.co/DWsyP0F)
+![UserProfile img](https://ibb.co/9w2jtgT)
+![UserCourses img](https://ibb.co/DWsyP0F)
 
 ### Helpers and Creator
 
