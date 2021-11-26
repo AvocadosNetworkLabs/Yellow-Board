@@ -44,18 +44,18 @@ Remember to create 2 accounts (teacher, student)
 
 #### [Login](https://ibb.co/ZgSgh9m)
 
-![Login img](https://ibb.co/ZgSgh9m)
+<a href="https://ibb.co/ZgSgh9m"><img src="https://i.ibb.co/my0yHp8/login.png" alt="login" border="0"></a>
 
 #### AdminDashboard
 
-![Admin img](https://ibb.co/ScD64rz)
-![Admin img](https://ibb.co/KhBpWHy)
-![Admin img](https://ibb.co/D7tF1LW)
+<a href="https://ibb.co/KhBpWHy"><img src="https://i.ibb.co/h9rJVv8/admin-users.png" alt="admin-users" border="0"></a>
+<a href="https://ibb.co/ScD64rz"><img src="https://i.ibb.co/8bnmLcH/admin-panel.png" alt="admin-panel" border="0"></a>
+<a href="https://ibb.co/D7tF1LW"><img src="https://i.ibb.co/qRd8Dxj/admin-courses.png" alt="admin-courses" border="0"></a>
 
 ### UserDashboard
 
-![UserProfile img](https://ibb.co/9w2jtgT)
-![UserCourses img](https://ibb.co/DWsyP0F)
+<a href="https://ibb.co/9w2jtgT"><img src="https://i.ibb.co/xmGQHLj/user-dash-profile.png" alt="user-dash-profile" border="0"></a>
+<a href="https://ibb.co/DWsyP0F"><img src="https://i.ibb.co/028SpHL/user-dash-courses.png" alt="user-dash-courses" border="0"></a>
 
 ### Helpers and Creator
 
